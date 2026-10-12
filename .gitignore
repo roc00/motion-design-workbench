@@ -12,3 +12,5 @@ __pycache__/
 .workbuddy/
 .render-cfg.json
 *.log
+
+.vercel/
