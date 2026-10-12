@@ -1,6 +1,6 @@
 # Studio 级范式（shape morph / diegetic launch）
 
-这份文档记录从 Opus 5.5 真实爆款（twoclipping 的 shape morph、steventey 的 Dub 深色发射）拆解出来的"高级感"范式。比"基础元素出现"更高级的是**元素持续变形、由界面内的光标驱动**。
+连续形变与画面内光标可以承担主体表演。以下模式可作为编排参考；按内容选择，不要求每支影片全部使用。
 
 ## 0. 最高原则：one shape never cuts
 不要让每个元素各自"出现（fade/scale）"。让**一个主形状连续地 morph 尺寸、圆角、填充**，从按钮→loader→勾→搜索→开关→播放器→图表→命令面板→toast→回到按钮。观众看到的是"同一个物体在变形"，而不是"一堆物体在切换"。

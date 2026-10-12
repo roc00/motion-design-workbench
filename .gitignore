@@ -14,3 +14,7 @@ __pycache__/
 *.log
 
 .vercel/
+studio/hyperframes/
+studio/evidence/*.json
+studio/evidence/*.wav
+films/*-animatic.mp4

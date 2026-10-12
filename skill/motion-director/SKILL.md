@@ -11,13 +11,13 @@ description: 制作代码驱动的动效短片、产品演示和镜头组合，�
 
 导演侧从 `registry.directorCases` 与 `references/cinematic-sequences.md` 选择案例：两支完整影片、四个源时间明确的片段、一段单体展开为群像的独立情境。先理解主角、表演动机、视点和状态交接，再查 `references/narrative-patterns.md` 的六种叙事结构。工作台把这三类合为“导演案例”，并不把完整影片、片段和结构重复计成同一种能力。
 
-原 `directorGrammar` / `directorPerformers` 是知识与溯源索引；21 个旧 SVG 与 10 个历史片段的演示已退役，状态见 `registry.retiredPreviews`。不要把它们当作推荐模板。相关案例只说明可参考的机制，不代表覆盖所有原技法。原 `ui-entrance.clone-multiply-to-grid` 对应新情境 `director.collection`，其余原 ID 保留查阅。
+`directorGrammar` / `directorPerformers` 是镜头语法与表演索引。示例用于理解机制；实际成片需按内容重新编排。`director.collection` 展示单体展开为群像的情境。
 
 叙事结构源码为 `director-kit/lib/narrative.mjs`，独立演示在 `snippets/narrative-*.html`。群像情境源码为 `director-kit/lib/collection.js`，独立演示为 `snippets/director-collection.html`：固定摄影机；一张珊瑚原作变为八张不同作品，身份保持，最后确认原作。它是 browser-demo，无音轨、无 MP4；六种结构亦为 browser-demo。取用这些示例时，按内容编排 Shot Plan，再实际渲染验证。
 
 技术侧查 `registry.effects`、`technicalRecipes` 与 `tools`。局部打字、卡片入场、数字滚轮、滑杆、Shader 等做法只通过 `canonicalEffectId` 关联已有词条，不在导演库重新建同名条目。关联说明“可从这里实现”，不表示技法完全等价或组件已适配。具体分流与来源见 `references/director-responsibilities.md`。
 
-职责集合是索引，通过 `recipeId` 读取 `shotRecipes` 中的唯一原记录；不要把索引再次计成新知识条目。原 `compositions` / `compositionPlans` 保留旧生产适配合同，导演规划优先使用 `directorPatterns`。
+职责集合是索引，通过 `recipeId` 读取 `shotRecipes` 中的记录；导演规划使用 `directorPatterns`。
 
 工具由镜头需要决定。CSS/Motion/GSAP 组织动画；WebGL/Three.js/p5.js 处理图形与空间；Chart.js/ECharts 处理精确图表。保留确定性、Shader、生成、混合四个渲染层，工具不等于层。查 `references/implementation-routing.md`，遵守各工具的外部时间/seed/资源合同。新工具目前是选型参考，未安装；Lottie/Rive 只在有预制资产且 seek 可验证时考虑，不默认用于角色表演。
 
@@ -38,9 +38,9 @@ description: 制作代码驱动的动效短片、产品演示和镜头组合，�
 
 运行 `node scripts/scaffold-director.mjs --out /绝对路径 --film forma`（或 relay）。它复制可独立播放的 HTML、字体、GSAP、渲染核心和音频生成器。完整示范在 `films/director-forma.html` 与 `films/director-relay.html`。
 
-`director-kit/lib/director.js` 提供闭式 spring、多目标 track、遮罩内容交接、遮罩内数字滚轮、透视投影和深度排序。借这些机制，重新推导内容和编排；不是给所有产品换同一套文案。两支本轮示例分别说明纸片身份保持与信号路径交接。
+`director-kit/lib/director.js` 提供闭式 spring、多目标 track、遮罩内容交接、遮罩内数字滚轮、透视投影和深度排序。借这些机制，重新推导内容和编排；不是给所有产品换同一套文案。两支示例分别说明纸片身份保持与信号路径交接。
 
-`references/cinematic-sequences.md` 中新成片与截取段落写明源时间、适用条件和实现近似。历史 cine-* / stud-* 已从推荐案例与交付 Skill 的演示文件中撤下；原知识记录仍可查阅。
+`references/cinematic-sequences.md` 中的成片与截取段落写明源时间、适用条件和实现近似。
 
 ## 运行合同
 

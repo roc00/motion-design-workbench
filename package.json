@@ -3,7 +3,7 @@
   "version": "0.8.0",
   "private": true,
   "type": "module",
-  "description": "面向 Agent 制片的动效选型体系：registry 数据源 + 规范文档 + 可交互预览站",
+  "description": "Motion Director skill 与动效选型工作台",
   "scripts": {
     "dev": "vite",
     "registry": "node scripts/build-registry.mjs",
@@ -12,11 +12,7 @@
     "validate": "node scripts/validate-registry.mjs",
     "gate": "node scripts/check-determinism.mjs",
     "test:runtime": "node scripts/test-runtime.mjs",
-    "check": "npm run validate && npm run gate && npm run test:runtime && npm run docs:matrix && npm run docs:acceptance && npm run build",
-    "docs:matrix": "node scripts/gen-matrix.mjs",
-    "docs:acceptance": "node scripts/gen-acceptance.mjs",
-    "director:build": "node scripts/synth-director-audio.mjs && node scripts/build-director.mjs",
-    "skill:build": "node scripts/build-narrative-demos.mjs && node scripts/build-registry.mjs && python3 scripts/build-skill.py",
+    "check": "npm run validate && npm run gate && npm run test:runtime && npm run build",
     "narrative:build": "node scripts/build-narrative-demos.mjs"
   },
   "dependencies": {

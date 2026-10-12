@@ -1636,7 +1636,7 @@ function detailHTML(e) {
                   </div>`,
                 )
                 .join("")
-            : `<div class="empty">还没有收集案例。案例写在 <code>data/effects.json</code> 的 <code>${esc(e.id)}</code> → <code>cases</code>，字段见 docs/02。演示素材不会被当作真实案例。</div>`
+            : `<div class="empty">还没有收集案例。案例可写在 <code>data/effects.json</code> 的 <code>${esc(e.id)}</code> → <code>cases</code>。演示素材不会被当作真实案例。</div>`
         }
       </section>
     </div>

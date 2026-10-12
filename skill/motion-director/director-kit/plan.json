@@ -168,10 +168,8 @@
         "contact": "studio/evidence/forma-contact.png"
       },
       "prompt": "制作 15 秒镜头组合。主题：FORMA · 收起杂念。视觉因果：纸片收成任务卡，目标卡放大，动作区收成圆环，最后用 ONE. 回答开场。。复用导演脚手架的时间轨与状态交接，重写文案与内容；主体运动和摄影机分别说明，文字在变形后进入，结果保留阅读停留。适用：任务管理、内容筛选、聚焦功能。避免：无关 UI 状态连续变形。",
-      "sourcePlan": "studio/docs/DIRECTION.md",
       "verification": {
         "scope": "specified conceptual content / 1920x1080 / 60fps / 15s",
-        "evidence": "studio/evidence/verification.md",
         "source": "same seek renderer as workbench preview"
       },
       "performers": [
@@ -351,10 +349,8 @@
         "contact": "studio/evidence/relay-contact.png"
       },
       "prompt": "制作 15 秒镜头组合。主题：RELAY · 一点成网。视觉因果：同一信号从波形交给路径、节点和网络，最终成为数据与品牌折线。。复用导演脚手架的时间轨与状态交接，重写文案与内容；主体运动和摄影机分别说明，文字在变形后进入，结果保留阅读停留。适用：连接、协作、网络与数据主题。避免：没有领域含义的粒子球。",
-      "sourcePlan": "studio/docs/DIRECTION.md",
       "verification": {
         "scope": "specified conceptual content / 1920x1080 / 60fps / 15s",
-        "evidence": "studio/evidence/verification.md",
         "source": "same seek renderer as workbench preview"
       },
       "performers": [
@@ -452,7 +448,6 @@
         "contact": "studio/evidence/forma-contact.png"
       },
       "prompt": "制作 6 秒镜头组合。主题：空间收束 → 选择 → 局部放大。视觉因果：保留朱红目标的身份，让观众从多项内容自然进入一项详情。。复用导演脚手架的时间轨与状态交接，重写文案与内容；主体运动和摄影机分别说明，文字在变形后进入，结果保留阅读停留。适用：总览选择、主次关系、局部取景。避免：多个重点同时放大。",
-      "sourcePlan": "studio/docs/DIRECTION.md",
       "performers": [
         {
           "name": "纸片 / 重点卡",
@@ -546,7 +541,6 @@
         "contact": "studio/evidence/forma-contact.png"
       },
       "prompt": "制作 4.8 秒镜头组合。主题：动作区 → 圆环 → 结果确认。视觉因果：动作区的几何与色彩交给计时圆环，再交给完成结果。。复用导演脚手架的时间轨与状态交接，重写文案与内容；主体运动和摄影机分别说明，文字在变形后进入，结果保留阅读停留。适用：操作反馈、任务完成、状态连续性。避免：实际功能与示例状态不符。",
-      "sourcePlan": "studio/docs/DIRECTION.md",
       "performers": [
         {
           "name": "纸片 / 重点卡",
@@ -640,7 +634,6 @@
         "contact": "studio/evidence/relay-contact.png"
       },
       "prompt": "制作 6 秒镜头组合。主题：路径交接 → 透视网络。视觉因果：路径末端成为网络节点，摄影机改变视点而节点保持空间位置。。复用导演脚手架的时间轨与状态交接，重写文案与内容；主体运动和摄影机分别说明，文字在变形后进入，结果保留阅读停留。适用：架构、路由、服务连接。避免：将整画布缩放称为真实运镜。",
-      "sourcePlan": "studio/docs/DIRECTION.md",
       "performers": [
         {
           "name": "信号点",
@@ -734,7 +727,6 @@
         "contact": "studio/evidence/relay-contact.png"
       },
       "prompt": "制作 4.8 秒镜头组合。主题：数字滚轮 → 大字排版交接。视觉因果：用短滚动建立数量变化，稳定落定后以方向匹配交给大字。。复用导演脚手架的时间轨与状态交接，重写文案与内容；主体运动和摄影机分别说明，文字在变形后进入，结果保留阅读停留。适用：数据结果、规模揭示、证据确认。避免：宣称概念数字为真实指标。",
-      "sourcePlan": "studio/docs/DIRECTION.md",
       "performers": [
         {
           "name": "信号点",
@@ -850,7 +842,6 @@
       "referenceUrls": [],
       "deliverables": {},
       "prompt": "制作 8.6 秒的作品库段落。纸感底色，左侧大字 ONE IDEA，右侧一张珊瑚色几何作品。1.8 秒后原作收束到网格，七张不同作品从原作位置依次展开，形成四列两行。原作图案与色彩保持不变。4.9 秒后标题 ROOM FOR MORE 清晰进入；5.55 秒后细珊瑚边框确认原作位置。结尾保持完整网格与 08 / 08，不用全屏闪光。摄影机固定，动作由卡片走位完成。概念内容，无商业数据与声音。",
-      "sourcePlan": "studio/lib/collection.js",
       "performers": [
         {
           "name": "珊瑚色作品",

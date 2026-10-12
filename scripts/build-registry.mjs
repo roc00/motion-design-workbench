@@ -85,10 +85,6 @@ const registry = {
   shotRecipes: shotRecipes.recipes,
   directorPatterns: read("director-patterns.json").patterns,
   directorCases: read("cinematic-shots.json").sequences.filter(s=>s.collection==='director').map(s=>({id:s.id,kind:s.sequenceKind,patternId:s.mapsToCombo,snippet:s.snippet,capability:s.capability})),
-  retiredPreviews: [
-    ...shotRecipes.recipes.filter(r=>r.presentation.previewStatus==='retired').map(r=>({id:r.id,kind:'recipe',replacementCaseId:r.presentation.replacementCaseId})),
-    ...read("cinematic-shots.json").sequences.filter(s=>s.previewStatus==='retired').map(s=>({id:s.id,kind:'sequence'})),
-  ],
   directorRecipeGroups: shotRecipes.presentationGroups,
   directorGrammar: shotRecipes.recipes.filter(r => r.presentation.role === "director" && !r.performer).map(r => ({ recipeId:r.id, domain:r.presentation.domain, previewStatus:r.presentation.previewStatus })),
   directorPerformers: shotRecipes.recipes.filter(r => r.performer).map(r => ({ recipeId:r.id, previewStatus:r.presentation.previewStatus, replacementCaseId:r.presentation.replacementCaseId, ...r.performer })),

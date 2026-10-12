@@ -14,7 +14,7 @@
 └─ render.mjs      # 机械逐帧渲染 → out/silent.mp4
 ```
 
-## 怎么用（弱模型：只填内容，不发明运动）
+## 怎么用
 1. 打开 `index.html`，在 `SCENES` 数组里填/改场景内容；每个场景 `{from,to,draw(t)}`。
 2. 运动一律用 `lib/motion.js`：
    - 进入/缩放用 `spring(t - at, ...SPRING.snappy)`；
