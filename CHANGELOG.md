@@ -429,3 +429,8 @@ Vite 的 `index-<hash>.js` 是**内容哈希**，哈希相同即源码相同。
 ## 2026-10-12 · 公开发布
 
 默认首页改为完整词典。发布 GitHub 公开仓库与 Codex Sites 公开网页，包含前端、Skill、文档和展示资源。保留本地旧历史，公开仓库使用当前内容的干净快照；维护与线上验收见 docs/08-发布与维护.md。
+
+
+## 2026-10-12 · Vercel 主站
+
+新增 Vercel 公开生产部署，主站地址改为 https://motion-design-workbench.vercel.app，默认完整词典。使用已验证静态产物直接发布，GitHub 自动部署尚未授权。仓库增加 Vercel 构建配置和 Node 22 版本说明。

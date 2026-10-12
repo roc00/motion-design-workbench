@@ -1,0 +1,14 @@
+{
+  "provider": "vercel",
+  "team_id": "team_is5cMhzn23kSElBZc6loHanH",
+  "project_id": "prj_dzyRVE5L249bh04BzkM1PUt0MuG1",
+  "deployment_id": "dpl_7CSz3raNPRiKbNiUKS3uWG2goPjY",
+  "url": "https://motion-design-workbench.vercel.app",
+  "deployment_url": "https://motion-design-workbench-iqnlv6vo8-penndeng-foxmailcoms-projects.vercel.app",
+  "source_commit_sha": "623a9811befbc82acb4d50d2b694ada71fbc6ec0",
+  "target": "production",
+  "status": "READY",
+  "access": "public",
+  "mode": "verified-static-build",
+  "git_auto_deploy": false
+}
