@@ -1,6 +1,6 @@
 # 动效选型工作台
 
-[在线工作台](https://motion-design-workbench.vercel.app) · [GitHub 公开仓库](https://github.com/roc00/motion-design-workbench)
+[在线工作台（CloudBase）](https://ai-website-deploy-d7dblsa24f28f7-1255360638.tcloudbaseapp.com/) · [Vercel 备用地址](https://motion-design-workbench.vercel.app) · [GitHub 公开仓库](https://github.com/roc00/motion-design-workbench)
 
 默认首页为**完整词典**。配套 Skill 在 [skill/motion-director](skill/motion-director)，发布与维护方式见 [发布文档](docs/08-发布与维护.md)。
 

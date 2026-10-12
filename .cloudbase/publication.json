@@ -1,0 +1,17 @@
+{
+  "provider": "cloudbase",
+  "site": "domestic",
+  "envId": "ai-website-deploy-d7dblsa24f28f7",
+  "region": "ap-shanghai",
+  "url": "https://ai-website-deploy-d7dblsa24f28f7-1255360638.tcloudbaseapp.com/",
+  "hosting_status": "online",
+  "deployment_mode": "static-hosting",
+  "files": 174,
+  "verified": true,
+  "backupPrefix": ".cloudbase-backup/1791773373094/",
+  "source_commit_sha": "426c5d0b080eafcb3c9e75312bec107861ab6809",
+  "package": "baas_trial",
+  "expires_at": "2027-04-12 23:59:59",
+  "auto_renew": false,
+  "default_domain_notice": true
+}

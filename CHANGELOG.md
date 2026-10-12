@@ -434,3 +434,8 @@ Vite 的 `index-<hash>.js` 是**内容哈希**，哈希相同即源码相同。
 ## 2026-10-12 · Vercel 主站
 
 新增 Vercel 公开生产部署，主站地址改为 https://motion-design-workbench.vercel.app，默认完整词典。使用已验证静态产物直接发布，GitHub 自动部署尚未授权。仓库增加 Vercel 构建配置和 Node 22 版本说明。
+
+
+## 2026-10-12 · CloudBase 主站
+
+CloudBase 插件与 CLI 已接入并完成账号授权。将同一份静态构建部署到国内站体验环境，174 文件上传及远端校验通过，保留平台内置文件。主站改为 CloudBase，默认完整词典；实际检查默认域名提示页、演示和窄屏。
