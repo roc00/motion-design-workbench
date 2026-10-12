@@ -241,26 +241,6 @@ Agent / Skill / 执行器
 
 详细提交、标签、回退方法、真实缺陷和验证证据见 [CHANGELOG.md](./CHANGELOG.md)。
 
-## 豆包修改记录（2026-10 · 由 Doubao 完成）
-
-> 本段由豆包（Doubao）Agent 在本轮迭代中追加。目的是把「参考 Opus 5.5 真实案例 → 重建高质感渲染 → 落地工作台与 Skill」这条改进线留痕，方便下一位 Agent 区分哪些是本轮新增、哪些是既有能力。
-
-**背景**：此前两支旗舰片 `pulse.mp4` / `margin.mp4` 被反复判定为「像初学者做的」。豆包把 prompt-motion 上 twoclipping（shape morph）、steventey Dub（深色发射）等真实成片下载后逐帧拆解，定位出 6 个根因：①Canvas 只画扁矩形、缺软阴影/渐变/模糊/颗粒；②核心运动是「元素出现」而非「元素连续变形 morph」；③运镜是整画布缩放冒充相机；④单线编排；⑤深海军蓝+青的 AI 味配色；⑥未与真实参考并排评审就自评高分。
-
-**本轮新增与改动**：
-
-1. **高质感 Studio 渲染 kit**（`snippets/_kit/stud/`）：闭式 spring、多目标 `track()`、morph 几何引擎、界面内光标（点击/拖拽）、软投影/渐变/模糊/颗粒、fibonacci 点阵 3D 球面、carry-model 机械里程表（修复千分位错位、落定鬼影、高速列模糊带）。
-2. **两部新旗舰片**（`films/stud-morph.mp4`、`films/stud-orbit.mp4`，15s / 60fps / H.264+AAC）：one-shape 连续变形与深色发射，首帧完整、末帧=首帧无缝闭环。配套 HTML 在 `films/`，预览片段复制到 `snippets/`。
-3. **工作台「电影序列」新增 Studio 范式分类**（`data/cinematic-shots.json`，序列 8→10）：外侧只展示首帧预览卡与一句话，点击进分镜；修复了 iframe 首帧因画布未 `object-fit:contain` 而空白的问题。
-4. **Skill 升级**（`skill/motion-director/`，90 文件）：新增 `references/studio-patterns.md`、`kit/`、两部新范例 `films/`；`SKILL.md` 增加「Studio 优先」路由；`references/review-rubric.md` 增加「必须与真实参考并排对照」的阻断项。
-5. **脚本**：`scripts/build-stud.mjs`（拼接）、`scripts/render-stud.mjs`（逐帧 ffmpeg）、`scripts/synth-stud-audio.mjs`（配乐）。
-
-**验证**：`npm run validate` 通过、`npm run gate`（Determinism Gate 0 FAIL/0 WARN）通过、`npm run test:runtime` 通过；两部新片首帧/末帧/分镜卡已在浏览器实测。
-
-**自评**（对照真实参考，诚实打分）：stud-morph 约 85–88 分，stud-orbit 约 82–85 分。与 Opus 5.5 爆款的剩余差距：未做真实 URL 打字、morph 过渡模糊时长可再拉长、配乐为纯合成而非真实音乐。
-
-**未改动/未触碰**：未跑 `npm run build`、未改 `CHANGELOG.md`、未改 `public/registry.json`（留给下次 build 自动同步）；避开了另一 Agent 并行修改的 `src/production/shot-recipe-preview.js`。
-
 ## Agent 接手与修改流程
 
 ### 开始前
