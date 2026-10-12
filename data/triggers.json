@@ -1,0 +1,276 @@
+{
+  "version": "0.1.0",
+  "updated": "2026-09-17",
+  "note": "第二层·触发方式：决定动画「什么时候开始」。同一种动效可以配不同触发，混在一起说 AI 容易选错方案。",
+  "checkOrder": "谁触发 → 在什么条件下开始 → 触发后用什么动效 → 结束/离开后怎样恢复 → 键盘和触屏怎样替代",
+  "keyDistinction": "进入视口（Scroll-triggered）= 按播放键，触发后动画自己播完；跟随滚动（Scroll-linked）= 拖进度条，滚到哪里播到哪里。这两个最容易被混写。",
+  "triggers": [
+    {
+      "id": "hover",
+      "no": 1,
+      "zh": "鼠标悬停",
+      "en": "Hover",
+      "aliases": [
+        "pointer-hover"
+      ],
+      "what": "光标停在元素上方触发。它只说明什么时候触发，悬停之后变色/抬升/显示图片/磁吸需要继续写明。",
+      "variants": [
+        "进入悬停 Hover enter",
+        "离开悬停 Hover leave",
+        "持续悬停 Hover state",
+        "悬停意图 Hover intent（停留片刻才触发，减少误触）",
+        "父级悬停 Group hover（卡片内元素一起响应）",
+        "临近触发 Proximity hover（光标靠近就轻微响应）"
+      ],
+      "combos": [
+        "悬停显现 Hover reveal",
+        "悬停抬升 Hover lift",
+        "悬停替换 Hover swap",
+        "悬停下划线 Hover underline",
+        "悬停倾斜 Hover tilt",
+        "磁吸悬停 Magnetic hover"
+      ],
+      "promptExample": "鼠标进入整张作品卡片时触发悬停（Hover）：卡片轻微抬升，封面显示半透明遮罩，标题和箭头一起显现。鼠标移开后沿原路径恢复；键盘聚焦时提供同样的信息。",
+      "videoNote": "视频里没有光标。做动效视频时 Hover 必须「演」出来——用可见的光标层 + 真实的进入/停留/离开三段时序，否则观众看不懂因果。"
+    },
+    {
+      "id": "focus",
+      "no": 2,
+      "zh": "键盘焦点",
+      "en": "Focus",
+      "aliases": [
+        "keyboard",
+        "tab"
+      ],
+      "what": "用户用 Tab 键移动到按钮、链接或输入框。与 Hover 都表示「当前正在关注这个元素」，但 Focus 服务于键盘操作。",
+      "variants": [
+        "焦点 Focus",
+        "可见焦点 Focus-visible（仅键盘操作时显示焦点环）",
+        "内部焦点 Focus-within（子元素获焦时整个容器高亮）"
+      ],
+      "combos": [
+        "焦点环",
+        "容器高亮",
+        "焦点顺序"
+      ],
+      "promptExample": "为所有按钮、链接和输入框补充清楚的键盘焦点（Focus-visible）状态。焦点反馈与悬停保持同一套颜色语言，但使用可见焦点环，不能只靠轻微位移。",
+      "videoNote": "演示无障碍能力时才用。视频里要靠高亮的焦点环 + 键盘示意图层，否则观众看不出触发源。"
+    },
+    {
+      "id": "click",
+      "no": 3,
+      "zh": "点击、轻触与按住",
+      "en": "Click / Tap / Press",
+      "aliases": [
+        "tap",
+        "press",
+        "active"
+      ],
+      "what": "Click 是鼠标点击，Tap 是触屏轻触，Press / Active 是按钮正被按住的瞬间。三者经常被混写，结果只做了点击后的动作，漏掉按下反馈。",
+      "variants": [
+        "单击或轻触 Click / Tap",
+        "按下状态 Press / Active",
+        "开关切换 Toggle",
+        "双击 Double click",
+        "长按 Long press"
+      ],
+      "combos": [
+        "按压反馈 + 状态切换",
+        "加载态 + 成功态"
+      ],
+      "promptExample": "按钮被按下时显示短促的按压反馈（Press），松开后执行操作；筛选按钮使用开关切换（Toggle），再次点击恢复默认状态。触屏使用轻触（Tap），不要依赖悬停。",
+      "videoNote": "最常用的视频触发源。按下反馈建议 80–160ms（24fps 下 2–4 帧），再长会显得迟钝。"
+    },
+    {
+      "id": "pointer",
+      "no": 4,
+      "zh": "指针位置、移动与距离",
+      "en": "Pointer",
+      "aliases": [
+        "cursor"
+      ],
+      "what": "鼠标、触控笔等指针设备的统一叫法。可读取位置、方向、速度和与元素的距离，比普通 Hover 更适合跟随类效果。",
+      "variants": [
+        "指针移动 Pointer move",
+        "位置映射 Pointer position",
+        "距离感应 Pointer proximity",
+        "移动方向 Pointer direction",
+        "移动速度 Pointer velocity"
+      ],
+      "combos": [
+        "光标跟随",
+        "聚光灯",
+        "倾斜卡片",
+        "指针响应背景",
+        "3D 物体跟随"
+      ],
+      "promptExample": "卡片内部光晕跟随指针位置（Pointer position）移动，靠近中心时更明显，离开卡片后平滑回到默认位置。限制影响范围，不能让卡片文字跟着晃动；触屏关闭。",
+      "videoNote": "读取指针的动效在视频里必须「喂」一条预设的光标轨迹（而不是真实鼠标），轨迹要有明确起止点和停顿，否则观众觉得画面在乱动。"
+    },
+    {
+      "id": "in-view",
+      "no": 5,
+      "zh": "进入视口",
+      "en": "In view / Scroll-triggered",
+      "aliases": [
+        "viewport",
+        "in-viewport",
+        "scroll-triggered"
+      ],
+      "what": "页面滚动到某个位置后元素出现在可见区域，此时播放一次动画。",
+      "variants": [
+        "进入视口 Enter viewport",
+        "离开视口 Leave viewport",
+        "播放一次 Once",
+        "重复播放 Replay",
+        "滚动方向 Scroll direction",
+        "触发位置 Trigger point"
+      ],
+      "combos": [
+        "淡入",
+        "按行显现",
+        "交错出现",
+        "数字计数"
+      ],
+      "promptExample": "当功能卡片进入视口（In view）后触发入场动画，每张卡片只播放一次。不要等到卡片完全进入屏幕才开始；用户向上滚动返回时保持最终状态，不重复播放。",
+      "videoNote": "视频里等于「镜头切到这里就开始」。触发点要留出前导帧（建议 8–12 帧），否则剪进时间线时会吃掉动画开头。"
+    },
+    {
+      "id": "scroll",
+      "no": 6,
+      "zh": "跟随滚动进度",
+      "en": "Scroll-linked",
+      "aliases": [
+        "scroll-linked",
+        "scrub",
+        "pin"
+      ],
+      "what": "动画和页面滚动直接绑定，滚一部分动画只完成相应部分，往回滚同步倒放。",
+      "variants": [
+        "滚动驱动 Scroll-driven",
+        "进度同步 Scrub",
+        "固定内容 Pin",
+        "滚动进度 Scroll progress"
+      ],
+      "combos": [
+        "视差滚动",
+        "滚动缩放",
+        "固定式滚动叙事",
+        "图片序列滚动",
+        "滚动进度提示"
+      ],
+      "promptExample": "产品拆解区使用跟随滚动进度（Scroll-linked）：页面向下滚动时，产品图按照滚动进度逐步展开；向上滚动时同步倒放。该区块暂时固定（Pin），滚动结束后恢复正常。",
+      "videoNote": "做视频时这类动效等于「把滚动条换成时间轴」——时长必须正好覆盖进度区间，且要给 handles 供剪辑。这一层建议走确定性渲染，可逐帧重算。"
+    },
+    {
+      "id": "gesture",
+      "no": 7,
+      "zh": "拖拽、滑动与缩放手势",
+      "en": "Gesture",
+      "aliases": [
+        "drag",
+        "swipe",
+        "pinch"
+      ],
+      "what": "用户直接操纵元素，比「点击后播放一段动画」更接近真实物体。元素需要跟手移动，松开后吸附、回弹或继续滑行。",
+      "variants": [
+        "开始拖拽 Drag start",
+        "拖拽中 Drag move",
+        "结束拖拽 Drag end",
+        "快速滑动 Swipe",
+        "双指缩放 Pinch",
+        "旋转手势 Rotate"
+      ],
+      "combos": [
+        "拖拽排序",
+        "滑动切换",
+        "下滑关闭底部面板",
+        "吸附到最近位置"
+      ],
+      "promptExample": "图片卡片支持拖拽手势（Drag）：拖拽时跟随指针，松开后吸附到最近位置；快速向左滑动（Swipe）时切换到下一张。设置明确边界，避免与页面纵向滚动冲突。",
+      "videoNote": "拖拽类必须演出「跟手—吸附」两段，中间不能跳帧，否则观众读不出是手势而不是动画自己在动。"
+    },
+    {
+      "id": "route",
+      "no": 8,
+      "zh": "页面加载与路由切换",
+      "en": "Load / Route",
+      "aliases": [
+        "load",
+        "mount",
+        "page-load",
+        "pageload"
+      ],
+      "what": "页面首次打开、组件挂载和页面切换触发。决定首屏怎样进入，以及离开旧页面、进入新页面时如何衔接。",
+      "variants": [
+        "页面加载 Page load",
+        "组件挂载 On mount",
+        "进入页面 Route enter",
+        "离开页面 Route exit",
+        "转场完成 Transition complete",
+        "数据就绪 Data ready"
+      ],
+      "combos": [
+        "页面转场",
+        "骨架屏加载",
+        "首屏标题入场"
+      ],
+      "promptExample": "进入新页面（Route enter）时先完成页面容器淡入，再播放标题和卡片入场；离开页面（Route exit）时快速收起。用户连续切换页面时取消尚未完成的动画。",
+      "videoNote": "做视频时这类触发就是「镜头开始」。首屏动效建议控制在 600–1200ms，超过就变成让观众等。"
+    },
+    {
+      "id": "state",
+      "no": 9,
+      "zh": "组件状态变化",
+      "en": "State change",
+      "aliases": [
+        "state-change"
+      ],
+      "what": "组件从一种状态变成另一种状态时触发动效，用于解释「刚才的操作带来了什么变化」，比纯装饰动画更重要。",
+      "variants": [
+        "展开与收起 Expand / Collapse",
+        "选中与取消 Select / Deselect",
+        "加载、成功与失败 Loading / Success / Error",
+        "开启与关闭 On / Off",
+        "内容更新 Content update",
+        "数值变化 Value change"
+      ],
+      "combos": [
+        "折叠展开",
+        "标签页切换",
+        "图标形变",
+        "成功/错误反馈",
+        "数字计数"
+      ],
+      "promptExample": "提交表单后，根据状态变化（State change）切换反馈：加载时按钮显示处理中，成功后变成完成状态，失败时显示错误提示。各状态平滑衔接，错误信息保持可读。",
+      "videoNote": "产品演示视频的主力触发。状态之间要能一眼分辨（颜色 + 图标 + 文字三重编码），只靠颜色在视频压缩后会糊掉。"
+    },
+    {
+      "id": "timer",
+      "no": 10,
+      "zh": "延时、自动播放与空闲",
+      "en": "Timer / Idle",
+      "aliases": [
+        "idle",
+        "autoplay",
+        "loop"
+      ],
+      "what": "不等待用户操作，在一段时间、页面空闲或上一段动画结束后自动开始。",
+      "variants": [
+        "延时开始 Delay",
+        "自动播放 Autoplay",
+        "定时切换 Interval",
+        "空闲触发 Idle",
+        "循环播放 Loop"
+      ],
+      "combos": [
+        "自动轮播",
+        "循环背景",
+        "提示气泡自动消失",
+        "环境动画"
+      ],
+      "promptExample": "展示区在页面就绪后自动播放（Autoplay），用户悬停、拖拽或切换到其他标签页时暂停。循环播放（Loop）之间保留自然停顿；开启减少动效后停止循环。",
+      "videoNote": "视频本身就是自动播放，所以这一类是唯一「天然适配」的触发——但要主动给一个循环起点/终点，否则无缝循环会有可察觉的一跳。"
+    }
+  ]
+}

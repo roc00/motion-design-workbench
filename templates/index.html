@@ -1,0 +1,93 @@
+<!doctype html>
+<html lang="zh">
+<head>
+<meta charset="utf-8">
+<title>motion scaffold · 模板</title>
+<style>
+  html,body{margin:0;background:#0f1115}
+  canvas{display:block;margin:0 auto}
+</style>
+</head>
+<body>
+<canvas id="c" width="1280" height="720"></canvas>
+<script type="module">
+import { spring, SPRING } from "./lib/motion.js";
+import { camera, applyCamera } from "./lib/camera.js";
+import { clamp01, rng, roundRectPath } from "./lib/util.js";
+
+const W = 1280, H = 720, DUR = 12;
+const g = document.getElementById("c").getContext("2d");
+const CUES = {
+  duration: 12,
+  pushAt: 6,
+  pushAmount: 0.15,
+};
+
+// 场景注册：每个场景一个对象；高级运动已内置，只填内容
+const SCENES = [
+  {
+    from: 0, to: 6,
+    draw(t) {
+      // 钩子大字，弹簧缩放
+      const s = spring(t - 0.1, ...SPRING.snappy);
+      g.save();
+      g.translate(W / 2, H / 2);
+      g.scale(0.6 + 0.4 * s, 0.6 + 0.4 * s);
+      g.globalAlpha = clamp01(t * 4);
+      g.fillStyle = "#f0eee6";
+      g.textAlign = "center";
+      g.textBaseline = "middle";
+      g.font = "700 120px Georgia, serif";
+      g.fillText("HOOK", 0, 0);
+      g.fillStyle = "#d97757";
+      g.fillRect(-200 * s, 80, 400 * s, 10);
+      g.restore();
+    },
+  },
+  {
+    from: 6, to: 12,
+    draw(t) {
+      // 元素 stagger（相机在 pushAt 后推进）
+      const r = rng(7);
+      for (let i = 0; i < 12; i++) {
+        const x = 160 + (i % 6) * 190;
+        const y = 180 + Math.floor(i / 6) * 240;
+        const s = spring(t - 0.2 - i * 0.08 - r() * 0.08, ...SPRING.snappy);
+        g.fillStyle = i % 5 === 0 ? "#d97757" : "#f0eee6";
+        g.globalAlpha = s;
+        g.beginPath();
+        roundRectPath(g, x - 50 * s, y - 50 * s, 100 * s, 100 * s, 14);
+        g.fill();
+        g.globalAlpha = 1;
+      }
+    },
+  },
+];
+
+function draw(t) {
+  g.fillStyle = "#0f1115";
+  g.fillRect(0, 0, W, H);
+  const cam = camera(t, CUES);
+  g.save();
+  applyCamera(g, W, H, cam);
+  for (const s of SCENES) {
+    if (t >= s.from && t < s.to) s.draw(t - s.from);
+  }
+  g.restore();
+}
+
+// 渲染契约：seek 可画任意时刻，不依赖定时器
+window.seek = (t) => { draw(t); return true; };
+
+// 普通浏览器实时预览；headless 渲染时不启动（navigator.webdriver=true）
+if (!navigator.webdriver) {
+  const t0 = performance.now();
+  (function loop() {
+    const t = ((performance.now() - t0) / 1000) % DUR;
+    draw(t);
+    requestAnimationFrame(loop);
+  })();
+}
+</script>
+</body>
+</html>

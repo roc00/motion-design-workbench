@@ -1,0 +1,333 @@
+<!doctype html>
+<html lang="zh">
+<head>
+<meta charset="utf-8">
+<title>看板飞越 · Board flyover</title>
+<style>
+  html,body{margin:0;height:100%;background:#0a0e17;overflow:hidden}
+  #wrap{display:flex;align-items:center;justify-content:center;height:100%}
+  canvas{display:block;width:100%;height:100%}
+</style>
+</head>
+<body>
+<div id="wrap"><canvas id="c" width="1280" height="720"></canvas></div>
+<script>
+/* ============================ FILM KIT ============================ */
+const W=1280,H=720,DUR=15;
+const g=document.getElementById('c').getContext('2d');
+const clamp=(x,a=0,b=1)=>Math.min(b,Math.max(a,x));
+const lerp=(a,b,t)=>a+(b-a)*t;
+const smooth=(a,b,t)=>{t=clamp(t);t=t*t*(3-2*t);return lerp(a,b,t);};
+const easeOutCubic=t=>1-Math.pow(1-t,3);
+const easeInOutCubic=t=>t<.5?4*t*t*t:1-Math.pow(-2*t+2,3)/2;
+const easeOutBack=t=>{const c1=1.70158,c3=c1+1;return 1+c3*Math.pow(t-1,3)+c1*Math.pow(t-1,2);};
+function spring(t,k=170,d=26){
+  if(t<=0)return 0;
+  const w0=Math.sqrt(k),z=d/(2*w0);
+  if(z<1){const wd=w0*Math.sqrt(1-z*z);
+    return 1-Math.exp(-z*w0*t)*(Math.cos(wd*t)+(z*w0/wd)*Math.sin(wd*t));}
+  return 1-Math.exp(-w0*t)*(1+w0*t);
+}
+function rng(seed){return()=>{seed|=0;seed=seed+0x6D2B79F5|0;
+  let t=Math.imul(seed^seed>>>15,1|seed);t=t+Math.imul(t^t>>>7,61|t)^t;
+  return((t^t>>>14)>>>0)/4294967296;};}
+/* value noise on a seeded lattice */
+function makeNoise(seed){
+  const r=rng(seed),G=new Map();
+  const at=(ix,iy)=>{const k=ix+','+iy;if(!G.has(k))G.set(k,r()*2-1);return G.get(k);};
+  const fade=t=>t*t*(3-2*t);
+  return(x,y)=>{
+    const x0=Math.floor(x),y0=Math.floor(y),fx=fade(x-x0),fy=fade(y-y0);
+    return lerp(lerp(at(x0,y0),at(x0+1,y0),fx),lerp(at(x0,y0+1),at(x0+1,y0+1),fx),fy);
+  };
+}
+const noise=makeNoise(1337);
+const C={ink:'#0a0e17',panel:'#121a2b',fg:'#eef2f7',muted:'#7f8ba0',cyan:'#45d1e6',warm:'#f0b95c',indigo:'#7c8cff'};
+function rr(x,y,w,h,r){
+  r=Math.min(r,w/2,h/2);
+  g.beginPath();g.moveTo(x+r,y);g.arcTo(x+w,y,x+w,y+h,r);g.arcTo(x+w,y+h,x,y+h,r);
+  g.arcTo(x,y+h,x,y,r);g.arcTo(x,y,x+w,y,r);g.closePath();
+}
+/* ============================ WORLD LAYERS ============================ */
+const PR=rng(20240922);
+const PARTICLES=[];
+for(let i=0;i<150;i++){
+  const z=0.25+PR()*0.75;
+  PARTICLES.push({x:PR()*W,y:PR()*H,z,sp:0.15+PR()*0.4,ph:PR()*6.28,r:0.5+z*1.6,
+    hue:PR()<0.12?'warm':(PR()<0.2?'indigo':'cyan')});
+}
+function drawParticles(t,camX,camY,alpha=1){
+  for(const p of PARTICLES){
+    const dx=Math.sin(t*p.sp+p.ph)*14,dy=Math.cos(t*p.sp*0.8+p.ph)*10;
+    const x=((p.x+dx-camX*p.z*1.4)%W+W)%W;
+    const y=((p.y+dy-camY*p.z*1.4)%H+H)%H;
+    const col=p.hue==='warm'?C.warm:p.hue==='indigo'?C.indigo:C.cyan;
+    g.globalAlpha=p.z*0.55*alpha;g.fillStyle=col;
+    g.beginPath();g.arc(x,y,p.r,0,6.28);g.fill();
+  }g.globalAlpha=1;
+}
+function drawGrid(t,camX,camY,alpha=1){
+  const gap=52,size=1.4;
+  g.globalAlpha=0.5*alpha;
+  const ox=(-camX*0.5)%gap,oy=(-camY*0.5)%gap;
+  for(let x=ox;x<W;x+=gap)for(let y=oy;y<H;y+=gap){
+    const b=0.35+0.3*noise(x*0.02,y*0.02+t*0.05);
+    g.globalAlpha=b*alpha*0.5;g.fillStyle='#5b78a8';
+    g.fillRect(x-size/2,y-size/2,size,size);
+  }g.globalAlpha=1;
+}
+const GLYPH='01<>[]{};:=.+-*#$abcdef';
+function drawChars(t,camX,camY,alpha=1){
+  const cell=30,cols=Math.ceil(W/cell)+1,rows=Math.ceil(H/cell)+1;
+  g.font='13px ui-monospace,Menlo,monospace';g.textAlign='center';g.textBaseline='middle';
+  for(let i=0;i<cols;i++)for(let j=0;j<rows;j++){
+    const x=i*cell+((-camX*0.4)%cell),y=j*cell+((-camY*0.4)%cell);
+    const n=noise(i*0.35,j*0.35+t*0.12);
+    if(n>0.15){
+      g.globalAlpha=clamp(n)*0.5*alpha;g.fillStyle='#5fd6e6';
+      g.fillText(GLYPH[Math.floor(Math.abs(n*997))%GLYPH.length],x,y);
+    }
+  }g.globalAlpha=1;
+}
+function drawGradient(t,camX,camY,alpha=1){
+  const blobs=[[0.25,0.3,420,C.cyan,0.12],[0.75,0.7,520,C.indigo,0.12],[0.6,0.25,300,C.warm,0.08]];
+  for(const [bx,by,r,col,a] of blobs){
+    const x=bx*W+Math.sin(t*0.2+bx)*30-camX*0.3,y=by*H+Math.cos(t*0.16+by)*24-camY*0.3;
+    const gr=g.createRadialGradient(x,y,0,x,y,r);
+    gr.addColorStop(0,col);gr.addColorStop(1,'rgba(0,0,0,0)');
+    g.globalAlpha=a*alpha/0.12;g.fillStyle=gr;g.fillRect(0,0,W,H);
+  }g.globalAlpha=1;
+}
+function drawWorld(kind,t,camX,camY){
+  g.fillStyle=C.ink;g.fillRect(0,0,W,H);
+  const gr=g.createRadialGradient(W*0.5,H*0.45,80,W*0.5,H*0.5,760);
+  gr.addColorStop(0,'#0e1525');gr.addColorStop(1,'#070a12');
+  g.fillStyle=gr;g.fillRect(0,0,W,H);
+  if(kind==='particle-field')drawParticles(t,camX,camY);
+  else if(kind==='grid')drawGrid(t,camX,camY);
+  else if(kind==='character-field')drawChars(t,camX,camY);
+  else if(kind==='gradient-field')drawGradient(t,camX,camY);
+  else drawParticles(t,camX,camY,0.4);
+}
+function vignette(){
+  const gr=g.createRadialGradient(W/2,H/2,240,W/2,H/2,760);
+  gr.addColorStop(0,'rgba(0,0,0,0)');gr.addColorStop(1,'rgba(0,0,0,.5)');
+  g.fillStyle=gr;g.fillRect(0,0,W,H);
+}
+function grain(t){
+  const r=rng(99+Math.floor(t*12));
+  g.globalAlpha=0.05;
+  for(let i=0;i<70;i++){
+    g.fillStyle=r()<0.5?'#fff':'#000';
+    g.fillRect(r()*W,r()*H,1.2,1.2);
+  }g.globalAlpha=1;
+}
+function drawCursor(x,y,scale=1){
+  g.save();g.translate(x,y);g.scale(scale,scale);
+  g.beginPath();g.moveTo(0,0);g.lineTo(0,16);g.lineTo(4.5,12);g.lineTo(7,19);g.lineTo(9.5,18);g.lineTo(7,11);g.lineTo(12,11);
+  g.closePath();g.fillStyle='#fff';g.fill();g.lineWidth=0.8;g.strokeStyle='#000';g.stroke();
+  g.restore();
+}
+/* ===================== FILM: BOARD FLYOVER (manual 3D) ===================== */
+const F = 760;
+const B = { cx:640, cy:560 };
+/* Project a 3D board point. rotX: tilt (flat=high, head-on=low). push: forward dolly. */
+function proj(x,y,z, rotX, push){
+  const cxr=Math.cos(rotX), sxr=Math.sin(rotX);
+  const y1 = y*cxr - z*sxr;
+  const z1 = y*sxr + z*cxr;
+  const d = z1 + push;
+  const s = F/d;
+  return { x: B.cx + x*s, y: B.cy + y1*s, s, d };
+}
+/* Build board data: 3 columns x cards */
+const COLS = [
+  { x:-430, title:'待办 To-do', cards:['设计落地页','接入埋点','修复支付 bug','文案审校'] },
+  { x:0, title:'进行中 Doing', cards:['登录模块','看板拖拽'] },
+  { x:430, title:'已完成 Done', cards:['需求评审','原型设计','CI 流水线','接口联调'] },
+];
+function cardCorners(col,ci, rotX, push, lift){
+  const cw=360, ch=120, gap=16;
+  const top = -60;                 // board surface y (negative = away)
+  const y0 = top - ci*(ch+gap);
+  const zz = lift||0;
+  const a = proj(col.x-cw/2, y0-ch, zzz(zz), rotX, push);
+  const b1 = proj(col.x+cw/2, y0-ch, zzz(zz), rotX, push);
+  const c2 = proj(col.x+cw/2, y0, zzz(zz), rotX, push);
+  const d3 = proj(col.x-cw/2, y0, zzz(zz), rotX, push);
+  return { a, b:b1, c:c2, d:d3 };
+}
+function zzz(z){ return z; }
+function drawQuad(q, fill, stroke, lw){
+  g.beginPath();g.moveTo(q.a.x,q.a.y);g.lineTo(q.b.x,q.b.y);g.lineTo(q.c.x,q.c.y);
+  g.lineTo(q.d.x,q.d.y);g.closePath();
+  if(fill){g.fillStyle=fill;g.fill();}
+  if(stroke){g.strokeStyle=stroke;g.lineWidth=lw||1;g.stroke();}
+}
+function boardWorld(t, rotX, push){
+  g.fillStyle='#0b0f18';g.fillRect(0,0,W,H);
+  const gr=g.createRadialGradient(W*0.5,H*0.35,100,W*0.5,H*0.5,800);
+  gr.addColorStop(0,'#101a2c');gr.addColorStop(1,'#060912');g.fillStyle=gr;g.fillRect(0,0,W,H);
+}
+function drawBoard(rotX, push, t, opts){
+  opts = opts||{};
+  /* floor grid */
+  g.save();g.globalAlpha=0.25;
+  for(let gx=-900;gx<=900;gx+=180){
+    const p1=proj(gx, 40, 0, rotX, push), p2=proj(gx,-1200,0,rotX,push);
+    g.strokeStyle='#3a5a8a';g.lineWidth=1;
+    g.beginPath();g.moveTo(p1.x,p1.y);g.lineTo(p2.x,p2.y);g.stroke();
+  }
+  for(let gy=-1200;gy<=40;gy+=180){
+    const p1=proj(-900,gy,0,rotX,push), p2=proj(900,gy,0,rotX,push);
+    g.beginPath();g.moveTo(p1.x,p1.y);g.lineTo(p2.x,p2.y);g.stroke();
+  }
+  g.restore();
+  /* board surface */
+  const surf={ a:proj(-620,40,0,rotX,push), b:proj(620,40,0,rotX,push),
+    c:proj(620,-1150,0,rotX,push), d:proj(-620,-1150,0,rotX,push) };
+  drawQuad(surf,'rgba(20,30,50,.85)','rgba(90,130,190,.35)',1.5);
+  /* column divider lines + headers */
+  for(const col of COLS){
+    const p1=proj(col.x,40,0,rotX,push), p2=proj(col.x,-1150,0,rotX,push);
+    g.save();g.globalAlpha=0.18;g.strokeStyle='#6a8fc0';g.lineWidth=1;
+    g.beginPath();g.moveTo(p1.x,p1.y);g.lineTo(p2.x,p2.y);g.stroke();g.restore();
+    const h = proj(col.x, -1090, 6, rotX, push);
+    g.save();
+    g.fillStyle=C.fg;g.font='700 '+(Math.round(26*h.s))+'px Inter';
+    g.textAlign='center';g.textBaseline='middle';
+    g.fillText(col.title, h.x, h.y);
+    g.restore();
+  }
+  /* cards */
+  const all=[];
+  for(let ci=0;ci<COLS.length;ci++){
+    const col=COLS[ci];
+    for(let k=0;k<col.cards.length;k++){
+      all.push({ci, k, col, text:col.cards[k]});
+    }
+  }
+  all.sort((p,q)=>{ const pa=cardCorners(p.col,p.k,rotX,push).a, qa=cardCorners(q.col,q.k,rotX,push).a; return qa.d-pa.d; });
+  for(const item of all){
+    const base = item.ci*1.2 + item.k*0.5;
+    const pop = opts.appear===undefined?1:clamp(opts.appear - base*0.12);
+    if(pop<=0)continue;
+    let lift=0;
+    if(opts.drag && item.ci===0 && item.k===1){ lift=opts.drag; }
+    const q=cardCorners(item.col,item.k,rotX,push,lift);
+    const depth=q.a.s;
+    const dragged = lift>0;
+    g.save();g.globalAlpha=pop;
+    if(dragged){g.shadowColor='rgba(69,209,230,.6)';g.shadowBlur=30;g.shadowOffsetY=-10;}
+    drawQuad(q, dragged?'rgba(69,209,230,.95)':'rgba(226,233,243,.95)',
+      dragged?'#bff4fa':'rgba(140,165,205,.55)', 1.2);
+    g.shadowBlur=0;
+    /* accent bar */
+    const acc=item.ci===2?C.cyan:(item.ci===1?C.warm:C.indigo);
+    const bL=q.a, bR=q.b;
+    g.strokeStyle=acc;g.lineWidth=Math.max(2,4*depth);g.lineCap='round';
+    g.beginPath();g.moveTo(bL.x+12*depth,bL.y+14*depth);g.lineTo(bR.x-12*depth,bR.y+14*depth);g.stroke();
+    /* text */
+    const ctr=proj(item.col.x, -60-item.k*136, lifted(lift), rotX, push);
+    g.fillStyle='#10182a';g.font='800 '+Math.round(22*depth)+'px Inter';
+    g.textAlign='center';g.textBaseline='middle';
+    g.fillText(item.text, ctr.x, ctr.y);
+    g.restore();
+  }
+}
+function lifted(z){return z;}
+function scBF1(t){ boardWorld(t); drawBoard(1.05, 1100, t, {appear:1}); }
+function scBF2(t){
+  const e=easeInOutCubic(clamp(t/3));
+  const rot=lerp(1.05,0.55,e), push=lerp(1100,900,e);
+  boardWorld(t);drawBoard(rot,push,t,{appear:1});
+}
+function scBF3(t){
+  const e=easeInOutCubic(clamp(t/3));
+  const rot=lerp(0.55,0.42,e), push=lerp(900,820,e);
+  boardWorld(t);drawBoard(rot,push,t,{appear:clamp(spring(t-0.2,90,16))});
+}
+function scBF4(t){
+  const e=easeInOutCubic(clamp(t/3));
+  const rot=lerp(0.42,0.40,e), push=lerp(820,820,e);
+  const drag=clamp(spring(t-0.3,70,15));
+  boardWorld(t);drawBoard(rot,push,t,{appear:1, drag:drag*120});
+}
+function scBF5(t){
+  boardWorld(t);drawBoard(0.5,880,t,{appear:1});
+  const a=clamp(spring(t-0.3,100,15));
+  g.save();g.globalAlpha=a;
+  g.fillStyle=C.fg;g.font='800 54px Inter';g.textAlign='center';g.textBaseline='middle';
+  g.fillText('一块看板，掌握全局',640,120);
+  g.restore();
+}
+const SCENES = [
+  { from:0, to:3, draw:scBF1, out:'match-cut' },
+  { from:3, to:6, draw:scBF2, out:'match-cut' },
+  { from:6, to:9, draw:scBF3, out:'match-cut' },
+  { from:9, to:12, draw:scBF4, out:'match-cut' },
+  { from:12, to:15, draw:scBF5, out:'hard-cut' },
+];
+
+function drawWrapped(i,lt,zoom,alpha,blur,dx){
+  g.save();
+  g.globalAlpha=alpha;
+  if(blur>0.2)g.filter='blur('+blur+'px)';
+  g.translate(dx,0);
+  g.translate(W/2,H/2);g.scale(zoom,zoom);g.translate(-W/2,-H/2);
+  SCENES[i].draw(lt);
+  g.restore();
+}
+function draw(t){
+  g.setTransform(1,0,0,1,0,0);g.clearRect(0,0,W,H);
+  let i=SCENES.findIndex(s=>t>=s.from&&t<s.to);
+  if(i<0)i=SCENES.length-1;
+  const s=SCENES[i];
+  const lt=t-s.from;
+  const seamLen=0.32;
+  const into=t-s.from; // time since shot start
+  /* first frame complete rule */
+  if(i===0){drawWrapped(0,lt,1,1,0,0);vignette();grain(t);return;}
+  /* draw current scene; if near a seam, blend with previous according to type */
+  const prevType=SCENES[i-1].out;
+  if(into<seamLen && prevType!=='hard-cut'){
+    const p=into/seamLen;
+    if(prevType==='push-through'){
+      const e=easeInOutCubic(p);
+      drawWrapped(i-1,SCENES[i-1].to-SCENES[i-1].from,1+0.1*e,1-e,5*e,-30*e);
+      drawWrapped(i,0,1.1-0.1*e,e,5*(1-e),60*(1-e));
+    }else if(prevType==='match-cut'){
+      const e=easeOutCubic(p);
+      drawWrapped(i-1,SCENES[i-1].to-SCENES[i-1].from,1,1,0,0);
+      drawWrapped(i,0,1.05-0.05*e,e,3*(1-e),0);
+    }else if(prevType==='whip-cut'){
+      const e=easeInOutCubic(p);
+      drawWrapped(i-1,SCENES[i-1].to-SCENES[i-1].from,1.02,1-p,14*(1-p),-W*0.6*e);
+      drawWrapped(i,0,1.02,e,14*(1-e),W*0.6*(1-e));
+    }
+  }else{
+    drawWrapped(i,lt,1,1,0,0);
+  }
+  /* hard-cut flash-free: just a tiny alpha pop */
+  if(prevType==='hard-cut' && into<0.09){
+    drawWrapped(i,lt,1,clamp(into/0.09),0,0);
+  }
+  vignette();grain(t);
+}
+window.seek=(t)=>{t=clamp(t,0,DUR);draw(t);window.__auto=false;window.__curT=t;return true;};
+window.play=(t0)=>{if(typeof t0==='number')window.__curT=t0;window.__auto=true;};
+window.pause=()=>{window.__auto=false;};
+window.getTime=()=>window.__curT||0;
+window.DUR=DUR;
+let __curT=0,lastNow=performance.now();
+if(!navigator.webdriver){
+  (function loop(){
+    const now=performance.now();
+    if(window.__auto!==false){__curT=(__curT+(now-lastNow)/1000)%DUR;window.__curT=__curT;draw(__curT);}
+    lastNow=now;
+    requestAnimationFrame(loop);
+  })();
+}
+</script>
+</body>
+</html>

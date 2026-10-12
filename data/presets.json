@@ -1,0 +1,1334 @@
+{
+  "version": "0.5.0",
+  "updated": "2026-09-18",
+  "note": "预设文件：保存实际演示参数、内容、资产与时间安排。推荐范围属于词典（effects.json 的场景适配度），具体运行值属于这里，两者不混写。预览、中文制作指令与结构化镜头配置都由「默认值 ⊕ 本文件」的合并结果生成。",
+  "production": {
+    "width": 1920,
+    "height": 1080,
+    "fps": 24,
+    "fpsOptions": [
+      24,
+      25,
+      30,
+      60
+    ],
+    "formats": [
+      {
+        "id": "16:9",
+        "width": 1920,
+        "height": 1080,
+        "layoutPreset": "landscape-stage"
+      },
+      {
+        "id": "9:16",
+        "width": 1080,
+        "height": 1920,
+        "layoutPreset": "portrait-stack"
+      }
+    ],
+    "projectProfiles": [
+      {
+        "id": "opportunity-ai-vertical",
+        "name": "AI 投资宣传视频 · 竖屏",
+        "format": "9:16",
+        "width": 1080,
+        "height": 1920,
+        "fps": 30,
+        "layoutPreset": "portrait-stack",
+        "note": "仅用于本宣传视频，不改变工作台通用默认值。"
+      }
+    ],
+    "handlesFrames": 12,
+    "alpha": "straight",
+    "audio": "none",
+    "timebaseNote": "默认 24 fps 是项目约定，不绑定某个生成模型。",
+    "configLabel": "制作配置",
+    "configNote": "保留 ShotSpec 的字段形状；不声称已完成 HyperFrames 或 Remotion 适配。"
+  },
+  "device": {
+    "innerWidth": 393,
+    "innerHeight": 852,
+    "frame": "neutral",
+    "note": "内屏比例与输出画幅分开配置。"
+  },
+  "timelineOrder": [
+    "actionMs",
+    "staggerMs",
+    "holdMs",
+    "exitMs"
+  ],
+  "demos": {
+    "handling.easing": {
+      "still": 0.55,
+      "content": {
+        "curves": [
+          "linear",
+          "power2.in",
+          "power2.out",
+          "power2.inOut"
+        ],
+        "hint": "横轴为时间，纵轴为位移；同一段位移下比较横向速度"
+      },
+      "timeline": {
+        "actionMs": 1400,
+        "holdMs": 400,
+        "exitMs": 0
+      }
+    },
+    "handling.duration": {
+      "still": 0.55,
+      "content": {
+        "rows": [
+          [
+            "短促 · 按钮 / 图标",
+            160
+          ],
+          [
+            "适中 · 卡片 / 弹窗",
+            320
+          ],
+          [
+            "偏慢 · 主视觉 / 转场",
+            900
+          ]
+        ]
+      },
+      "timeline": {
+        "actionMs": 900,
+        "holdMs": 400,
+        "exitMs": 0
+      }
+    },
+    "handling.delay": {
+      "still": 0.55,
+      "content": {
+        "title": "把动效讲清楚",
+        "sub": "标题先出现，说明文字稍后，按钮最后——阅读顺序是排出来的。",
+        "cta": "开始使用"
+      },
+      "timeline": {
+        "actionMs": 420,
+        "holdMs": 500,
+        "staggerMs": 240,
+        "staggerCount": 3,
+        "exitMs": 0
+      }
+    },
+    "handling.stagger": {
+      "still": 0.55,
+      "content": {
+        "cards": [
+          "作品 1",
+          "作品 2",
+          "作品 3",
+          "作品 4",
+          "作品 5",
+          "作品 6"
+        ],
+        "seeds": [
+          "summit",
+          "timber",
+          "valley",
+          "neon-lights",
+          "tide",
+          "bloom"
+        ]
+      },
+      "timeline": {
+        "actionMs": 420,
+        "holdMs": 500,
+        "staggerMs": 80,
+        "staggerCount": 6,
+        "exitMs": 0
+      }
+    },
+    "handling.spring": {
+      "still": 0.55,
+      "content": {
+        "label": "弹窗"
+      },
+      "timeline": {
+        "actionMs": 850,
+        "holdMs": 400,
+        "exitMs": 0
+      }
+    },
+    "enter.fade": {
+      "still": 0.55,
+      "content": {
+        "title": "淡入 / 淡出",
+        "sub": "标题先出现，正文随后。整页所有元素同时淡入，就是模板感的来源。"
+      },
+      "timeline": {
+        "actionMs": 900,
+        "holdMs": 500,
+        "exitMs": 0
+      }
+    },
+    "enter.crossfade": {
+      "still": 0.55,
+      "content": {
+        "a": {
+          "label": "状态 A",
+          "seed": "summit"
+        },
+        "b": {
+          "label": "状态 B",
+          "seed": "tide"
+        }
+      },
+      "timeline": {
+        "actionMs": 1200,
+        "holdMs": 600,
+        "exitMs": 0
+      }
+    },
+    "enter.slide": {
+      "still": 0.55,
+      "content": {
+        "title": "从下方升起的面板",
+        "sub": "背景同时出现轻微遮罩；关闭时沿原方向退回。",
+        "cta": "确认"
+      },
+      "timeline": {
+        "actionMs": 420,
+        "holdMs": 700,
+        "exitMs": 340
+      }
+    },
+    "enter.scale": {
+      "still": 0.55,
+      "content": {
+        "title": "森林",
+        "sub": "Scale in",
+        "seed": "timber"
+      },
+      "timeline": {
+        "actionMs": 340,
+        "holdMs": 600,
+        "exitMs": 240
+      }
+    },
+    "enter.blur-reveal": {
+      "still": 0.55,
+      "content": {
+        "title": "从模糊恢复清晰",
+        "seed": "bloom"
+      },
+      "timeline": {
+        "actionMs": 900,
+        "holdMs": 400,
+        "exitMs": 0
+      }
+    },
+    "enter.clip-path-reveal": {
+      "still": 0.55,
+      "content": {
+        "title": "裁剪揭示",
+        "seed": "neon-lights"
+      },
+      "timeline": {
+        "actionMs": 850,
+        "holdMs": 400,
+        "exitMs": 0
+      }
+    },
+    "enter.mask-reveal": {
+      "still": 0.55,
+      "content": {
+        "title": "蒙版显现",
+        "seed": "tide"
+      },
+      "timeline": {
+        "actionMs": 1050,
+        "holdMs": 400,
+        "exitMs": 0
+      }
+    },
+    "enter.wipe": {
+      "still": 0.55,
+      "content": {
+        "a": {
+          "label": "镜头 A",
+          "seed": "summit"
+        },
+        "b": {
+          "label": "镜头 B",
+          "seed": "tide"
+        }
+      },
+      "timeline": {
+        "actionMs": 1400,
+        "holdMs": 400,
+        "exitMs": 0
+      }
+    },
+    "enter.draw-on": {
+      "still": 1,
+      "content": {
+        "color": "var(--accent)"
+      },
+      "timeline": {
+        "actionMs": 1700,
+        "holdMs": 0,
+        "exitMs": 0
+      }
+    },
+    "text.line-reveal": {
+      "still": 0.55,
+      "content": {
+        "lines": [
+          "把动效",
+          "讲清楚",
+          "才能做对"
+        ],
+        "seed": "facade"
+      },
+      "timeline": {
+        "actionMs": 520,
+        "holdMs": 500,
+        "staggerMs": 120,
+        "staggerCount": 3,
+        "exitMs": 0
+      }
+    },
+    "text.word-reveal": {
+      "still": 0.55,
+      "content": {
+        "groups": [
+          "先想清楚",
+          "要讲什么",
+          "再动手做"
+        ],
+        "seed": "workbench"
+      },
+      "timeline": {
+        "actionMs": 360,
+        "holdMs": 500,
+        "staggerMs": 110,
+        "staggerCount": 3,
+        "exitMs": 0
+      }
+    },
+    "text.character-reveal": {
+      "still": 0.55,
+      "content": {
+        "word": "MOTION",
+        "seed": "workbench"
+      },
+      "timeline": {
+        "actionMs": 300,
+        "holdMs": 500,
+        "staggerMs": 60,
+        "staggerCount": 6,
+        "exitMs": 0
+      }
+    },
+    "text.typewriter": {
+      "still": 0.55,
+      "content": {
+        "command": "motion lexicon --scene text"
+      },
+      "timeline": {
+        "actionMs": 1000,
+        "holdMs": 400,
+        "exitMs": 0
+      }
+    },
+    "text.scramble": {
+      "still": 0.55,
+      "content": {
+        "text": "SEEDANCE 2.5",
+        "seed": "neon-lights"
+      },
+      "timeline": {
+        "actionMs": 1050,
+        "holdMs": 500,
+        "exitMs": 0
+      }
+    },
+    "text.morph": {
+      "still": 0.55,
+      "content": {
+        "lead": "这套体系用来",
+        "words": [
+          "选动效",
+          "写提示词",
+          "做视频"
+        ],
+        "seed": "workbench"
+      },
+      "timeline": {
+        "actionMs": 1500,
+        "holdMs": 500,
+        "exitMs": 0
+      }
+    },
+    "scroll.parallax": {
+      "still": 0.55,
+      "content": {
+        "title": "视差滚动",
+        "seed": "summit"
+      },
+      "timeline": {
+        "actionMs": 2400,
+        "holdMs": 400,
+        "exitMs": 0
+      }
+    },
+    "scroll.multi-layer-parallax": {
+      "still": 0.55,
+      "content": {
+        "seed": "valley",
+        "layers": 4
+      },
+      "timeline": {
+        "actionMs": 2600,
+        "holdMs": 400,
+        "exitMs": 0
+      }
+    },
+    "scroll.horizontal": {
+      "still": 0.55,
+      "content": {
+        "cards": [
+          "作品 1",
+          "作品 2",
+          "作品 3",
+          "作品 4",
+          "作品 5",
+          "作品 6"
+        ],
+        "seeds": [
+          "summit",
+          "timber",
+          "valley",
+          "tide",
+          "bloom",
+          "neon-lights"
+        ]
+      },
+      "timeline": {
+        "actionMs": 2600,
+        "holdMs": 400,
+        "exitMs": 0
+      }
+    },
+    "scroll.zoom": {
+      "still": 0.55,
+      "content": {
+        "title": "滚动缩放",
+        "seed": "gadget-9"
+      },
+      "timeline": {
+        "actionMs": 2400,
+        "holdMs": 400,
+        "exitMs": 0
+      }
+    },
+    "scroll.sticky-story": {
+      "still": 0.55,
+      "content": {
+        "steps": [
+          "① 设定画幅",
+          "② 选择动效",
+          "③ 输出镜头"
+        ],
+        "seeds": [
+          "summit",
+          "timber",
+          "tide"
+        ]
+      },
+      "timeline": {
+        "actionMs": 3000,
+        "holdMs": 400,
+        "exitMs": 0
+      }
+    },
+    "scroll.image-sequence": {
+      "still": 0.55,
+      "content": {
+        "totalFrames": 24,
+        "sequence": "device-turn",
+        "caption": "设备旋转 · 确定性绘制序列"
+      },
+      "timeline": {
+        "actionMs": 2600,
+        "holdMs": 400,
+        "exitMs": 0
+      }
+    },
+    "scroll.snap": {
+      "still": 0.55,
+      "content": {
+        "sections": [
+          "第 1 段",
+          "第 2 段",
+          "第 3 段"
+        ],
+        "seeds": [
+          "summit",
+          "timber",
+          "tide"
+        ]
+      },
+      "timeline": {
+        "actionMs": 2600,
+        "holdMs": 400,
+        "exitMs": 0
+      }
+    },
+    "scroll.progress": {
+      "still": 0.55,
+      "content": {
+        "paragraphs": [
+          "进度提示要比正文安静，提供的是位置反馈，不抢阅读注意力。",
+          "章节切换时同步高亮侧边目录。",
+          "样式保持细、轻、克制。"
+        ]
+      },
+      "timeline": {
+        "actionMs": 2200,
+        "holdMs": 400,
+        "exitMs": 0
+      }
+    },
+    "pointer.magnetic": {
+      "still": 0.55,
+      "content": {
+        "cta": "开始使用",
+        "seed": "aurora"
+      },
+      "timeline": {
+        "actionMs": 900,
+        "holdMs": 500,
+        "exitMs": 0
+      }
+    },
+    "pointer.tilt-card": {
+      "still": 0.55,
+      "content": {
+        "title": "森林 · 作品卡片",
+        "sub": "倾斜时高光与阴影同步变化",
+        "seed": "timber"
+      },
+      "timeline": {
+        "actionMs": 900,
+        "holdMs": 500,
+        "exitMs": 0
+      }
+    },
+    "pointer.cursor-follower": {
+      "still": 0.55,
+      "content": {
+        "label": "查看",
+        "seeds": [
+          "summit",
+          "valley",
+          "bloom"
+        ]
+      },
+      "timeline": {
+        "actionMs": 1200,
+        "holdMs": 400,
+        "exitMs": 0
+      }
+    },
+    "pointer.spotlight": {
+      "still": 0.55,
+      "content": {
+        "title": "光标聚光灯",
+        "seed": "neon-lights"
+      },
+      "timeline": {
+        "actionMs": 1200,
+        "holdMs": 400,
+        "exitMs": 0
+      }
+    },
+    "pointer.eyes": {
+      "still": 0.55,
+      "content": {},
+      "timeline": {
+        "actionMs": 1200,
+        "holdMs": 400,
+        "exitMs": 0
+      }
+    },
+    "pointer.trail": {
+      "still": 0.55,
+      "content": {
+        "title": "光标拖尾",
+        "seed": "tide"
+      },
+      "timeline": {
+        "actionMs": 1200,
+        "holdMs": 400,
+        "exitMs": 0
+      }
+    },
+    "pointer.reactive-bg": {
+      "still": 0.55,
+      "content": {
+        "title": "指针响应背景",
+        "seed": "facade"
+      },
+      "timeline": {
+        "actionMs": 1200,
+        "holdMs": 400,
+        "exitMs": 0
+      }
+    },
+    "pointer.3d-follow": {
+      "still": 0.55,
+      "content": {
+        "seeds": [
+          "summit",
+          "timber",
+          "valley",
+          "tide",
+          "bloom",
+          "neon-lights"
+        ]
+      },
+      "timeline": {
+        "actionMs": 1400,
+        "holdMs": 400,
+        "exitMs": 0
+      }
+    },
+    "component.accordion": {
+      "still": 0.55,
+      "content": {
+        "items": [
+          {
+            "q": "如何提交一个镜头？",
+            "a": "折叠展开让下面的内容平稳下移，收起时按原路径返回。"
+          },
+          {
+            "q": "支持哪些画幅输出？",
+            "a": "默认 16:9，同时支持 9:16。"
+          },
+          {
+            "q": "怎样替换已有素材？",
+            "a": "替换素材引用即可，不需要重排时间轴。"
+          }
+        ]
+      },
+      "timeline": {
+        "actionMs": 350,
+        "holdMs": 1200,
+        "staggerMs": 1000,
+        "staggerCount": 3,
+        "exitMs": 0
+      }
+    },
+    "component.popover": {
+      "still": 0.55,
+      "content": {
+        "trigger": "产品",
+        "items": [
+          "动效选型",
+          "镜头清单",
+          "素材库"
+        ]
+      },
+      "timeline": {
+        "actionMs": 2000,
+        "holdMs": 1400,
+        "exitMs": 0
+      }
+    },
+    "component.modal": {
+      "still": 0.95,
+      "content": {
+        "title": "山 · 点击预览",
+        "seed": "summit"
+      },
+      "timeline": {
+        "actionMs": 260,
+        "holdMs": 1500,
+        "exitMs": 260
+      }
+    },
+    "component.drawer": {
+      "still": 0.95,
+      "content": {
+        "pageTitle": "商品列表",
+        "drawerTitle": "购物车",
+        "items": [
+          "商品 1",
+          "商品 2"
+        ],
+        "seeds": [
+          "gadget-9",
+          "lens"
+        ]
+      },
+      "timeline": {
+        "actionMs": 340,
+        "holdMs": 1400,
+        "exitMs": 300
+      }
+    },
+    "component.tabs": {
+      "still": 0.55,
+      "content": {
+        "tabs": [
+          {
+            "label": "月付",
+            "title": "月付 ¥99 / 月",
+            "sub": "按月灵活",
+            "seed": "workbench"
+          },
+          {
+            "label": "年付",
+            "title": "年付 ¥899 / 年",
+            "sub": "省两个月",
+            "seed": "timber"
+          },
+          {
+            "label": "团队",
+            "title": "团队版",
+            "sub": "联系我们",
+            "seed": "neon-lights"
+          }
+        ]
+      },
+      "timeline": {
+        "actionMs": 500,
+        "holdMs": 700,
+        "staggerMs": 2500,
+        "staggerCount": 3,
+        "exitMs": 0
+      }
+    },
+    "component.carousel": {
+      "still": 0.55,
+      "content": {
+        "slides": [
+          {
+            "seed": "summit"
+          },
+          {
+            "seed": "timber"
+          },
+          {
+            "seed": "valley"
+          },
+          {
+            "seed": "tide"
+          }
+        ]
+      },
+      "timeline": {
+        "actionMs": 600,
+        "holdMs": 750,
+        "staggerMs": 2500,
+        "staggerCount": 4,
+        "exitMs": 0
+      }
+    },
+    "component.toast": {
+      "still": 0.95,
+      "content": {
+        "url": "https://motion.kit/share/abc",
+        "message": "已复制到剪贴板"
+      },
+      "timeline": {
+        "actionMs": 260,
+        "holdMs": 1700,
+        "exitMs": 300
+      }
+    },
+    "feedback.counter": {
+      "still": 0.95,
+      "content": {
+        "label": "季度营收",
+        "value": 12864,
+        "unit": "万元",
+        "delta": "较上季 +23.7%"
+      },
+      "timeline": {
+        "actionMs": 1150,
+        "holdMs": 600,
+        "exitMs": 0
+      }
+    },
+    "feedback.skeleton": {
+      "still": 0.95,
+      "content": {
+        "title": "湖畔 · 动效选型",
+        "sub": "真实内容替换占位块，布局位置保持一致",
+        "seed": "valley"
+      },
+      "timeline": {
+        "actionMs": 400,
+        "holdMs": 800,
+        "exitMs": 0
+      }
+    },
+    "feedback.loading": {
+      "still": 0.55,
+      "content": {
+        "targetPct": 100
+      },
+      "timeline": {
+        "actionMs": 2400,
+        "holdMs": 400,
+        "exitMs": 0
+      }
+    },
+    "feedback.result": {
+      "still": 0.95,
+      "content": {
+        "value": "you@example.com",
+        "ok": "已保存",
+        "err": "邮箱格式不正确，请检查后重试"
+      },
+      "timeline": {
+        "actionMs": 700,
+        "holdMs": 650,
+        "exitMs": 0
+      }
+    },
+    "feedback.icon-morph": {
+      "still": 0.55,
+      "content": {},
+      "timeline": {
+        "actionMs": 220,
+        "holdMs": 900,
+        "exitMs": 0
+      }
+    },
+    "layout.layout-animation": {
+      "still": 0.55,
+      "content": {
+        "cards": [
+          "卡 1",
+          "卡 2",
+          "卡 3",
+          "卡 4",
+          "卡 5",
+          "卡 6"
+        ],
+        "seeds": [
+          "summit",
+          "timber",
+          "valley",
+          "neon-lights",
+          "tide",
+          "bloom"
+        ],
+        "hide": [
+          2,
+          4
+        ]
+      },
+      "timeline": {
+        "actionMs": 360,
+        "holdMs": 800,
+        "exitMs": 0
+      }
+    },
+    "layout.shared-element": {
+      "still": 0.55,
+      "content": {
+        "listTitle": "从列表进入详情",
+        "detailTitle": "山峰 · 详情页",
+        "sub": "卡片主图连续放大到详情页",
+        "seed": "summit"
+      },
+      "timeline": {
+        "actionMs": 580,
+        "holdMs": 900,
+        "exitMs": 500
+      }
+    },
+    "layout.page-transition": {
+      "still": 0.55,
+      "content": {
+        "a": {
+          "title": "页面 A",
+          "sub": "路由切换时，旧页面离开 + 新页面进入",
+          "seed": "summit"
+        },
+        "b": {
+          "title": "页面 B",
+          "sub": "前进从右侧进入，返回沿相反方向退出",
+          "seed": "tide"
+        }
+      },
+      "timeline": {
+        "actionMs": 440,
+        "holdMs": 500,
+        "exitMs": 380
+      }
+    },
+    "ux.feedback": {
+      "still": 0.55,
+      "content": {
+        "steps": [
+          "操作前",
+          "操作时",
+          "操作后",
+          "失败后"
+        ],
+        "notes": [
+          "操作前：用户看得出哪里能点",
+          "操作时：按钮有按下或加载状态",
+          "操作后：页面明确显示成功或失败",
+          "失败后：用户知道怎样修正或重试"
+        ]
+      },
+      "timeline": {
+        "actionMs": 850,
+        "holdMs": 850,
+        "exitMs": 0
+      }
+    },
+    "ux.affordance": {
+      "still": 0.55,
+      "content": {
+        "rows": [
+          "按钮有边界",
+          "链接有下划线",
+          "可拖拽有把手",
+          "可展开有箭头"
+        ]
+      },
+      "timeline": {
+        "actionMs": 300,
+        "holdMs": 600,
+        "staggerMs": 240,
+        "staggerCount": 4,
+        "exitMs": 0
+      }
+    },
+    "ux.focus": {
+      "still": 0.55,
+      "content": {
+        "title": "确认提交订单？",
+        "primary": "确认",
+        "secondary": "取消"
+      },
+      "timeline": {
+        "actionMs": 240,
+        "holdMs": 750,
+        "exitMs": 0
+      }
+    },
+    "ux.reduced-motion": {
+      "still": 0.95,
+      "content": {
+        "before": "开启前 · 大幅视差",
+        "after": "开启后 · 短促淡化"
+      },
+      "timeline": {
+        "actionMs": 1500,
+        "holdMs": 400,
+        "exitMs": 0
+      }
+    },
+    "ux.modality": {
+      "still": 0.55,
+      "content": {
+        "pairs": [
+          [
+            "鼠标悬停",
+            "键盘聚焦",
+            "Focus-visible 样式"
+          ],
+          [
+            "桌面悬停展开",
+            "手机点击展开",
+            "不依赖 Hover"
+          ],
+          [
+            "拖拽排序",
+            "上移 / 下移按钮",
+            "保留可见按钮"
+          ],
+          [
+            "左右滑动",
+            "上一张 / 下一张",
+            "手势之外给按钮"
+          ],
+          [
+            "光标跟随",
+            "触屏改为静态",
+            "装饰性效果可关闭"
+          ]
+        ]
+      },
+      "timeline": {
+        "actionMs": 300,
+        "holdMs": 700,
+        "staggerMs": 160,
+        "staggerCount": 5,
+        "exitMs": 0
+      }
+    },
+    "chart.bar-compare": {
+      "still": 0.95,
+      "content": {},
+      "timeline": {
+        "actionMs": 3000,
+        "holdMs": 1000,
+        "exitMs": 0
+      }
+    },
+    "chart.line-trend": {
+      "still": 0.95,
+      "content": {},
+      "timeline": {
+        "actionMs": 4000,
+        "holdMs": 1000,
+        "exitMs": 0
+      }
+    },
+    "chart.share": {
+      "still": 0.95,
+      "content": {},
+      "timeline": {
+        "actionMs": 3000,
+        "holdMs": 1000,
+        "exitMs": 0
+      }
+    },
+    "chart.before-after": {
+      "still": 0.95,
+      "content": {},
+      "timeline": {
+        "actionMs": 3000,
+        "holdMs": 1000,
+        "exitMs": 0
+      }
+    },
+    "chart.waterfall": {
+      "still": 0.95,
+      "content": {},
+      "timeline": {
+        "actionMs": 5000,
+        "holdMs": 1000,
+        "exitMs": 0
+      }
+    },
+    "chart.rank-race": {
+      "still": 0.95,
+      "content": {},
+      "timeline": {
+        "actionMs": 7000,
+        "holdMs": 1000,
+        "exitMs": 0
+      }
+    }
+  },
+  "shots": [
+    {
+      "id": "shot.device-enter",
+      "name": "设备入场",
+      "scenario": "screen",
+      "durationSec": 4,
+      "goal": "手机轻微上移显现，屏幕内容保持清晰，停留阅读",
+      "steps": [
+        {
+          "at": 0,
+          "action": "设备从下方 12% 处上移 + 淡入",
+          "effect": "enter.slide"
+        },
+        {
+          "at": 600,
+          "action": "屏幕内容按行显现",
+          "effect": "text.line-reveal"
+        },
+        {
+          "at": 1800,
+          "action": "停留阅读",
+          "effect": null
+        }
+      ],
+      "device": {
+        "innerWidth": 393,
+        "innerHeight": 852
+      },
+      "output": {
+        "width": 1920,
+        "height": 1080,
+        "fps": 24
+      }
+    },
+    {
+      "id": "shot.app-demo",
+      "name": "操作演示",
+      "scenario": "screen",
+      "durationSec": 6,
+      "goal": "点击提示 → 页面或标签切换 → 结果停留",
+      "steps": [
+        {
+          "at": 0,
+          "action": "手指提示落在底部标签",
+          "effect": "ux.affordance"
+        },
+        {
+          "at": 700,
+          "action": "标签指示器先移动，内容随后切换",
+          "effect": "component.tabs"
+        },
+        {
+          "at": 2200,
+          "action": "底部弹出轻提示",
+          "effect": "component.toast"
+        },
+        {
+          "at": 4200,
+          "action": "停留读者视角",
+          "effect": null
+        }
+      ],
+      "device": {
+        "innerWidth": 393,
+        "innerHeight": 852
+      },
+      "output": {
+        "width": 1920,
+        "height": 1080,
+        "fps": 24
+      }
+    },
+    {
+      "id": "shot.screen-explain",
+      "name": "屏幕讲解",
+      "scenario": "screen",
+      "durationSec": 6,
+      "goal": "页面滚动 → 重点区域放大 → 回到设备全貌",
+      "steps": [
+        {
+          "at": 0,
+          "action": "屏幕内页面缓慢下滚",
+          "effect": "scroll.progress"
+        },
+        {
+          "at": 1600,
+          "action": "放大到重点区域（局部放大）",
+          "effect": "scroll.zoom"
+        },
+        {
+          "at": 3600,
+          "action": "提示文字压在放大区旁边",
+          "effect": "text.word-reveal"
+        },
+        {
+          "at": 4800,
+          "action": "缩回设备全貌并停留",
+          "effect": "scroll.zoom"
+        }
+      ],
+      "device": {
+        "innerWidth": 393,
+        "innerHeight": 852
+      },
+      "output": {
+        "width": 1920,
+        "height": 1080,
+        "fps": 24
+      }
+    }
+  ],
+  "charts": {
+    "chart.bar-compare": {
+      "mark": "示例数据",
+      "title": "华东区本季营收领先，是华南的 1.8 倍",
+      "unit": "万元",
+      "timeRange": "2026 Q3",
+      "highlight": "华东",
+      "data": [
+        {
+          "label": "华东",
+          "value": 4820
+        },
+        {
+          "label": "华南",
+          "value": 2680
+        },
+        {
+          "label": "华北",
+          "value": 2140
+        },
+        {
+          "label": "西南",
+          "value": 1260
+        },
+        {
+          "label": "东北",
+          "value": 860
+        }
+      ]
+    },
+    "chart.line-trend": {
+      "mark": "示例数据",
+      "title": "月活连续 5 个月上升，6 月首次回落",
+      "unit": "万人",
+      "timeRange": "2026-01 ~ 2026-08",
+      "highlight": "2026-06",
+      "labels": [
+        "1月",
+        "2月",
+        "3月",
+        "4月",
+        "5月",
+        "6月",
+        "7月",
+        "8月"
+      ],
+      "values": [
+        120,
+        138,
+        152,
+        171,
+        196,
+        188,
+        214,
+        236
+      ],
+      "annotations": [
+        {
+          "index": 4,
+          "label": "峰值 196"
+        },
+        {
+          "index": 5,
+          "label": "首次回落"
+        }
+      ]
+    },
+    "chart.share": {
+      "mark": "示例数据",
+      "title": "直营渠道占四成，是最大单一来源",
+      "unit": "%",
+      "timeRange": "2026 Q3",
+      "highlight": "直营",
+      "segments": [
+        {
+          "label": "直营",
+          "value": 42
+        },
+        {
+          "label": "经销商",
+          "value": 28
+        },
+        {
+          "label": "电商",
+          "value": 19
+        },
+        {
+          "label": "其他",
+          "value": 11
+        }
+      ]
+    },
+    "chart.before-after": {
+      "mark": "示例数据",
+      "title": "首页加载从 3.2s 降到 1.4s，改善 56%",
+      "unit": "秒",
+      "timeRange": "优化前后",
+      "highlight": "改善 56%",
+      "before": {
+        "label": "优化前",
+        "value": 3.2
+      },
+      "after": {
+        "label": "优化后",
+        "value": 1.4
+      },
+      "lowerIsBetter": true
+    },
+    "chart.waterfall": {
+      "mark": "示例数据",
+      "title": "营收增长 1.4 亿，主要由新客与复购贡献",
+      "unit": "万元",
+      "timeRange": "2025 → 2026",
+      "start": {
+        "label": "2025 营收",
+        "value": 8600
+      },
+      "items": [
+        {
+          "label": "新客",
+          "delta": 900
+        },
+        {
+          "label": "复购",
+          "delta": 620
+        },
+        {
+          "label": "客单价",
+          "delta": 280
+        },
+        {
+          "label": "流失",
+          "delta": -400
+        }
+      ],
+      "end": {
+        "label": "2026 营收",
+        "value": 10000
+      }
+    },
+    "chart.rank-race": {
+      "mark": "示例数据",
+      "title": "三年间 C 品牌从第四升到第一",
+      "unit": "市场份额 %",
+      "timeRange": "2024 → 2026",
+      "entities": [
+        {
+          "name": "A",
+          "color": "#5b9dff"
+        },
+        {
+          "name": "B",
+          "color": "#34d399"
+        },
+        {
+          "name": "C",
+          "color": "#fbbf24"
+        },
+        {
+          "name": "D",
+          "color": "#f472b6"
+        }
+      ],
+      "frames": [
+        {
+          "t": "2024",
+          "values": {
+            "A": 32,
+            "B": 28,
+            "C": 19,
+            "D": 21
+          }
+        },
+        {
+          "t": "2025",
+          "values": {
+            "A": 30,
+            "B": 26,
+            "C": 27,
+            "D": 17
+          }
+        },
+        {
+          "t": "2026",
+          "values": {
+            "A": 26,
+            "B": 24,
+            "C": 38,
+            "D": 12
+          }
+        }
+      ]
+    }
+  },
+  "stillNote": "still 是卡片与静态态展示的代表帧位置（0..1）。图表与结果类取终态，让数值可读；其余取动作中段，让效果可辨识。"
+}

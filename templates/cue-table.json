@@ -1,0 +1,13 @@
+{
+  "duration": 12,
+  "bpm": 120,
+  "pushAt": 0,
+  "pushAmount": 0,
+  "cuts": [
+    { "at": 6, "to": "scene-2" }
+  ],
+  "events": [
+    { "at": 0.3, "type": "title-in" },
+    { "at": 6, "type": "scene-cut" }
+  ]
+}

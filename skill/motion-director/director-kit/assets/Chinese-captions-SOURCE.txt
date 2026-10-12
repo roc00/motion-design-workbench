@@ -1,0 +1,4 @@
+Noto Sans SC, Google Fonts / SIL OFL. Subset for the two sample captions only.
+https://fonts.gstatic.com/l/font?kit=k3kCo84MPvpLmixcA63oeAL7Iqp5IZJF9bmaG9_FnYxVVBdTfpTxcNPRoK9j2SHBsYqqD7q-comGuUEU237sepL-DfWdY3q8LrtnScI9hMasTh7KKh4mQFyR0j796A&skey=cf0bb10b5602fdc3&v=v41
+Glyphs: 收起杂念。留住重点。让每一次连接，继续向前。
+New Chinese copy requires a font containing its glyphs.

@@ -1,0 +1,14 @@
+node_modules/
+dist/
+.publication/
+.openai/archives/
+.DS_Store
+**/.DS_Store
+__pycache__/
+*.pyc
+.env
+.env.*
+!.env.example
+.workbuddy/
+.render-cfg.json
+*.log

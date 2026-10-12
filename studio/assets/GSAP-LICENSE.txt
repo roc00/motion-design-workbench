@@ -1,0 +1,4 @@
+GSAP 3.15.0 (copied from the project's installed package).
+Copyright GreenSock / GSAP contributors.
+License: Standard no-charge license, https://gsap.com/standard-license
+The minified source retains its license header. This file does not alter its terms.

@@ -1,0 +1,523 @@
+{
+  "version": "1.0.0",
+  "updated": "2026-10-11",
+  "role": "director",
+  "patterns": [
+    {
+      "id": "combo.title-product-focus",
+      "name": "主张 → 场景 → 证据",
+      "demo": "claim",
+      "durationMs": 9600,
+      "representativeMs": 7200,
+      "goal": "从一句主张进入产品情境，再让可见证据回答它。",
+      "intent": "证明一句话",
+      "subject": "任务窗口与唯一重点",
+      "constraint": "主张不是装饰标题，结尾必须能指出具体证据。",
+      "division": "导演选择明确的主张和证据对象；技术侧决定如何揭示、描线与取景。",
+      "shots": [
+        {
+          "id": "s1",
+          "fromMs": 0,
+          "toMs": 2000,
+          "label": "主张建立",
+          "audience": "观众知道要验证什么",
+          "subject": "任务窗口与唯一重点",
+          "camera": "fixed-view",
+          "action": "主张建立",
+          "readingHoldMs": 600,
+          "unitType": "narrative-beat"
+        },
+        {
+          "id": "s2",
+          "fromMs": 2000,
+          "toMs": 6400,
+          "label": "使用情境",
+          "audience": "看到主张对应的任务场景",
+          "subject": "任务窗口与唯一重点",
+          "camera": "fixed-view",
+          "action": "使用情境",
+          "readingHoldMs": 600,
+          "unitType": "narrative-beat"
+        },
+        {
+          "id": "s3",
+          "fromMs": 6400,
+          "toMs": 9600,
+          "label": "证据落定",
+          "audience": "能指出唯一重点如何支持主张",
+          "subject": "任务窗口与唯一重点",
+          "camera": "fixed-view",
+          "action": "证据落定",
+          "readingHoldMs": 1000,
+          "unitType": "narrative-beat"
+        }
+      ],
+      "editEdges": [
+        {
+          "from": "s1",
+          "to": "s2",
+          "relationship": "主张建立 → 使用情境",
+          "preserve": [
+            "subject-identity",
+            "information-context"
+          ],
+          "reason": "看到主张对应的任务场景",
+          "kind": "narrative-handoff"
+        },
+        {
+          "from": "s2",
+          "to": "s3",
+          "relationship": "使用情境 → 证据落定",
+          "preserve": [
+            "subject-identity",
+            "information-context"
+          ],
+          "reason": "能指出唯一重点如何支持主张",
+          "kind": "narrative-handoff"
+        }
+      ],
+      "capability": "browser-demo",
+      "scope": "原创导演结构演示；16:9；概念情境；不是某个真实产品的指标证明",
+      "palette": "paper",
+      "referencePrinciples": [
+        "产品/内容决定母题",
+        "同一主体跨状态",
+        "镜头交接有原因",
+        "阅读与运动交替"
+      ],
+      "failure": "只换标题/状态字而不改变信息关系；重复同一种入场；未保持主体或比较条件。",
+      "executionBoundary": "当前三段是连续场景内的叙事节拍；实际制作可扩展成多个镜头，不把每个节拍强制当作切镜。",
+      "demoSnippet": "narrative-claim"
+    },
+    {
+      "id": "combo.capsule-input-result",
+      "name": "行动 → 响应 → 结果",
+      "demo": "action",
+      "durationMs": 9000,
+      "representativeMs": 5800,
+      "goal": "用角色的一次主动操作，建立系统响应与结果的因果。",
+      "intent": "解释操作因果",
+      "subject": "光标作为主动者、文档作为成果",
+      "constraint": "结果必须接住前面的输入，不能只是换一个成功提示。",
+      "division": "光标的路径服务于因果；打字、加载与提示的实现归完整词典。",
+      "shots": [
+        {
+          "id": "s1",
+          "fromMs": 0,
+          "toMs": 3000,
+          "label": "主动操作",
+          "audience": "看到角色做了什么",
+          "subject": "光标作为主动者、文档作为成果",
+          "camera": "fixed-view",
+          "action": "主动操作",
+          "readingHoldMs": 600,
+          "unitType": "narrative-beat"
+        },
+        {
+          "id": "s2",
+          "fromMs": 3000,
+          "toMs": 5000,
+          "label": "系统回应",
+          "audience": "明白系统正在处理什么",
+          "subject": "光标作为主动者、文档作为成果",
+          "camera": "fixed-view",
+          "action": "系统回应",
+          "readingHoldMs": 600,
+          "unitType": "narrative-beat"
+        },
+        {
+          "id": "s3",
+          "fromMs": 5000,
+          "toMs": 9000,
+          "label": "成果出现",
+          "audience": "知道得到的成果是什么",
+          "subject": "光标作为主动者、文档作为成果",
+          "camera": "fixed-view",
+          "action": "成果出现",
+          "readingHoldMs": 1000,
+          "unitType": "narrative-beat"
+        }
+      ],
+      "editEdges": [
+        {
+          "from": "s1",
+          "to": "s2",
+          "relationship": "主动操作 → 系统回应",
+          "preserve": [
+            "subject-identity",
+            "information-context"
+          ],
+          "reason": "明白系统正在处理什么",
+          "kind": "narrative-handoff"
+        },
+        {
+          "from": "s2",
+          "to": "s3",
+          "relationship": "系统回应 → 成果出现",
+          "preserve": [
+            "subject-identity",
+            "information-context"
+          ],
+          "reason": "知道得到的成果是什么",
+          "kind": "narrative-handoff"
+        }
+      ],
+      "capability": "browser-demo",
+      "scope": "原创导演结构演示；16:9；概念情境；不是某个真实产品的指标证明",
+      "palette": "carbon",
+      "referencePrinciples": [
+        "产品/内容决定母题",
+        "同一主体跨状态",
+        "镜头交接有原因",
+        "阅读与运动交替"
+      ],
+      "failure": "只换标题/状态字而不改变信息关系；重复同一种入场；未保持主体或比较条件。",
+      "executionBoundary": "当前三段是连续场景内的叙事节拍；实际制作可扩展成多个镜头，不把每个节拍强制当作切镜。",
+      "demoSnippet": "narrative-action"
+    },
+    {
+      "id": "combo.phone-focus-return",
+      "name": "建立 → 聚焦 → 回归",
+      "demo": "context",
+      "durationMs": 10000,
+      "representativeMs": 7000,
+      "goal": "从全局找到重点，进入细节，再回到带有变化的全局。",
+      "intent": "保持空间理解",
+      "subject": "同一项目板中的目标区域",
+      "constraint": "回归时保留定位线索，观众知道细节属于哪里。",
+      "division": "本演示使用二维取景，不把 scale 叫真实摄影机推进。",
+      "shots": [
+        {
+          "id": "s1",
+          "fromMs": 0,
+          "toMs": 2200,
+          "label": "建立地图",
+          "audience": "知道全局有哪些区域",
+          "subject": "同一项目板中的目标区域",
+          "camera": "fixed-view",
+          "action": "建立地图",
+          "readingHoldMs": 600,
+          "unitType": "narrative-beat"
+        },
+        {
+          "id": "s2",
+          "fromMs": 2200,
+          "toMs": 6200,
+          "label": "进入重点",
+          "audience": "看懂重点区域的内容",
+          "subject": "同一项目板中的目标区域",
+          "camera": "virtual-reframe",
+          "action": "进入重点",
+          "readingHoldMs": 600,
+          "unitType": "narrative-beat"
+        },
+        {
+          "id": "s3",
+          "fromMs": 6200,
+          "toMs": 10000,
+          "label": "回归全局",
+          "audience": "知道该变化在全局中的位置",
+          "subject": "同一项目板中的目标区域",
+          "camera": "fixed-view",
+          "action": "回归全局",
+          "readingHoldMs": 1000,
+          "unitType": "narrative-beat"
+        }
+      ],
+      "editEdges": [
+        {
+          "from": "s1",
+          "to": "s2",
+          "relationship": "建立地图 → 进入重点",
+          "preserve": [
+            "subject-identity",
+            "information-context"
+          ],
+          "reason": "看懂重点区域的内容",
+          "kind": "narrative-handoff"
+        },
+        {
+          "from": "s2",
+          "to": "s3",
+          "relationship": "进入重点 → 回归全局",
+          "preserve": [
+            "subject-identity",
+            "information-context"
+          ],
+          "reason": "知道该变化在全局中的位置",
+          "kind": "narrative-handoff"
+        }
+      ],
+      "capability": "browser-demo",
+      "scope": "原创导演结构演示；16:9；概念情境；不是某个真实产品的指标证明",
+      "palette": "paper",
+      "referencePrinciples": [
+        "产品/内容决定母题",
+        "同一主体跨状态",
+        "镜头交接有原因",
+        "阅读与运动交替"
+      ],
+      "failure": "只换标题/状态字而不改变信息关系；重复同一种入场；未保持主体或比较条件。",
+      "executionBoundary": "当前三段是连续场景内的叙事节拍；实际制作可扩展成多个镜头，不把每个节拍强制当作切镜。",
+      "demoSnippet": "narrative-context"
+    },
+    {
+      "id": "combo.card-relay",
+      "name": "旧态 → 变化 → 新态",
+      "demo": "state",
+      "durationMs": 10000,
+      "representativeMs": 6600,
+      "goal": "让同一组主体经历整理与连接，使观众看见变化过程。",
+      "intent": "解释状态变化",
+      "subject": "三个信息片段作为持续主体",
+      "constraint": "保留主体身份，不能用新卡淡入掩盖过程。",
+      "division": "位移和排序是实现；导演决定主体如何从散乱成为有序关系。",
+      "shots": [
+        {
+          "id": "s1",
+          "fromMs": 0,
+          "toMs": 2200,
+          "label": "旧态建立",
+          "audience": "看出旧态的混乱或限制",
+          "subject": "三个信息片段作为持续主体",
+          "camera": "fixed-view",
+          "action": "旧态建立",
+          "readingHoldMs": 600,
+          "unitType": "narrative-beat"
+        },
+        {
+          "id": "s2",
+          "fromMs": 2200,
+          "toMs": 5800,
+          "label": "变化发生",
+          "audience": "理解哪些主体被重新组织",
+          "subject": "三个信息片段作为持续主体",
+          "camera": "fixed-view",
+          "action": "变化发生",
+          "readingHoldMs": 600,
+          "unitType": "narrative-beat"
+        },
+        {
+          "id": "s3",
+          "fromMs": 5800,
+          "toMs": 10000,
+          "label": "新态成立",
+          "audience": "看出新态为什么更清楚",
+          "subject": "三个信息片段作为持续主体",
+          "camera": "fixed-view",
+          "action": "新态成立",
+          "readingHoldMs": 1000,
+          "unitType": "narrative-beat"
+        }
+      ],
+      "editEdges": [
+        {
+          "from": "s1",
+          "to": "s2",
+          "relationship": "旧态建立 → 变化发生",
+          "preserve": [
+            "subject-identity",
+            "information-context"
+          ],
+          "reason": "理解哪些主体被重新组织",
+          "kind": "narrative-handoff"
+        },
+        {
+          "from": "s2",
+          "to": "s3",
+          "relationship": "变化发生 → 新态成立",
+          "preserve": [
+            "subject-identity",
+            "information-context"
+          ],
+          "reason": "看出新态为什么更清楚",
+          "kind": "narrative-handoff"
+        }
+      ],
+      "capability": "browser-demo",
+      "scope": "原创导演结构演示；16:9；概念情境；不是某个真实产品的指标证明",
+      "palette": "carbon",
+      "referencePrinciples": [
+        "产品/内容决定母题",
+        "同一主体跨状态",
+        "镜头交接有原因",
+        "阅读与运动交替"
+      ],
+      "failure": "只换标题/状态字而不改变信息关系；重复同一种入场；未保持主体或比较条件。",
+      "executionBoundary": "当前三段是连续场景内的叙事节拍；实际制作可扩展成多个镜头，不把每个节拍强制当作切镜。",
+      "demoSnippet": "narrative-state"
+    },
+    {
+      "id": "combo.before-after-confirm",
+      "name": "对照 → 归因 → 确认",
+      "demo": "compare",
+      "durationMs": 11000,
+      "representativeMs": 7600,
+      "goal": "先展示同一任务的两种路径，再解释差异，最后确认改善。",
+      "intent": "解释改善原因",
+      "subject": "同一流程的两种版本",
+      "constraint": "条件与尺度一致，除了结果，还要说明差异来自哪里。",
+      "division": "流程为概念例；比较与归因属于导演，滑杆与图表实现属于技术。",
+      "shots": [
+        {
+          "id": "s1",
+          "fromMs": 0,
+          "toMs": 3200,
+          "label": "同条件对照",
+          "audience": "看到同一任务的两种路径",
+          "subject": "同一流程的两种版本",
+          "camera": "fixed-view",
+          "action": "同条件对照",
+          "readingHoldMs": 600,
+          "unitType": "narrative-beat"
+        },
+        {
+          "id": "s2",
+          "fromMs": 3200,
+          "toMs": 6800,
+          "label": "追踪差异",
+          "audience": "知道哪两步被移除或合并",
+          "subject": "同一流程的两种版本",
+          "camera": "fixed-view",
+          "action": "追踪差异",
+          "readingHoldMs": 600,
+          "unitType": "narrative-beat"
+        },
+        {
+          "id": "s3",
+          "fromMs": 6800,
+          "toMs": 11000,
+          "label": "改善确认",
+          "audience": "知道新路径为何更短",
+          "subject": "同一流程的两种版本",
+          "camera": "fixed-view",
+          "action": "改善确认",
+          "readingHoldMs": 1000,
+          "unitType": "narrative-beat"
+        }
+      ],
+      "editEdges": [
+        {
+          "from": "s1",
+          "to": "s2",
+          "relationship": "同条件对照 → 追踪差异",
+          "preserve": [
+            "subject-identity",
+            "information-context"
+          ],
+          "reason": "知道哪两步被移除或合并",
+          "kind": "narrative-handoff"
+        },
+        {
+          "from": "s2",
+          "to": "s3",
+          "relationship": "追踪差异 → 改善确认",
+          "preserve": [
+            "subject-identity",
+            "information-context"
+          ],
+          "reason": "知道新路径为何更短",
+          "kind": "narrative-handoff"
+        }
+      ],
+      "capability": "browser-demo",
+      "scope": "原创导演结构演示；16:9；概念情境；不是某个真实产品的指标证明",
+      "palette": "carbon",
+      "referencePrinciples": [
+        "产品/内容决定母题",
+        "同一主体跨状态",
+        "镜头交接有原因",
+        "阅读与运动交替"
+      ],
+      "failure": "只换标题/状态字而不改变信息关系；重复同一种入场；未保持主体或比较条件。",
+      "executionBoundary": "当前三段是连续场景内的叙事节拍；实际制作可扩展成多个镜头，不把每个节拍强制当作切镜。",
+      "demoSnippet": "narrative-compare"
+    },
+    {
+      "id": "combo.overview-select-detail",
+      "name": "总览 → 选择 → 详情",
+      "demo": "selection",
+      "durationMs": 10000,
+      "representativeMs": 5000,
+      "goal": "用明确的选择动作，将一个群组中的主体交给详情镜头。",
+      "intent": "建立信息层级",
+      "subject": "三个方案与被选中的方案",
+      "constraint": "未选对象退出时保留选择关系，详情不能像无关的新页。",
+      "division": "主体身份、动作动机和注意力交接由导演规划；容器展开由技术实现。",
+      "shots": [
+        {
+          "id": "s1",
+          "fromMs": 0,
+          "toMs": 2200,
+          "label": "总览建立",
+          "audience": "看到可选择的整体",
+          "subject": "三个方案与被选中的方案",
+          "camera": "fixed-view",
+          "action": "总览建立",
+          "readingHoldMs": 600,
+          "unitType": "narrative-beat"
+        },
+        {
+          "id": "s2",
+          "fromMs": 2200,
+          "toMs": 4200,
+          "label": "选择发生",
+          "audience": "知道选中了谁",
+          "subject": "三个方案与被选中的方案",
+          "camera": "fixed-view",
+          "action": "选择发生",
+          "readingHoldMs": 600,
+          "unitType": "narrative-beat"
+        },
+        {
+          "id": "s3",
+          "fromMs": 4200,
+          "toMs": 10000,
+          "label": "主体接管",
+          "audience": "详情仍能认作原来的对象",
+          "subject": "三个方案与被选中的方案",
+          "camera": "fixed-view",
+          "action": "主体接管",
+          "readingHoldMs": 1000,
+          "unitType": "narrative-beat"
+        }
+      ],
+      "editEdges": [
+        {
+          "from": "s1",
+          "to": "s2",
+          "relationship": "总览建立 → 选择发生",
+          "preserve": [
+            "subject-identity",
+            "information-context"
+          ],
+          "reason": "知道选中了谁",
+          "kind": "narrative-handoff"
+        },
+        {
+          "from": "s2",
+          "to": "s3",
+          "relationship": "选择发生 → 主体接管",
+          "preserve": [
+            "subject-identity",
+            "information-context"
+          ],
+          "reason": "详情仍能认作原来的对象",
+          "kind": "narrative-handoff"
+        }
+      ],
+      "capability": "browser-demo",
+      "scope": "原创导演结构演示；16:9；概念情境；不是某个真实产品的指标证明",
+      "palette": "paper",
+      "referencePrinciples": [
+        "产品/内容决定母题",
+        "同一主体跨状态",
+        "镜头交接有原因",
+        "阅读与运动交替"
+      ],
+      "failure": "只换标题/状态字而不改变信息关系；重复同一种入场；未保持主体或比较条件。",
+      "executionBoundary": "当前三段是连续场景内的叙事节拍；实际制作可扩展成多个镜头，不把每个节拍强制当作切镜。",
+      "demoSnippet": "narrative-selection"
+    }
+  ]
+}

@@ -1,0 +1,971 @@
+{
+  "version": "0.7.0",
+  "note": "六种可复用叙事配方。通用配方描述表达和衔接，项目实例只负责替换内容、素材与布局。",
+  "adaptedComponents": [
+    {
+      "id": "titleReveal",
+      "effectId": "text.line-reveal",
+      "name": "按行标题揭示",
+      "technology": "DOM"
+    },
+    {
+      "id": "capsuleState",
+      "effectId": "layout.shared-element",
+      "name": "输入容器状态",
+      "technology": "DOM"
+    },
+    {
+      "id": "searchInput",
+      "effectId": "text.typewriter",
+      "name": "搜索输入",
+      "technology": "DOM"
+    },
+    {
+      "id": "answerHighlight",
+      "effectId": "enter.mask-reveal",
+      "name": "结果卡揭示",
+      "technology": "DOM/SVG"
+    },
+    {
+      "id": "sharedCardExpand",
+      "effectId": "layout.shared-element",
+      "name": "指定区域取景",
+      "technology": "DOM"
+    },
+    {
+      "id": "cardRelay",
+      "effectId": "layout.layout-animation",
+      "name": "状态卡接力",
+      "technology": "DOM"
+    }
+  ],
+  "compositions": [
+    {
+      "id": "combo.title-product-focus",
+      "name": "标题 → 产品 → 证据重点",
+      "template": "title-product-focus",
+      "goal": "先提出一句主张，再让产品中的明确证据支持它。",
+      "primaryAction": "产品主体接管画面，证据区域随后获得唯一强调",
+      "sharedElement": "标题强调线与证据区域使用同一颜色和方向，属于视觉呼应，不表示对象变形",
+      "durationMs": 5200,
+      "readHoldMs": 1600,
+      "tracks": [
+        {
+          "role": "title",
+          "fromMs": 0,
+          "toMs": 900,
+          "from": "画面上方 8% / 透明",
+          "to": "上方标题安全区 / 可见"
+        },
+        {
+          "role": "product",
+          "fromMs": 800,
+          "toMs": 2100,
+          "from": "中心下方 10% / 0.92x",
+          "to": "画面中心 / 1x"
+        },
+        {
+          "role": "focus",
+          "fromMs": 2100,
+          "toMs": 3600,
+          "from": "产品卡片",
+          "to": "重点区域局部高亮"
+        },
+        {
+          "role": "readHold",
+          "fromMs": 3600,
+          "toMs": 5200,
+          "from": "终态",
+          "to": "终态"
+        }
+      ],
+      "formats": [
+        "16:9",
+        "9:16"
+      ],
+      "capability": "production-adapted",
+      "purposeId": "claim-proof",
+      "purpose": "主张与证据",
+      "contentTypes": [
+        "text",
+        "card",
+        "screen"
+      ],
+      "audienceTakeaway": "观众能指出产品画面中的哪一处证明了标题。",
+      "representativeMs": 4000,
+      "conditions": {
+        "requires": [
+          "一句可验证的主张",
+          "产品画面中与主张直接对应的证据区域"
+        ],
+        "avoidWhen": [
+          "产品画面只起装饰作用",
+          "标题与产品内容没有可验证关系"
+        ]
+      },
+      "attention": {
+        "subject": "产品证据卡",
+        "region": "证据卡标题和趋势区域",
+        "framing": "标题安全区 → 中景产品 → 局部强调",
+        "viewChange": "主体入场后保持视野稳定，只增强证据区域",
+        "context": "保留标题，帮助观众核对主张与证据"
+      },
+      "continuity": {
+        "relationship": "主张接证据",
+        "entryState": "标题已可读，产品尚未出现",
+        "exitState": "证据区域完成强调并停留",
+        "preferredSeam": "话题延续时直接切入产品；强调线只做视觉呼应",
+        "preserve": [
+          "阅读方向",
+          "强调色",
+          "标题语义"
+        ]
+      },
+      "beats": [
+        {
+          "id": "establish",
+          "label": "建立",
+          "action": "标题完整出现",
+          "fromMs": 0,
+          "toMs": 900
+        },
+        {
+          "id": "reveal",
+          "label": "展示",
+          "action": "产品主体进入中心",
+          "fromMs": 800,
+          "toMs": 2100
+        },
+        {
+          "id": "confirm",
+          "label": "确认",
+          "action": "证据区域获得唯一强调",
+          "fromMs": 2100,
+          "toMs": 3600
+        },
+        {
+          "id": "hold",
+          "label": "阅读",
+          "action": "保持主张和证据同时可读",
+          "fromMs": 3600,
+          "toMs": 5200
+        }
+      ],
+      "keyframes": [
+        {
+          "label": "主张",
+          "atMs": 850
+        },
+        {
+          "label": "产品",
+          "atMs": 2100
+        },
+        {
+          "label": "证据",
+          "atMs": 4000
+        }
+      ],
+      "failureExample": "标题说效率提升，画面却只展示无关首页，观众无法核对主张。",
+      "evidence": {
+        "basis": [
+          "构图与特写",
+          "注意力连续性",
+          "为剪辑预留入口与出口"
+        ],
+        "references": [
+          "The Five C’s of Cinematography",
+          "Grammar of the Shot"
+        ],
+        "implementation": "DOM/SVG 确定性实现；强调线是视觉呼应，不宣称共享对象变形。",
+        "validation": "浏览器已适配，待实际成片理解测试"
+      }
+    },
+    {
+      "id": "combo.capsule-input-result",
+      "name": "输入 → 响应 → 结果",
+      "template": "capsule-input-result",
+      "goal": "按真实因果顺序说明用户做了什么、系统如何响应、最后得到什么。",
+      "primaryAction": "输入完成后显示处理中状态，再揭示独立结果对象",
+      "sharedElement": "查询文本和任务身份连续；输入框与结果卡是不同对象",
+      "durationMs": 7200,
+      "readHoldMs": 1800,
+      "tracks": [
+        {
+          "role": "titleReveal",
+          "fromMs": 0,
+          "toMs": 900,
+          "from": "上方 6% / 模糊",
+          "to": "标题安全区 / 清晰"
+        },
+        {
+          "role": "capsuleState",
+          "fromMs": 800,
+          "toMs": 1800,
+          "from": "居中按钮胶囊",
+          "to": "居中输入胶囊"
+        },
+        {
+          "role": "searchInput",
+          "fromMs": 1800,
+          "toMs": 3400,
+          "from": "空输入框",
+          "to": "完整搜索文本"
+        },
+        {
+          "role": "systemResponse",
+          "fromMs": 3500,
+          "toMs": 4300,
+          "from": "空闲",
+          "to": "处理中"
+        },
+        {
+          "role": "answerHighlight",
+          "fromMs": 4300,
+          "toMs": 5400,
+          "from": "输入胶囊",
+          "to": "结果卡与高亮结论"
+        },
+        {
+          "role": "readHold",
+          "fromMs": 5400,
+          "toMs": 7200,
+          "from": "终态",
+          "to": "终态"
+        }
+      ],
+      "formats": [
+        "16:9",
+        "9:16"
+      ],
+      "capability": "production-adapted",
+      "purposeId": "operation-result",
+      "purpose": "操作与结果",
+      "contentTypes": [
+        "text",
+        "card",
+        "screen"
+      ],
+      "audienceTakeaway": "观众能复述输入动作、系统响应和结果三者的先后关系。",
+      "representativeMs": 5700,
+      "conditions": {
+        "requires": [
+          "可辨认的输入或触发动作",
+          "系统响应状态",
+          "与输入对应的结果"
+        ],
+        "avoidWhen": [
+          "结果在输入完成前出现",
+          "把不同对象伪装成同一容器连续变形"
+        ]
+      },
+      "attention": {
+        "subject": "查询任务",
+        "region": "输入文本、响应状态、结果结论",
+        "framing": "固定中景，依靠状态顺序转移注意力",
+        "viewChange": "不移动视窗，避免运镜与操作同时抢焦点",
+        "context": "输入在结果出现后仍保留为因果线索"
+      },
+      "continuity": {
+        "relationship": "同一操作继续",
+        "entryState": "输入容器为空",
+        "exitState": "查询文本保留，结果对象完整可读",
+        "preferredSeam": "保持输入状态连续，结果可在响应后直接切入或揭示",
+        "preserve": [
+          "查询文本",
+          "任务身份",
+          "触发先于结果"
+        ]
+      },
+      "beats": [
+        {
+          "id": "establish",
+          "label": "建立",
+          "action": "建立输入任务",
+          "fromMs": 0,
+          "toMs": 1800
+        },
+        {
+          "id": "operate",
+          "label": "操作",
+          "action": "输入查询文本",
+          "fromMs": 1800,
+          "toMs": 3400
+        },
+        {
+          "id": "respond",
+          "label": "响应",
+          "action": "显示系统处理中状态",
+          "fromMs": 3500,
+          "toMs": 4300
+        },
+        {
+          "id": "result",
+          "label": "结果",
+          "action": "独立结果卡出现",
+          "fromMs": 4300,
+          "toMs": 5400
+        },
+        {
+          "id": "hold",
+          "label": "阅读",
+          "action": "保持输入与结果同时可核对",
+          "fromMs": 5400,
+          "toMs": 7200
+        }
+      ],
+      "keyframes": [
+        {
+          "label": "输入",
+          "atMs": 2600
+        },
+        {
+          "label": "响应",
+          "atMs": 3900
+        },
+        {
+          "label": "结果",
+          "atMs": 5700
+        }
+      ],
+      "failureExample": "结果先于输入完成出现，观众无法判断它由哪次操作触发。",
+      "evidence": {
+        "basis": [
+          "操作叙事",
+          "状态连续性",
+          "注意力位置延续"
+        ],
+        "references": [
+          "video-shotcraft: type-and-filter",
+          "The Five C’s of Cinematography"
+        ],
+        "implementation": "二维 DOM 状态序列；输入与结果保持为两个节点，避免错误的同体变形承诺。",
+        "validation": "浏览器已适配，待实际成片理解测试"
+      }
+    },
+    {
+      "id": "combo.phone-focus-return",
+      "name": "全局 → 局部 → 回归上下文",
+      "template": "phone-focus-return",
+      "goal": "指出界面中的关键区域，同时让观众知道它位于整体的哪里。",
+      "primaryAction": "围绕指定卡片改变取景范围，再回到带定位线索的整体",
+      "sharedElement": "同一手机内屏卡片，身份和位置线索保持连续",
+      "durationMs": 6200,
+      "readHoldMs": 1200,
+      "tracks": [
+        {
+          "role": "phoneWide",
+          "fromMs": 0,
+          "toMs": 900,
+          "from": "中心下方 8% / 0.94x",
+          "to": "画面中心 / 1x"
+        },
+        {
+          "role": "sharedCardExpand",
+          "fromMs": 900,
+          "toMs": 2500,
+          "from": "手机内屏 38% 区域",
+          "to": "画面中心特写"
+        },
+        {
+          "role": "focusHold",
+          "fromMs": 2500,
+          "toMs": 4100,
+          "from": "特写",
+          "to": "特写"
+        },
+        {
+          "role": "returnWide",
+          "fromMs": 4100,
+          "toMs": 5000,
+          "from": "特写",
+          "to": "手机全景"
+        },
+        {
+          "role": "readHold",
+          "fromMs": 5000,
+          "toMs": 6200,
+          "from": "终态",
+          "to": "终态"
+        }
+      ],
+      "formats": [
+        "16:9",
+        "9:16"
+      ],
+      "capability": "production-adapted",
+      "purposeId": "focus-context",
+      "purpose": "重点与上下文",
+      "contentTypes": [
+        "screen",
+        "card"
+      ],
+      "audienceTakeaway": "观众能在回到全局后重新找到被强调的区域。",
+      "representativeMs": 3200,
+      "conditions": {
+        "requires": [
+          "预先标定的重点区域",
+          "特写后仍有回归整体的表达价值"
+        ],
+        "avoidWhen": [
+          "没有明确重点区域",
+          "整体设备缩放无法把指定区域带到视觉中心"
+        ]
+      },
+      "attention": {
+        "subject": "手机内屏的机会卡片",
+        "region": "内屏上部卡片",
+        "framing": "设备全景 → 指定区域特写 → 设备全景",
+        "viewChange": "二维取景近似，缩放原点绑定重点卡片，不宣称真实 Dolly",
+        "context": "返回全景后保留卡片高亮，帮助重新定位"
+      },
+      "continuity": {
+        "relationship": "同一对象换景别",
+        "entryState": "设备整体可见，重点卡片未强调",
+        "exitState": "回到设备整体，重点卡片保留轻量定位标记",
+        "preferredSeam": "保持对象身份、重点区域和画面方向；可直接切或二维推进",
+        "preserve": [
+          "设备方向",
+          "卡片身份",
+          "重点位置"
+        ]
+      },
+      "beats": [
+        {
+          "id": "establish",
+          "label": "建立",
+          "action": "展示设备整体",
+          "fromMs": 0,
+          "toMs": 900
+        },
+        {
+          "id": "focus",
+          "label": "聚焦",
+          "action": "围绕指定卡片改变取景范围",
+          "fromMs": 900,
+          "toMs": 2500
+        },
+        {
+          "id": "inspect",
+          "label": "阅读",
+          "action": "保持局部特写",
+          "fromMs": 2500,
+          "toMs": 4100
+        },
+        {
+          "id": "return",
+          "label": "回归",
+          "action": "返回整体并保留定位线索",
+          "fromMs": 4100,
+          "toMs": 5000
+        },
+        {
+          "id": "hold",
+          "label": "确认",
+          "action": "在整体中确认重点位置",
+          "fromMs": 5000,
+          "toMs": 6200
+        }
+      ],
+      "keyframes": [
+        {
+          "label": "全局",
+          "atMs": 800
+        },
+        {
+          "label": "局部",
+          "atMs": 3200
+        },
+        {
+          "label": "回归",
+          "atMs": 5300
+        }
+      ],
+      "failureExample": "只放大整台设备，却没有把目标区域移到视觉中心，特写仍然无法阅读。",
+      "evidence": {
+        "basis": [
+          "景别与特写",
+          "对象连续性",
+          "二维近似与空间运镜区分"
+        ],
+        "references": [
+          "Grammar of the Shot",
+          "The Five C’s of Cinematography"
+        ],
+        "implementation": "二维视窗推进近似；缩放原点绑定内屏卡片，返回后提供定位标记。",
+        "validation": "浏览器已适配，待实际输出尺寸可读性验证"
+      }
+    },
+    {
+      "id": "combo.card-relay",
+      "name": "旧态 → 变化 → 新态",
+      "template": "card-relay",
+      "goal": "清楚说明同一任务从旧状态变为新状态。",
+      "primaryAction": "旧态退出，新态沿同一方向接力并完成状态确认",
+      "sharedElement": "相同标题基线、任务名称和状态圆点建立对象身份",
+      "durationMs": 5200,
+      "readHoldMs": 1700,
+      "tracks": [
+        {
+          "role": "oldCard",
+          "fromMs": 700,
+          "toMs": 1100,
+          "from": "画面中心",
+          "to": "左侧画外"
+        },
+        {
+          "role": "cardRelay",
+          "fromMs": 700,
+          "toMs": 1900,
+          "from": "右侧画外",
+          "to": "画面中心"
+        },
+        {
+          "role": "terminalState",
+          "fromMs": 1900,
+          "toMs": 3500,
+          "from": "新卡基础态",
+          "to": "新卡完整态"
+        },
+        {
+          "role": "readHold",
+          "fromMs": 3500,
+          "toMs": 5200,
+          "from": "终态",
+          "to": "终态"
+        }
+      ],
+      "formats": [
+        "16:9",
+        "9:16"
+      ],
+      "capability": "production-adapted",
+      "purposeId": "state-change",
+      "purpose": "状态变化",
+      "contentTypes": [
+        "card",
+        "screen"
+      ],
+      "audienceTakeaway": "观众能说出哪个对象发生了什么变化。",
+      "representativeMs": 3800,
+      "conditions": {
+        "requires": [
+          "可识别为同一对象的旧态和新态",
+          "明确的状态差异"
+        ],
+        "avoidWhen": [
+          "前后其实是不同对象",
+          "只靠运动方向暗示因果而没有身份线索"
+        ]
+      },
+      "attention": {
+        "subject": "同一任务卡",
+        "region": "任务名称和状态圆点",
+        "framing": "固定中景",
+        "viewChange": "视窗不动，主体状态沿单一方向替换",
+        "context": "使用同一标题基线维持身份"
+      },
+      "continuity": {
+        "relationship": "同一对象状态变化",
+        "entryState": "等待分析",
+        "exitState": "策略已生成",
+        "preferredSeam": "保持对象身份和运动方向连续",
+        "preserve": [
+          "任务名称",
+          "标题基线",
+          "移动方向"
+        ]
+      },
+      "beats": [
+        {
+          "id": "old",
+          "label": "旧态",
+          "action": "建立等待分析状态",
+          "fromMs": 0,
+          "toMs": 700
+        },
+        {
+          "id": "change",
+          "label": "变化",
+          "action": "旧态退出，新态接力进入",
+          "fromMs": 700,
+          "toMs": 1900
+        },
+        {
+          "id": "confirm",
+          "label": "新态",
+          "action": "新状态完成并确认",
+          "fromMs": 1900,
+          "toMs": 3500
+        },
+        {
+          "id": "hold",
+          "label": "阅读",
+          "action": "保持新态可读",
+          "fromMs": 3500,
+          "toMs": 5200
+        }
+      ],
+      "keyframes": [
+        {
+          "label": "旧态",
+          "atMs": 400
+        },
+        {
+          "label": "变化",
+          "atMs": 1300
+        },
+        {
+          "label": "新态",
+          "atMs": 3800
+        }
+      ],
+      "failureExample": "前后卡片标题不同，却用接力运动让它们看起来像同一对象的状态变化。",
+      "evidence": {
+        "basis": [
+          "对象身份连续性",
+          "画面方向",
+          "状态变化确认"
+        ],
+        "references": [
+          "The Five C’s of Cinematography"
+        ],
+        "implementation": "两个 DOM 节点表达前后状态，通过任务名称和几何基线维持身份。",
+        "validation": "浏览器已适配，待真实业务状态验证"
+      }
+    },
+    {
+      "formats": [
+        "16:9",
+        "9:16"
+      ],
+      "capability": "production-adapted",
+      "id": "combo.before-after-confirm",
+      "name": "前后对比 → 差异确认",
+      "template": "before-after-confirm",
+      "purposeId": "comparison",
+      "purpose": "前后比较",
+      "contentTypes": [
+        "card",
+        "screen",
+        "chart"
+      ],
+      "goal": "在可比条件一致时展示改进，并把注意力停在真实差异上。",
+      "audienceTakeaway": "观众能指出前后哪一项不同，以及为什么更好。",
+      "primaryAction": "同构前后画面在固定视角下完成揭示，再标记真实差异",
+      "sharedElement": "布局、尺度、数据口径和观察视角保持一致",
+      "durationMs": 5600,
+      "readHoldMs": 1600,
+      "representativeMs": 4200,
+      "conditions": {
+        "requires": [
+          "前后素材使用相同布局和尺度",
+          "差异来自真实状态或数据"
+        ],
+        "avoidWhen": [
+          "为了显得更好而故意降低旧版质量",
+          "前后数据口径或视角不同"
+        ]
+      },
+      "attention": {
+        "subject": "前后画面中的同一指标",
+        "region": "完成速度和信息层级",
+        "framing": "固定同构双栏",
+        "viewChange": "不改变视角，只移动比较分界并强调差异",
+        "context": "前后标签和相同刻度始终可见"
+      },
+      "continuity": {
+        "relationship": "展示可比结果",
+        "entryState": "旧态完整可见",
+        "exitState": "新态完整可见，差异标记保留",
+        "preferredSeam": "一致布局、尺度、位置；无需装饰性转场",
+        "preserve": [
+          "画面尺度",
+          "指标口径",
+          "主体位置"
+        ]
+      },
+      "beats": [
+        {
+          "id": "baseline",
+          "label": "基线",
+          "action": "建立旧态和比较条件",
+          "fromMs": 0,
+          "toMs": 1000
+        },
+        {
+          "id": "compare",
+          "label": "比较",
+          "action": "揭示同构新态",
+          "fromMs": 1000,
+          "toMs": 2800
+        },
+        {
+          "id": "confirm",
+          "label": "确认",
+          "action": "标记真实差异",
+          "fromMs": 2800,
+          "toMs": 4000
+        },
+        {
+          "id": "hold",
+          "label": "阅读",
+          "action": "保持前后和差异同时可读",
+          "fromMs": 4000,
+          "toMs": 5600
+        }
+      ],
+      "keyframes": [
+        {
+          "label": "基线",
+          "atMs": 800
+        },
+        {
+          "label": "对比",
+          "atMs": 2500
+        },
+        {
+          "label": "确认",
+          "atMs": 4200
+        }
+      ],
+      "failureExample": "旧版故意使用更小字号和更暗颜色，造成不可归因的虚假优势。",
+      "evidence": {
+        "basis": [
+          "可比条件",
+          "固定视角",
+          "差异确认"
+        ],
+        "references": [
+          "video-shotcraft: before-after-slider-scrub",
+          "Grammar of the Shot"
+        ],
+        "implementation": "DOM 双栏与确定性分界；不依赖拖拽交互。",
+        "validation": "浏览器已适配，待跨产品素材实验"
+      },
+      "tracks": [
+        {
+          "role": "compareBase",
+          "fromMs": 0,
+          "toMs": 1000,
+          "from": "比较画面 / 透明",
+          "to": "旧态完整可见"
+        },
+        {
+          "role": "compareReveal",
+          "fromMs": 1000,
+          "toMs": 2800,
+          "from": "旧态",
+          "to": "前后同构对比"
+        },
+        {
+          "role": "differenceConfirm",
+          "fromMs": 2800,
+          "toMs": 4000,
+          "from": "无标记",
+          "to": "真实差异标记"
+        },
+        {
+          "role": "readHold",
+          "fromMs": 4000,
+          "toMs": 5600,
+          "from": "终态",
+          "to": "终态"
+        }
+      ]
+    },
+    {
+      "formats": [
+        "16:9",
+        "9:16"
+      ],
+      "capability": "production-adapted",
+      "id": "combo.overview-select-detail",
+      "name": "总览 → 选择 → 详情",
+      "template": "overview-select-detail",
+      "purposeId": "hierarchy-navigation",
+      "purpose": "层级导航",
+      "contentTypes": [
+        "card",
+        "screen"
+      ],
+      "goal": "说明为什么进入某一项，并在详情中保留它来自总览的定位线索。",
+      "audienceTakeaway": "观众知道选择了哪一项，以及详情属于谁。",
+      "primaryAction": "总览中的选中项获得明确状态，详情随后接管主区域",
+      "sharedElement": "选中项的名称、颜色和标识在详情中保持一致",
+      "durationMs": 6000,
+      "readHoldMs": 1600,
+      "representativeMs": 4600,
+      "conditions": {
+        "requires": [
+          "总览中存在可辨认的选中项",
+          "详情能保留选中项身份"
+        ],
+        "avoidWhen": [
+          "详情与选中项名称不一致",
+          "选中状态尚未建立就切到详情"
+        ]
+      },
+      "attention": {
+        "subject": "被选择的总览项",
+        "region": "选中行和详情标题",
+        "framing": "总览中景 → 选择确认 → 详情中景",
+        "viewChange": "总览轻退，详情从同一注意力位置进入",
+        "context": "保留返回线索和选中项标签"
+      },
+      "continuity": {
+        "relationship": "同一对象进入详情",
+        "entryState": "总览三项可见",
+        "exitState": "所选项详情可见且身份明确",
+        "preferredSeam": "选中状态先成立，再直接切换或共享元素衔接",
+        "preserve": [
+          "名称",
+          "颜色",
+          "选中标识",
+          "注意力位置"
+        ]
+      },
+      "beats": [
+        {
+          "id": "overview",
+          "label": "总览",
+          "action": "建立可选项及层级",
+          "fromMs": 0,
+          "toMs": 1200
+        },
+        {
+          "id": "select",
+          "label": "选择",
+          "action": "明确选中机会扫描",
+          "fromMs": 1200,
+          "toMs": 2600
+        },
+        {
+          "id": "detail",
+          "label": "详情",
+          "action": "详情接管并保留身份",
+          "fromMs": 2700,
+          "toMs": 4400
+        },
+        {
+          "id": "hold",
+          "label": "阅读",
+          "action": "保持详情和返回线索可读",
+          "fromMs": 4400,
+          "toMs": 6000
+        }
+      ],
+      "keyframes": [
+        {
+          "label": "总览",
+          "atMs": 900
+        },
+        {
+          "label": "选择",
+          "atMs": 2200
+        },
+        {
+          "label": "详情",
+          "atMs": 4600
+        }
+      ],
+      "failureExample": "总览选中“机会扫描”，详情标题却变成“账户诊断”，对象身份在切换时断裂。",
+      "evidence": {
+        "basis": [
+          "对象身份连续性",
+          "注意力位置延续",
+          "为剪辑建立出口状态"
+        ],
+        "references": [
+          "The Five C’s of Cinematography",
+          "Grammar of the Shot"
+        ],
+        "implementation": "DOM 总览与详情双节点；选中身份通过文本、颜色和标识连续。",
+        "validation": "浏览器已适配，待跨产品层级导航实验"
+      },
+      "tracks": [
+        {
+          "role": "overviewEnter",
+          "fromMs": 0,
+          "toMs": 1200,
+          "from": "总览 / 透明",
+          "to": "总览 / 可见"
+        },
+        {
+          "role": "itemSelect",
+          "fromMs": 1200,
+          "toMs": 2600,
+          "from": "无选中项",
+          "to": "机会扫描已选中"
+        },
+        {
+          "role": "detailEnter",
+          "fromMs": 2700,
+          "toMs": 4400,
+          "from": "总览",
+          "to": "详情接管主区域"
+        },
+        {
+          "role": "readHold",
+          "fromMs": 4400,
+          "toMs": 6000,
+          "from": "终态",
+          "to": "终态"
+        }
+      ]
+    }
+  ],
+  "facets": {
+    "purposes": [
+      {
+        "id": "claim-proof",
+        "name": "主张与证据"
+      },
+      {
+        "id": "operation-result",
+        "name": "操作与结果"
+      },
+      {
+        "id": "focus-context",
+        "name": "重点与上下文"
+      },
+      {
+        "id": "state-change",
+        "name": "状态变化"
+      },
+      {
+        "id": "comparison",
+        "name": "前后比较"
+      },
+      {
+        "id": "hierarchy-navigation",
+        "name": "层级导航"
+      }
+    ],
+    "contentTypes": [
+      {
+        "id": "text",
+        "name": "文字"
+      },
+      {
+        "id": "card",
+        "name": "卡片"
+      },
+      {
+        "id": "screen",
+        "name": "界面/设备"
+      },
+      {
+        "id": "chart",
+        "name": "图表"
+      }
+    ],
+    "formats": [
+      "16:9",
+      "9:16"
+    ],
+    "capabilities": [
+      "production-adapted",
+      "production-verified"
+    ]
+  }
+}

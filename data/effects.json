@@ -1,0 +1,3354 @@
+{
+  "version": "0.3.0",
+  "updated": "2026-09-18",
+  "source": "《网页动效提示词词典》上/中/下 · Punk · 得到大脑 2026-09-17",
+  "note": "第三层·动效类型（nature=effect）+ 基础原理（principle）+ 第四层·UX 规则（rule）。每个条目描述「画面具体怎么动」，不含触发方式（见 triggers.json）。制作动效视频时，先按 scenarios.json 选类，再按本表取参数与提示词；具体运行值见 presets.json。",
+  "scenarioKeys": [
+    "text",
+    "bg",
+    "card",
+    "screen",
+    "chart"
+  ],
+  "effects": [
+    {
+      "id": "handling.easing",
+      "no": 1,
+      "zh": "缓动",
+      "en": "Easing",
+      "group": "手感控制",
+      "layer": "动效类型",
+      "nature": "principle",
+      "trigger": [
+        "all"
+      ],
+      "core": "决定动画怎样加速和减速。完全匀速的物体看起来像被机器拖动。",
+      "variants": [
+        "Linear 匀速 → 进度条、持续旋转、跑马灯",
+        "Ease-in 慢慢加速 → 元素离开画面",
+        "Ease-out 开始快、结束慢 → 按钮与内容进入（最常用）",
+        "Ease-in-out 两头慢、中间快 → 来回移动与状态切换",
+        "Cubic-bezier 自定义曲线 → 品牌专属手感"
+      ],
+      "fits": [
+        "几乎所有移动、缩放、显隐动画",
+        "刚上手先统一用 ease-out，通常比匀速自然"
+      ],
+      "avoid": [
+        "全站所有动画用同一条曲线",
+        "UI 位移用纯 linear"
+      ],
+      "scenarios": {
+        "text": "good",
+        "bg": "good",
+        "card": "good",
+        "screen": "good",
+        "chart": "good"
+      },
+      "render": "deterministic",
+      "shotRoles": [
+        "all"
+      ],
+      "timing": {
+        "duration_ms": [
+          160,
+          800
+        ],
+        "easing": "ease-out",
+        "note": "ease-out 的收尾至少留 6 帧（24fps），否则观感像被截断"
+      },
+      "prompt": "页面内容进入时使用柔和的减速缓动（ease-out），开始响应要及时，结束时慢慢停稳。持续旋转和进度动画保持匀速（linear），不要让所有动画使用同一条曲线。",
+      "video": "缓动不增加成本，但决定成片「贵不贵」。24fps 下 ease-out 尾段建议 ≥6 帧；长转场用 cubic-bezier 对齐品牌节奏。",
+      "demo": "handling",
+      "demoVariant": "easing",
+      "cases": []
+    },
+    {
+      "id": "handling.duration",
+      "no": 2,
+      "zh": "时长",
+      "en": "Duration",
+      "group": "手感控制",
+      "layer": "动效类型",
+      "nature": "principle",
+      "trigger": [
+        "all"
+      ],
+      "core": "一次动画从开始到结束持续多久。按钮和图标要迅速反馈，弹窗和卡片可以稍慢，大图揭示和页面转场还能再柔和一点。",
+      "variants": [
+        "短促 → 按钮、图标、开关、按下反馈",
+        "适中 → 卡片进入、菜单展开、弹窗出现",
+        "偏慢 → 大图揭示、品牌首屏、页面转场"
+      ],
+      "fits": [
+        "所有动画",
+        "页面里应该有统一的快慢关系"
+      ],
+      "avoid": [
+        "同一个按钮很快、旁边一个按钮慢吞吞",
+        "为了「高级感」把常用交互拖到 1 秒以上"
+      ],
+      "scenarios": {
+        "text": "good",
+        "bg": "good",
+        "card": "good",
+        "screen": "good",
+        "chart": "good"
+      },
+      "render": "deterministic",
+      "shotRoles": [
+        "all"
+      ],
+      "timing": {
+        "duration_ms": [
+          120,
+          1200
+        ],
+        "note": "三档：短促 120–200ms / 适中 240–400ms / 偏慢 600–1200ms"
+      },
+      "prompt": "请为页面建立统一的动画时长：按钮和图标短促，卡片与菜单适中，主视觉揭示稍慢。先使用常见网页参数，保证连续操作时不会让用户等待。",
+      "video": "视频里时长直接等于帧数：24fps 下每 1 秒 = 24 帧。写 ShotSpec 时把 durationFrames 定死，不要让实现层自己取整。",
+      "demo": "handling",
+      "demoVariant": "duration",
+      "cases": []
+    },
+    {
+      "id": "handling.delay",
+      "no": 3,
+      "zh": "延迟",
+      "en": "Delay",
+      "group": "手感控制",
+      "layer": "动效类型",
+      "nature": "principle",
+      "trigger": [
+        "all"
+      ],
+      "core": "触发后先等待一会儿再开始播放，常用来建立阅读顺序。",
+      "variants": [
+        "标题出现后，正文稍晚开始",
+        "弹窗背景先变暗，弹窗内容随后出现",
+        "图片加载完成后，文字再显现",
+        "页面转场结束后，再播放新页面内容"
+      ],
+      "fits": [
+        "少量元素之间的先后关系"
+      ],
+      "avoid": [
+        "按钮点击、加载、错误反馈加延迟（用户会以为卡住）",
+        "延迟超过 300ms 又被反复触发"
+      ],
+      "scenarios": {
+        "text": "good",
+        "bg": "caution",
+        "card": "good",
+        "screen": "caution",
+        "chart": "good"
+      },
+      "render": "deterministic",
+      "shotRoles": [
+        "opening-title",
+        "hero",
+        "lower-third"
+      ],
+      "timing": {
+        "duration_ms": [
+          60,
+          300
+        ],
+        "note": "超过 300ms 用户会感知为「卡了一下」"
+      },
+      "prompt": "首屏按照阅读顺序进入：主标题先出现，说明文字经过短暂延迟（Delay）后出现，按钮最后进入。延迟只用于建立层级，不能让用户明显感觉在等待。",
+      "video": "Delay 在视频里就是「错位帧数」。建议写成 stagger 的一部分而不是独立 delay，这样整组可以整体拉伸或压缩。",
+      "demo": "handling",
+      "demoVariant": "delay",
+      "cases": []
+    },
+    {
+      "id": "handling.stagger",
+      "no": 4,
+      "zh": "交错出现",
+      "en": "Stagger",
+      "group": "手感控制",
+      "layer": "动效类型",
+      "nature": "effect",
+      "trigger": [
+        "in-view",
+        "load",
+        "click"
+      ],
+      "core": "一组相似元素依次开始动画。Delay 控制一个元素等多久，Stagger 给列表里每个元素自动错开。",
+      "variants": [
+        "卡片从左到右依次出现",
+        "列表从上到下依次出现",
+        "导航菜单逐项展开",
+        "标题按行、按词或按字符出现",
+        "数据柱按照顺序增长"
+      ],
+      "fits": [
+        "卡片列表、菜单、照片墙、数据面板、步骤流程、文字标题"
+      ],
+      "avoid": [
+        "间隔太大（会变成排队等候）",
+        "每张卡片还有自己的主动作（会互相打架）"
+      ],
+      "scenarios": {
+        "text": "good",
+        "bg": "avoid",
+        "card": "core",
+        "screen": "good",
+        "chart": "core"
+      },
+      "render": "deterministic",
+      "shotRoles": [
+        "card-grid",
+        "list",
+        "menu"
+      ],
+      "timing": {
+        "duration_ms": [
+          400,
+          700
+        ],
+        "stagger_ms": [
+          40,
+          80
+        ],
+        "note": "整组总时长建议 ≤1.6 秒，超过就要压缩间隔"
+      },
+      "prompt": "让六张卡片交错出现（Stagger），按照从左到右、从上到下的阅读顺序依次进入。相邻卡片只保留很短的间隔，整组动画连贯、轻快。",
+      "video": "交错是「一次动作」而不是「六次动作」。写成 stagger 后，改卡片数量只需要改一个数，不会牵动整条时间线——这正是混合架构的价值。",
+      "demo": "handling",
+      "demoVariant": "stagger",
+      "cases": []
+    },
+    {
+      "id": "handling.spring",
+      "no": 5,
+      "zh": "弹簧动画",
+      "en": "Spring",
+      "group": "手感控制",
+      "layer": "动效类型",
+      "nature": "effect",
+      "trigger": [
+        "click",
+        "gesture",
+        "state",
+        "load"
+      ],
+      "core": "模拟物体的惯性和回弹，比普通缓动更有重量。",
+      "variants": [
+        "少量回弹：越过终点一点，很快停稳",
+        "偏硬：响应快，适合按钮和开关",
+        "偏软：移动柔和，适合卡片和拖拽回位",
+        "果冻感：来回弹动明显，只适合少量趣味页面"
+      ],
+      "fits": [
+        "拖拽、吸附、弹窗、开关、按钮和带重量感的组件"
+      ],
+      "avoid": [
+        "长正文和大面积背景到处弹",
+        "在严肃的金融/工具界面用果冻感"
+      ],
+      "scenarios": {
+        "text": "caution",
+        "bg": "avoid",
+        "card": "good",
+        "screen": "core",
+        "chart": "avoid"
+      },
+      "render": "deterministic",
+      "shotRoles": [
+        "ui-demo",
+        "card",
+        "modal"
+      ],
+      "timing": {
+        "duration_ms": [
+          200,
+          500
+        ],
+        "note": "描述时只说「少量回弹」「快速停稳」「不要果冻感」，让实现层选参数"
+      },
+      "prompt": "弹窗出现时使用弹簧动画（Spring），保留一点重量感和很小的回弹，随后快速停稳。不要产生夸张的果冻效果。",
+      "video": "弹簧按物理模拟推进，不是固定时长。做视频时必须先跑一遍测出「感知完成帧」，再把这个帧数写进 ShotSpec，否则每次渲染尾帧都不一样。",
+      "demo": "handling",
+      "demoVariant": "spring",
+      "cases": []
+    },
+    {
+      "id": "enter.fade",
+      "no": 6,
+      "zh": "淡入与淡出",
+      "en": "Fade in / Fade out",
+      "group": "内容进出",
+      "layer": "动效类型",
+      "nature": "effect",
+      "trigger": [
+        "in-view",
+        "load",
+        "state",
+        "click"
+      ],
+      "core": "通过透明度变化让元素出现或消失。最稳妥，但也最缺层次。",
+      "variants": [
+        "页面内容淡入",
+        "弹窗背景淡入",
+        "提示气泡淡入淡出",
+        "图片切换时旧图淡出",
+        "轻提示停留后淡出"
+      ],
+      "fits": [
+        "页面加载、弹窗、菜单、图片、提示和状态切换"
+      ],
+      "avoid": [
+        "整页所有元素同时淡入（就是模板感的来源）",
+        "整个网站只用 Fade"
+      ],
+      "scenarios": {
+        "text": "core",
+        "bg": "good",
+        "card": "core",
+        "screen": "good",
+        "chart": "good"
+      },
+      "render": "deterministic",
+      "shotRoles": [
+        "all"
+      ],
+      "timing": {
+        "duration_ms": [
+          200,
+          500
+        ],
+        "easing": "ease-out",
+        "note": "淡出比淡入更快（约 0.7 倍）"
+      },
+      "prompt": "页面内容使用柔和的淡入（Fade in）。标题先出现，正文随后淡入；关闭弹窗时使用更快的淡出（Fade out）。避免整页所有元素同时显现。",
+      "video": "透明度动画在视频压缩下最容易出 banding。暗背景上的淡入建议叠加极轻的噪点或 dither，避免出现色带。",
+      "demo": "enter",
+      "demoVariant": "fade",
+      "cases": []
+    },
+    {
+      "id": "enter.crossfade",
+      "no": 7,
+      "zh": "交叉淡化",
+      "en": "Crossfade",
+      "group": "内容进出",
+      "layer": "动效类型",
+      "nature": "effect",
+      "trigger": [
+        "state",
+        "click",
+        "timer",
+        "in-view"
+      ],
+      "core": "旧内容淡出的同时新内容淡入，两个画面短暂重叠，因此比「先消失再出现」更连贯。",
+      "variants": [
+        "两张图片交叉淡化",
+        "标签页内容切换",
+        "产品配色预览切换",
+        "背景图或背景颜色渐变切换",
+        "音乐封面和播放信息更新"
+      ],
+      "fits": [
+        "两个位置相同、内容不同的状态"
+      ],
+      "avoid": [
+        "新旧内容尺寸差异很大却不做布局过渡（容器会突然跳动）",
+        "在文字上用长时交叉淡化（叠字期间会读不清）"
+      ],
+      "scenarios": {
+        "text": "caution",
+        "bg": "core",
+        "card": "good",
+        "screen": "good",
+        "chart": "good"
+      },
+      "render": "deterministic",
+      "shotRoles": [
+        "section-transition",
+        "background",
+        "gallery"
+      ],
+      "timing": {
+        "duration_ms": [
+          240,
+          600
+        ],
+        "easing": "ease-in-out",
+        "note": "重叠期不要超过 300ms，否则文字会双层可读"
+      },
+      "prompt": "切换标签页时使用交叉淡化（Crossfade）：旧内容淡出的同时，新内容在相同位置淡入。保持容器高度稳定，快速切换时取消上一段未完成动画。",
+      "video": "两个镜头做 crossfade 时，必须各自留 handles，否则淡出的那一侧会缺帧。建议前后各 12 帧。",
+      "demo": "enter",
+      "demoVariant": "crossfade",
+      "cases": []
+    },
+    {
+      "id": "enter.slide",
+      "no": 8,
+      "zh": "滑入与滑出",
+      "en": "Slide in / Slide out",
+      "group": "内容进出",
+      "layer": "动效类型",
+      "nature": "effect",
+      "trigger": [
+        "in-view",
+        "click",
+        "state",
+        "route"
+      ],
+      "core": "元素从上、下、左、右某个方向进入或离开，方向传达空间关系。",
+      "variants": [
+        "Slide up 从下方进入",
+        "Slide down 从上方展开",
+        "Slide from left 从左侧进入",
+        "Slide from right 从右侧进入",
+        "Drawer slide 抽屉菜单滑入"
+      ],
+      "fits": [
+        "菜单、侧边栏、底部面板、轮播、章节标题和步骤切换"
+      ],
+      "avoid": [
+        "位移方向与组件所在位置不一致（右侧抽屉从左滑入）",
+        "位移幅度过大，内容飞得很远"
+      ],
+      "scenarios": {
+        "text": "good",
+        "bg": "good",
+        "card": "core",
+        "screen": "core",
+        "chart": "caution"
+      },
+      "render": "deterministic",
+      "shotRoles": [
+        "card",
+        "panel",
+        "section-title"
+      ],
+      "timing": {
+        "duration_ms": [
+          240,
+          480
+        ],
+        "easing": "ease-out",
+        "note": "位移量控制在元素自身宽高的 10–25%"
+      },
+      "prompt": "移动端菜单从右侧滑入（Slide in），关闭时沿原方向滑出（Slide out）；章节标题从下方轻微滑入。保持位移克制，让用户看得出方向即可。",
+      "video": "位移播完后卡住最省事。注意滑入类动效起始帧在画外，做 9:16 竖版时要单独检查安全区，避免元素从圆角外露出来。",
+      "demo": "enter",
+      "demoVariant": "slide",
+      "cases": []
+    },
+    {
+      "id": "enter.scale",
+      "no": 9,
+      "zh": "缩放进入与离开",
+      "en": "Scale in / Scale out",
+      "group": "内容进出",
+      "layer": "动效类型",
+      "nature": "effect",
+      "trigger": [
+        "click",
+        "state",
+        "in-view",
+        "load"
+      ],
+      "core": "通过大小变化表现元素出现、强调或关闭。",
+      "variants": [
+        "弹窗从小到正常尺寸",
+        "按钮按下时轻微缩小",
+        "图片从缩略图放大",
+        "成功图标弹出",
+        "菜单从触发点展开"
+      ],
+      "fits": [
+        "弹窗、图片预览、按钮、菜单和成功提示"
+      ],
+      "avoid": [
+        "长段文字频繁缩放（影响阅读稳定性）",
+        "文字跟着大幅缩放（会模糊）"
+      ],
+      "scenarios": {
+        "text": "good",
+        "bg": "good",
+        "card": "core",
+        "screen": "good",
+        "chart": "good"
+      },
+      "render": "deterministic",
+      "shotRoles": [
+        "card",
+        "modal",
+        "hero"
+      ],
+      "timing": {
+        "duration_ms": [
+          180,
+          420
+        ],
+        "easing": "ease-out",
+        "note": "起点不要小于 0.85，否则像「弹出来」而不是「长出来」"
+      },
+      "prompt": "弹窗使用缩放进入（Scale in）配合淡入，从较小尺寸自然回到正常大小；关闭时快速缩小并淡出。按钮按下只保留轻微缩放反馈。",
+      "video": "缩放必须用 transform 而不是改宽高，否则文字会按帧重排、抖动。视频渲染里这一步做错，整段素材只能重做。",
+      "demo": "enter",
+      "demoVariant": "scale",
+      "cases": []
+    },
+    {
+      "id": "enter.blur-reveal",
+      "no": 10,
+      "zh": "模糊显现",
+      "en": "Blur reveal",
+      "group": "内容进出",
+      "layer": "动效类型",
+      "nature": "effect",
+      "trigger": [
+        "in-view",
+        "load",
+        "scroll",
+        "state"
+      ],
+      "core": "元素先处于模糊状态，再逐渐恢复清晰，通常配合淡入和少量移动。",
+      "variants": [
+        "标题从模糊变清晰",
+        "图片加载完成后去除模糊",
+        "多行文字依次聚焦",
+        "背景从虚化状态恢复清楚",
+        "页面切换时旧内容逐渐失焦"
+      ],
+      "fits": [
+        "大标题、摄影作品、产品主视觉和少量重点内容"
+      ],
+      "avoid": [
+        "整页文字都使用模糊（增加渲染压力、拖慢阅读）",
+        "把模糊当遮罩用来藏内容"
+      ],
+      "scenarios": {
+        "text": "core",
+        "bg": "caution",
+        "card": "good",
+        "screen": "caution",
+        "chart": "caution"
+      },
+      "render": "shader",
+      "shotRoles": [
+        "opening-title",
+        "hero",
+        "image"
+      ],
+      "timing": {
+        "duration_ms": [
+          400,
+          900
+        ],
+        "easing": "ease-out",
+        "note": "起始 blur 建议 8–16px，超过 24px 在视频里会出现明显阶跃"
+      },
+      "prompt": "首屏标题使用模糊显现（Blur reveal），从轻微模糊逐渐变清晰，同时淡入并小幅上移。只用于主标题和重点图片，正文保持稳定清晰。",
+      "video": "大半径模糊在 24fps 下逐帧重算代价高。做视频时优先用确定性渲染并预热，或直接预渲成序列帧以换取稳定帧率。",
+      "demo": "enter",
+      "demoVariant": "blur",
+      "cases": []
+    },
+    {
+      "id": "enter.clip-path-reveal",
+      "no": 11,
+      "zh": "裁剪揭示",
+      "en": "Clip-path reveal",
+      "group": "内容进出",
+      "layer": "动效类型",
+      "nature": "effect",
+      "trigger": [
+        "in-view",
+        "load",
+        "hover",
+        "click"
+      ],
+      "core": "改变一个裁剪区域，让内容从某个方向或形状中逐步露出来，像打开一扇窗——窗外的图片一直在，只是可见范围扩大。",
+      "variants": [
+        "从左到右展开",
+        "从下到上露出",
+        "从中央向两侧打开",
+        "圆形区域向外扩张",
+        "多边形裁剪逐渐变成完整矩形"
+      ],
+      "fits": [
+        "产品图片、作品集、品牌首屏、章节封面和重点标题"
+      ],
+      "avoid": [
+        "普通信息卡片大量使用（显得太重）",
+        "几何边界需要柔和时用 Clip-path（那是 Mask 的活）"
+      ],
+      "scenarios": {
+        "text": "core",
+        "bg": "good",
+        "card": "good",
+        "screen": "caution",
+        "chart": "core"
+      },
+      "render": "deterministic",
+      "shotRoles": [
+        "hero",
+        "image",
+        "section-cover"
+      ],
+      "timing": {
+        "duration_ms": [
+          400,
+          800
+        ],
+        "easing": "ease-in-out",
+        "note": "方向必须与阅读/运动方向一致，否则观众读不出「在揭示」"
+      },
+      "prompt": "主视觉图片使用裁剪揭示（Clip-path reveal），从左向右平滑展开。图片本身保持稳定，只改变可见区域；效果干净，不叠加旋转和夸张缩放。",
+      "video": "记得同时处理动效的起点帧——从 0 宽度开始会让第一帧完全空白，剪进时间线时容易出现一帧黑场。建议起始 4%。",
+      "demo": "enter",
+      "demoVariant": "clip-path-reveal",
+      "cases": []
+    },
+    {
+      "id": "enter.mask-reveal",
+      "no": 12,
+      "zh": "蒙版显现",
+      "en": "Mask reveal",
+      "group": "内容进出",
+      "layer": "动效类型",
+      "nature": "effect",
+      "trigger": [
+        "in-view",
+        "load",
+        "scroll",
+        "hover"
+      ],
+      "core": "通过蒙版的透明区域控制内容哪里可见。与 Clip-path 都能揭示内容，但 Mask 能用渐变、纹理和柔和边缘。",
+      "variants": [
+        "渐变蒙版从一侧扫过",
+        "光线扫过后露出文字",
+        "墨迹或笔刷形状揭示图片",
+        "噪点逐渐消散",
+        "柔边圆形区域向外扩散"
+      ],
+      "fits": [
+        "品牌视觉、海报式网页、摄影、艺术作品集和产品主视觉"
+      ],
+      "avoid": [
+        "需要清楚几何边界时（改用 Clip-path）",
+        "在移动端大量使用（性能与可读性都吃亏）"
+      ],
+      "scenarios": {
+        "text": "good",
+        "bg": "core",
+        "card": "good",
+        "screen": "avoid",
+        "chart": "good"
+      },
+      "render": "shader",
+      "shotRoles": [
+        "hero",
+        "section-cover",
+        "background"
+      ],
+      "timing": {
+        "duration_ms": [
+          500,
+          1100
+        ],
+        "easing": "ease-in-out",
+        "note": "柔边宽度建议 ≥ 画面短边的 6%，否则看起来像 Clip-path"
+      },
+      "prompt": "图片使用蒙版显现（Mask reveal），通过柔和渐变蒙版从中央向外显现。边缘保持自然，不要出现生硬矩形；只用于主视觉区域。",
+      "video": "光扫类蒙版最容易在视频压缩后丢失渐变层次，导出时提高码率或改用 ProRes 中间层再做交付编码。",
+      "demo": "enter",
+      "demoVariant": "mask-reveal",
+      "cases": []
+    },
+    {
+      "id": "enter.wipe",
+      "no": 13,
+      "zh": "擦除转场",
+      "en": "Wipe transition",
+      "group": "内容进出",
+      "layer": "动效类型",
+      "nature": "effect",
+      "trigger": [
+        "route",
+        "click",
+        "scroll"
+      ],
+      "core": "一个色块、遮罩或画面沿某个方向扫过，把旧内容盖住并带出新内容，强调方向感和切换动作。",
+      "variants": [
+        "从左向右擦过",
+        "从上向下覆盖",
+        "两个色块从两侧合拢",
+        "对角线扫过",
+        "圆形区域扩张覆盖全屏"
+      ],
+      "fits": [
+        "页面切换、作品集项目、大图轮播、品牌章节和视频式叙事"
+      ],
+      "avoid": [
+        "功能型页面频繁使用（切换会显得很重）",
+        "转场时间超过 0.8 秒"
+      ],
+      "scenarios": {
+        "text": "caution",
+        "bg": "core",
+        "card": "caution",
+        "screen": "caution",
+        "chart": "caution"
+      },
+      "render": "shader",
+      "shotRoles": [
+        "section-transition",
+        "act-break"
+      ],
+      "timing": {
+        "duration_ms": [
+          300,
+          800
+        ],
+        "easing": "ease-in-out",
+        "note": "快节奏内容压到 0.4 秒以内"
+      },
+      "prompt": "章节切换时使用擦除转场（Wipe transition）：一个纯色遮罩从左向右扫过，覆盖旧内容后带出新内容。动作清楚、节奏利落，用户快速导航时允许跳过。",
+      "video": "Wipe 是混合架构里最实用的缝合件——它能让 HTML 层的镜头和生成层的镜头看起来像同一部片。色块建议取自品牌色，扫过速度全程一致。",
+      "demo": "enter",
+      "demoVariant": "wipe",
+      "cases": []
+    },
+    {
+      "id": "enter.draw-on",
+      "no": 14,
+      "zh": "逐笔绘制",
+      "en": "Draw-on",
+      "group": "内容进出",
+      "layer": "动效类型",
+      "nature": "effect",
+      "trigger": [
+        "route",
+        "load",
+        "click"
+      ],
+      "core": "矢量描边（图标、图形、曲线或文字）按真实运笔顺序逐笔生长，像手绘一样从无到有，而不是整体淡入；末帧等于完成态。",
+      "variants": [
+        "图标/勾选逐笔绘制",
+        "数据曲线沿坐标生长",
+        "签名/手写文字写出",
+        "logo 描边揭示"
+      ],
+      "fits": [
+        "成功或完成状态、logo 出现、数据曲线绘制、手绘/品牌风格、需要强调“被完成”的时刻"
+      ],
+      "avoid": [
+        "写实照片或需要批量出现的列表",
+        "时长过短（<0.6 秒看不出逐笔顺序）"
+      ],
+      "scenarios": {
+        "text": "caution",
+        "bg": "avoid",
+        "card": "caution",
+        "screen": "caution",
+        "chart": "core"
+      },
+      "render": "deterministic",
+      "shotRoles": [
+        "state-feedback",
+        "brand-reveal"
+      ],
+      "timing": {
+        "duration_ms": [
+          600,
+          1700
+        ],
+        "easing": "spring",
+        "note": "各笔触按顺序 stagger，弹簧只允许轻微过冲"
+      },
+      "prompt": "出现时使用逐笔绘制（Draw-on）：让矢量描边按真实运笔顺序一笔一笔生长，像手画出来一样，而不是整体淡入。先画外轮廓，再画内部细节，末帧停在完整图形。",
+      "video": "逐笔绘制给“被完成”的时刻带来确定感：圆形、勾选、曲线都可以沿路径揭示。关键是顺序——外轮廓先于内部细节，且每笔之间留一点点停顿，不要所有笔画同时生长。",
+      "demo": "enter",
+      "demoVariant": "draw-on",
+      "cases": []
+    },
+    {
+      "id": "text.line-reveal",
+      "no": 15,
+      "zh": "按行显现",
+      "en": "Line reveal",
+      "group": "文字动效",
+      "layer": "动效类型",
+      "nature": "effect",
+      "trigger": [
+        "in-view",
+        "load"
+      ],
+      "core": "把标题或段落拆成多行，每一行分别进入。保留了完整语句，比逐字动画更容易阅读。",
+      "variants": [
+        "多行标题从下向上依次出现",
+        "每行从裁剪窗口中升起",
+        "当前行清晰，下一行稍后显现",
+        "多行文字轻微交错淡入"
+      ],
+      "fits": [
+        "两到五行的大标题、引言、章节标题和品牌文案"
+      ],
+      "avoid": [
+        "正文很多时全篇使用（只给开头几行用）",
+        "行数超过 5 行还用逐行动效"
+      ],
+      "scenarios": {
+        "text": "core",
+        "bg": "avoid",
+        "card": "good",
+        "screen": "good",
+        "chart": "core"
+      },
+      "render": "deterministic",
+      "shotRoles": [
+        "opening-title",
+        "section-title",
+        "quote"
+      ],
+      "timing": {
+        "duration_ms": [
+          500,
+          900
+        ],
+        "stagger_ms": [
+          80,
+          140
+        ],
+        "easing": "ease-out"
+      },
+      "prompt": "主标题使用按行显现（Line reveal）。每行从下方轻微进入，按照阅读顺序依次出现；保持句子完整，不要拆成单个字符。",
+      "video": "最安全的高级感来源。断行位置要在 ShotSpec 里写死，交给渲染器自动换行会因为字体度量差异换出不同的行——这是最常见的「预览和成片不一样」。",
+      "demo": "text",
+      "demoVariant": "line-reveal",
+      "cases": []
+    },
+    {
+      "id": "text.word-reveal",
+      "no": 16,
+      "zh": "按词显现",
+      "en": "Word reveal",
+      "group": "文字动效",
+      "layer": "动效类型",
+      "nature": "effect",
+      "trigger": [
+        "in-view",
+        "load"
+      ],
+      "core": "把一句话拆成多个词，每个词依次或分组出现。比按行更有节奏，又比逐字符更容易读。",
+      "variants": [
+        "每个词依次淡入",
+        "关键词先出现，其他词随后补齐",
+        "每个词从下方轻微进入",
+        "词语从模糊逐渐变清晰"
+      ],
+      "fits": [
+        "简短标题、口号、数据结论和重点句"
+      ],
+      "avoid": [
+        "长段落按词播放",
+        "中文不指定分组方式（AI 切词常不合理）"
+      ],
+      "scenarios": {
+        "text": "core",
+        "bg": "avoid",
+        "card": "caution",
+        "screen": "caution",
+        "chart": "good"
+      },
+      "render": "deterministic",
+      "shotRoles": [
+        "opening-title",
+        "quote",
+        "data-callout"
+      ],
+      "timing": {
+        "duration_ms": [
+          500,
+          900
+        ],
+        "stagger_ms": [
+          50,
+          100
+        ],
+        "easing": "ease-out"
+      },
+      "prompt": "标题使用按词显现（Word reveal），按照中文语义拆成几个短语，再依次显现。关键词可以稍微强调，整句要快速完成，不能影响阅读。",
+      "video": "中文没有天然空格，直接把分词交给实现层一定会翻车。ShotSpec 里应当显式给出分组数组（如 [\"让 AI\",\"精准做出\",\"高级动效\"]）。",
+      "demo": "text",
+      "demoVariant": "word-reveal",
+      "cases": []
+    },
+    {
+      "id": "text.character-reveal",
+      "no": 17,
+      "zh": "按字符显现",
+      "en": "Character reveal",
+      "group": "文字动效",
+      "layer": "动效类型",
+      "nature": "effect",
+      "trigger": [
+        "in-view",
+        "load",
+        "hover"
+      ],
+      "core": "把文字拆成单个字符分别动画。视觉节奏最明显，也最容易让用户等待。",
+      "variants": [
+        "字符依次淡入",
+        "字符从不同高度落入",
+        "字符轻微旋转后归位",
+        "字符从模糊恢复清晰",
+        "鼠标经过时字符依次响应"
+      ],
+      "fits": [
+        "很短的英文单词、Logo、数字和四到八个字的标题"
+      ],
+      "avoid": [
+        "中文长句、正文、按钮文字"
+      ],
+      "scenarios": {
+        "text": "core",
+        "bg": "avoid",
+        "card": "caution",
+        "screen": "avoid",
+        "chart": "avoid"
+      },
+      "render": "deterministic",
+      "shotRoles": [
+        "title",
+        "logo"
+      ],
+      "timing": {
+        "duration_ms": [
+          400,
+          900
+        ],
+        "stagger_ms": [
+          20,
+          60
+        ],
+        "easing": "ease-out",
+        "note": "24fps 下字符间隔建议 ≥2 帧，否则会糊成一团"
+      },
+      "prompt": "只让主标题中的四个关键词使用按字符显现（Character reveal），字符依次淡入并轻微上移。其他文字保持整行出现，整段动画快速完成。",
+      "video": "每个字符都是一个独立节点，渲染成本随字数线性上升。做视频时把字数控制在 12 个以内，并把整段动效时长封顶在 1 秒。",
+      "demo": "text",
+      "demoVariant": "character-reveal",
+      "cases": []
+    },
+    {
+      "id": "text.typewriter",
+      "no": 18,
+      "zh": "打字机效果",
+      "en": "Typewriter",
+      "group": "文字动效",
+      "layer": "动效类型",
+      "nature": "effect",
+      "trigger": [
+        "in-view",
+        "load",
+        "state",
+        "timer"
+      ],
+      "core": "模拟文字被逐个输入的过程，通常带一个闪烁光标。它强调「内容正在生成」或「有人正在输入」。",
+      "variants": [
+        "命令行逐字输入",
+        "AI 回答正在生成",
+        "搜索框自动输入示例",
+        "多个短句循环打出并删除",
+        "输入完成后光标继续闪烁"
+      ],
+      "fits": [
+        "命令行、聊天、搜索示例、AI 产品和短标题"
+      ],
+      "avoid": [
+        "正文介绍让用户等着逐字打完",
+        "无意义的循环打删（用户会觉得在浪费时间）"
+      ],
+      "scenarios": {
+        "text": "core",
+        "bg": "avoid",
+        "card": "avoid",
+        "screen": "good",
+        "chart": "avoid"
+      },
+      "render": "deterministic",
+      "shotRoles": [
+        "ai-demo",
+        "terminal",
+        "search-box"
+      ],
+      "timing": {
+        "duration_ms": [
+          800,
+          2400
+        ],
+        "stagger_ms": [
+          30,
+          70
+        ],
+        "note": "光标闪烁按 1Hz（24fps 下每 12 帧翻转）"
+      },
+      "prompt": "在命令行演示区使用打字机效果（Typewriter），逐字输入一条短命令，并显示闪烁光标。文字完成后立即保持可见，不要循环删除重打。",
+      "video": "打字机天然是「时间不可压缩」的动效。做 15 秒广告时它最多只能占 2–3 秒，超了就要改成整行淡入或按词显现。",
+      "demo": "text",
+      "demoVariant": "typewriter",
+      "cases": []
+    },
+    {
+      "id": "text.scramble",
+      "no": 19,
+      "zh": "乱码解码",
+      "en": "Scramble text",
+      "group": "文字动效",
+      "layer": "动效类型",
+      "nature": "effect",
+      "trigger": [
+        "in-view",
+        "load",
+        "hover",
+        "state"
+      ],
+      "core": "先显示随机字符，再逐渐替换成正确文字，看起来像系统正在解密或加载数据。",
+      "variants": [
+        "随机英文字符逐渐组成标题",
+        "数字快速跳动后停在最终结果",
+        "鼠标悬停时文字短暂乱码",
+        "页面进入时关键词完成解码",
+        "状态从 Processing 变成 Complete"
+      ],
+      "fits": [
+        "科技感标题、系统状态、数据页面、游戏界面和少量互动彩蛋"
+      ],
+      "avoid": [
+        "中文乱码（很难看，只让英文或数字部分变化）",
+        "关键数据使用（观众会读错数字）"
+      ],
+      "scenarios": {
+        "text": "caution",
+        "bg": "avoid",
+        "card": "avoid",
+        "screen": "avoid",
+        "chart": "avoid"
+      },
+      "niche": true,
+      "nicheNote": "只适合科技感内容的一小段。中文场景基本不可用——乱码在中文里读起来像乱码，而不是像解码。",
+      "render": "deterministic",
+      "shotRoles": [
+        "section-title",
+        "status"
+      ],
+      "timing": {
+        "duration_ms": [
+          600,
+          1200
+        ],
+        "note": "只播放一次；收敛速度前慢后快"
+      },
+      "prompt": "让英文标题使用乱码解码（Scramble text）：先出现短暂的随机字符，再迅速收敛为正确标题。只播放一次，中文正文保持稳定。",
+      "video": "务必保证最后一帧停在正确文字上，并且停留时长足够（建议 ≥0.8 秒）。观众需要时间确认「已经解码完成」，否则会以为还在加载。",
+      "demo": "text",
+      "demoVariant": "scramble",
+      "cases": []
+    },
+    {
+      "id": "text.morph",
+      "no": 20,
+      "zh": "文字变形",
+      "en": "Text morphing",
+      "group": "文字动效",
+      "layer": "动效类型",
+      "nature": "effect",
+      "trigger": [
+        "state",
+        "timer",
+        "hover",
+        "in-view"
+      ],
+      "core": "一个词平滑变化成另一个词。变化过程可以使用字符替换、模糊交叉、宽度调整或形状变形。",
+      "variants": [
+        "一个职业名称轮换成另一个",
+        "产品状态从 Loading 变化为 Ready",
+        "数字和单位平滑更新",
+        "同一位置的关键词循环替换",
+        "SVG 字形从一个形状变成另一个"
+      ],
+      "fits": [
+        "短词、状态、数字、轮换关键词和品牌实验页面"
+      ],
+      "avoid": [
+        "新旧文字长度差大却不做容器宽度过渡（旁边内容会跳动）",
+        "正文里使用"
+      ],
+      "scenarios": {
+        "text": "core",
+        "bg": "avoid",
+        "card": "good",
+        "screen": "good",
+        "chart": "good"
+      },
+      "render": "deterministic",
+      "shotRoles": [
+        "title",
+        "status",
+        "hero-copy"
+      ],
+      "timing": {
+        "duration_ms": [
+          300,
+          600
+        ],
+        "easing": "ease-in-out",
+        "note": "长度变化时必须同时平滑改变容器宽度"
+      },
+      "prompt": "标题中的关键词使用文字变形（Text morphing），在三个短词之间依次变化。切换时使用轻微模糊和交叉淡化，容器宽度平滑过渡，用户悬停后暂停循环。",
+      "video": "循环变形的段落一定会在时间线上被裁开。渲染时多输出一个完整循环周期作为 handles，剪辑时才有干净的首尾帧可接。",
+      "demo": "text",
+      "demoVariant": "morph",
+      "cases": []
+    },
+    {
+      "id": "scroll.parallax",
+      "no": 21,
+      "zh": "视差滚动",
+      "en": "Parallax scrolling",
+      "group": "滚动与空间",
+      "layer": "动效类型",
+      "nature": "effect",
+      "trigger": [
+        "scroll"
+      ],
+      "core": "前景、中景和背景以不同速度移动。眼睛把速度差理解成距离差，于是平面网页有了前后深度。",
+      "variants": [
+        "背景移动得慢，正文正常滚动",
+        "前景装饰移动得快，背景移动得慢",
+        "图片内部景物轻微移动，外框保持不变",
+        "某一层向相反方向移动，制造更明显的空间感",
+        "鼠标移动时产生小范围视差，不依赖页面滚动"
+      ],
+      "fits": [
+        "品牌首页、产品介绍、作品集和带大图的故事页面"
+      ],
+      "avoid": [
+        "正文阅读页大幅反向移动（容易眩晕）",
+        "移动端保留桌面端位移量"
+      ],
+      "scenarios": {
+        "text": "avoid",
+        "bg": "core",
+        "card": "good",
+        "screen": "avoid",
+        "chart": "avoid"
+      },
+      "render": "deterministic",
+      "shotRoles": [
+        "hero",
+        "background",
+        "section-transition"
+      ],
+      "timing": {
+        "duration_ms": [
+          2000,
+          6000
+        ],
+        "easing": "linear",
+        "note": "速度差控制在 0.2–0.6 倍之间；移动端位移减半"
+      },
+      "prompt": "首屏使用轻微视差滚动（Parallax scrolling）。背景插图移动最慢，中间装饰稍快，前景标题保持正常滚动，让三层产生清楚但克制的前后深度。手机端减弱位移。",
+      "video": "做视频时视差必须用 linear——因为它是速度差而不是缓动。三层要拆成独立图层素材，这样后期还能单独调整某一层的位移量。",
+      "demo": "scroll",
+      "demoVariant": "parallax",
+      "cases": []
+    },
+    {
+      "id": "scroll.multi-layer-parallax",
+      "no": 22,
+      "zh": "多层视差",
+      "en": "Multi-layer parallax",
+      "group": "滚动与空间",
+      "layer": "动效类型",
+      "nature": "effect",
+      "trigger": [
+        "scroll",
+        "pointer"
+      ],
+      "core": "视差滚动的扩展版。把画面拆成三层或更多层，每层有不同方向、速度和移动范围，像橱窗里前后摆着多块透明玻璃。",
+      "variants": [
+        "天空、山体、人物和前景植物分层移动",
+        "背景网格、中间产品和前景文字分层移动",
+        "多张透明图片叠成具有景深的场景",
+        "不同层在横向与纵向同时产生轻微位移"
+      ],
+      "fits": [
+        "视觉叙事、游戏宣传、电影网站、3D 产品页和氛围型首页"
+      ],
+      "avoid": [
+        "层数多却保持每层大位移（画面会散掉）"
+      ],
+      "scenarios": {
+        "text": "avoid",
+        "bg": "core",
+        "card": "good",
+        "screen": "avoid",
+        "chart": "avoid"
+      },
+      "render": "deterministic",
+      "shotRoles": [
+        "hero",
+        "background",
+        "product-shot"
+      ],
+      "timing": {
+        "duration_ms": [
+          3000,
+          8000
+        ],
+        "easing": "linear",
+        "note": "层数越多，每层位移幅度越小；各层始终对齐成一个完整画面"
+      },
+      "prompt": "把首屏插图拆成背景、中景和前景三层，使用多层视差（Multi-layer parallax）。滚动时三层保持不同速度，前景变化最明显，背景最轻。各层始终对齐成一个完整画面，不要漂散。",
+      "video": "分层素材是复用性最高的资产：同一套图层可以出 16:9、9:16、1:1 三个版本，只需重新排布位移曲线。",
+      "demo": "scroll",
+      "demoVariant": "multi-layer-parallax",
+      "cases": []
+    },
+    {
+      "id": "scroll.horizontal",
+      "no": 23,
+      "zh": "横向滚动",
+      "en": "Horizontal scroll",
+      "group": "滚动与空间",
+      "layer": "动效类型",
+      "nature": "effect",
+      "trigger": [
+        "scroll",
+        "gesture"
+      ],
+      "core": "内容沿左右方向移动。常把用户的纵向滚轮转换成横向浏览，用来展示一排作品、时间轴或连续章节。",
+      "variants": [
+        "作品卡片从右向左经过视口",
+        "产品功能按照横向章节依次展开",
+        "一条时间轴随滚动向右推进",
+        "图片画廊保持一行横向浏览",
+        "桌面端横向叙事，手机端改回纵向列表"
+      ],
+      "fits": [
+        "作品集、品牌故事、产品功能、时间轴和图片画廊"
+      ],
+      "avoid": [
+        "手机端左右滑动与系统返回手势冲突（必须单独简化）",
+        "横向内容超出用户预期长度"
+      ],
+      "scenarios": {
+        "text": "avoid",
+        "bg": "good",
+        "card": "core",
+        "screen": "caution",
+        "chart": "caution"
+      },
+      "render": "deterministic",
+      "shotRoles": [
+        "gallery",
+        "timeline",
+        "card-row"
+      ],
+      "timing": {
+        "duration_ms": [
+          3000,
+          8000
+        ],
+        "easing": "linear",
+        "note": "进入和离开横向区域时要留自然衔接段"
+      },
+      "prompt": "这一段使用横向滚动（Horizontal scroll）。用户继续向下滚动时，四张作品卡片从右向左依次经过视口；进入和离开横向区域时保持自然衔接，手机端恢复为普通纵向列表。",
+      "video": "横向滚动在视频里就是一次匀速横移。做 9:16 竖版时要重新设计卡片数量与间距，不要直接把横向布局裁一刀。",
+      "demo": "scroll",
+      "demoVariant": "horizontal",
+      "cases": []
+    },
+    {
+      "id": "scroll.zoom",
+      "no": 24,
+      "zh": "滚动缩放",
+      "en": "Scroll zoom",
+      "group": "滚动与空间",
+      "layer": "动效类型",
+      "nature": "effect",
+      "trigger": [
+        "scroll"
+      ],
+      "core": "把滚动进度映射到画面大小。继续滚动时图片、文字或 3D 物体逐渐靠近，也可以从局部慢慢退回全景。",
+      "variants": [
+        "首屏图片从小卡片扩展成全屏",
+        "产品从远处逐渐靠近镜头",
+        "地图从全局缩放到一个城市",
+        "一张照片放大后进入照片内部的下一段内容",
+        "滚回上方时按原路径缩小"
+      ],
+      "fits": [
+        "产品亮相、章节转场、地图故事、摄影作品和 3D 展示"
+      ],
+      "avoid": [
+        "文字跟着大幅缩放（容易模糊）"
+      ],
+      "scenarios": {
+        "text": "avoid",
+        "bg": "good",
+        "card": "good",
+        "screen": "avoid",
+        "chart": "caution"
+      },
+      "render": "deterministic",
+      "shotRoles": [
+        "hero",
+        "product-shot",
+        "section-transition"
+      ],
+      "timing": {
+        "duration_ms": [
+          2500,
+          6000
+        ],
+        "easing": "linear",
+        "note": "缩放倍率尽量 ≤3x，超出请改用分镜而不是继续放大"
+      },
+      "prompt": "滚动进入产品章节时使用滚动缩放（Scroll zoom）。产品图片从画面中央的小尺寸逐渐放大到接近全屏，缩放进度跟随滚动；标题保持清晰稳定，继续滚动后自然进入详情内容。",
+      "video": "超过 3 倍放大后源素材就不够了。做视频时优先让图片或主物体承担缩放，文字层单独渲染并叠在上面。",
+      "demo": "scroll",
+      "demoVariant": "zoom",
+      "cases": []
+    },
+    {
+      "id": "scroll.sticky-story",
+      "no": 25,
+      "zh": "固定式滚动叙事",
+      "en": "Sticky scrollytelling",
+      "group": "滚动与空间",
+      "layer": "动效类型",
+      "nature": "effect",
+      "trigger": [
+        "scroll"
+      ],
+      "core": "暂时把一个区域留在视口中，继续滚动时只替换其中的图片、数据或说明。左侧文字换章节，右侧产品图保持固定并同步变化。",
+      "variants": [
+        "左侧步骤依次高亮，右侧界面同步切换",
+        "产品固定在中央，零件随章节逐个出现",
+        "一张地图保持不动，地点和路线持续更新",
+        "长图保持固定，旁边的解释逐段推进",
+        "背景固定，前景章节依次覆盖或离开"
+      ],
+      "fits": [
+        "产品拆解、案例讲解、数据故事、教程步骤和品牌叙事"
+      ],
+      "avoid": [
+        "固定时间太长（用户会以为页面卡住，必须有清楚的章节变化）"
+      ],
+      "scenarios": {
+        "text": "avoid",
+        "bg": "caution",
+        "card": "good",
+        "screen": "good",
+        "chart": "good"
+      },
+      "render": "deterministic",
+      "shotRoles": [
+        "product-shot",
+        "explainer",
+        "ui-demo"
+      ],
+      "timing": {
+        "duration_ms": [
+          4000,
+          12000
+        ],
+        "easing": "linear",
+        "note": "每个章节至少有一个可被察觉的变化点"
+      },
+      "prompt": "功能介绍使用固定式滚动叙事（Sticky scrollytelling）。右侧产品界面暂时固定，左侧三个功能说明随滚动依次进入并高亮；每换一段，右侧只更新对应区域。最后一段结束后恢复正常滚动。",
+      "video": "叙事型视频的主力结构。ShotSpec 里建议按「章节」而不是按「帧」切分，这样改一个步骤只影响那一段。",
+      "demo": "scroll",
+      "demoVariant": "sticky-story",
+      "cases": []
+    },
+    {
+      "id": "scroll.image-sequence",
+      "no": 26,
+      "zh": "图片序列滚动",
+      "en": "Image sequence",
+      "group": "滚动与空间",
+      "layer": "动效类型",
+      "nature": "effect",
+      "trigger": [
+        "scroll"
+      ],
+      "core": "准备一组连续画面，根据滚动位置切换当前帧。像一段由用户滚轮控制前进和后退的视频。",
+      "variants": [
+        "产品随着滚动完成一圈旋转",
+        "设备外壳逐步拆开，露出内部结构",
+        "一组照片从白天变化到夜晚",
+        "插画角色随滚动完成一段动作",
+        "滚动向上时按相反顺序倒放"
+      ],
+      "fits": [
+        "汽车、手机、硬件、服装、产品拆解和强视觉故事"
+      ],
+      "avoid": [
+        "不做预加载（用户会看到空白）",
+        "没有静态主图兜底",
+        "手机端不降帧数"
+      ],
+      "scenarios": {
+        "text": "avoid",
+        "bg": "good",
+        "card": "caution",
+        "screen": "caution",
+        "chart": "avoid"
+      },
+      "niche": true,
+      "nicheNote": "本质是一段可控视频，做视频时直接当素材用即可，不需要模型参与。但它对素材量与加载时序最敏感。",
+      "render": "deterministic",
+      "shotRoles": [
+        "product-shot",
+        "exploded-view"
+      ],
+      "timing": {
+        "duration_ms": [
+          3000,
+          8000
+        ],
+        "easing": "linear",
+        "note": "帧数按 24fps 对齐，手机端减半"
+      },
+      "prompt": "产品展示使用图片序列滚动（Image sequence）。滚动时按照顺序切换连续产品帧，让设备完成平滑旋转；向上滚动时反向播放。图片未加载完成前显示静态主图，手机端减少帧数。",
+      "video": "最容易和生成模型混淆的一类：序列帧本质是一段可控视频，做视频时直接把它当成素材片段即可，不需要模型参与。注意提前算好总帧数并留 handles。",
+      "demo": "scroll",
+      "demoVariant": "image-sequence",
+      "cases": []
+    },
+    {
+      "id": "scroll.snap",
+      "no": 27,
+      "zh": "滚动吸附",
+      "en": "Scroll snap",
+      "group": "滚动与空间",
+      "layer": "动效类型",
+      "nature": "effect",
+      "trigger": [
+        "scroll",
+        "gesture"
+      ],
+      "core": "用户停止滚动后，页面自动对齐到最近的章节或卡片，画面不会停在两个区块中间。",
+      "variants": [
+        "每次滚动对齐到一个全屏章节",
+        "横向卡片自动吸附到容器中央",
+        "图片轮播停在完整图片上",
+        "手机端功能页一次显示一个步骤",
+        "只在靠近目标时轻微吸附，保留自由滚动感"
+      ],
+      "fits": [
+        "全屏故事、横向画廊、功能轮播和短章节页面"
+      ],
+      "avoid": [
+        "正文很长时强制整屏吸附（用户很难停在想读的位置）"
+      ],
+      "scenarios": {
+        "text": "avoid",
+        "bg": "caution",
+        "card": "good",
+        "screen": "good",
+        "chart": "avoid"
+      },
+      "render": "deterministic",
+      "shotRoles": [
+        "gallery",
+        "carousel",
+        "onboarding"
+      ],
+      "timing": {
+        "duration_ms": [
+          200,
+          400
+        ],
+        "easing": "ease-out",
+        "note": "吸附要柔软，不要突然跳动"
+      },
+      "prompt": "横向案例区使用滚动吸附（Scroll snap）。用户停止滑动后，让最近的卡片自然对齐到容器中央；吸附不要突然跳动，正文页面仍保持自由滚动。",
+      "video": "吸附在视频里表现为「停一下再继续」。这个停顿很重要——它是观众消化信息的窗口，别为了紧凑把它剪掉。",
+      "demo": "scroll",
+      "demoVariant": "snap",
+      "cases": []
+    },
+    {
+      "id": "scroll.progress",
+      "no": 28,
+      "zh": "滚动进度提示",
+      "en": "Progress indicator",
+      "group": "滚动与空间",
+      "layer": "动效类型",
+      "nature": "effect",
+      "trigger": [
+        "scroll"
+      ],
+      "core": "把用户当前的位置显示出来。可以是一条线、一个数字、一组章节圆点，也可以是侧边目录中的当前章节高亮。",
+      "variants": [
+        "页面顶部的阅读进度条",
+        "章节编号从 1 逐步更新到 5",
+        "侧边目录跟随滚动高亮",
+        "圆环随着阅读进度逐渐填满",
+        "横向时间轴标出当前位置"
+      ],
+      "fits": [
+        "长文、教程、产品故事、多步骤表单和章节式页面"
+      ],
+      "avoid": [
+        "抢走阅读注意力（提供的是位置反馈，视觉上要比正文安静）"
+      ],
+      "scenarios": {
+        "text": "good",
+        "bg": "good",
+        "card": "good",
+        "screen": "good",
+        "chart": "good"
+      },
+      "render": "deterministic",
+      "shotRoles": [
+        "lower-third",
+        "chapter-marker",
+        "ui-demo"
+      ],
+      "timing": {
+        "duration_ms": [
+          200,
+          600
+        ],
+        "easing": "linear",
+        "note": "跟随时用 linear；章节切换时用 ease-out"
+      },
+      "prompt": "长文顶部增加滚动进度提示（Progress indicator）。进度条随着阅读位置平滑增长，章节切换时同步高亮侧边目录。样式保持细、轻、克制，不遮挡标题和正文。",
+      "video": "做动效视频时它是最省事的「结构性元素」：一条进度条或章节编号就能让观众知道「这是第几段、还剩多少」，几乎零成本提升完成率。",
+      "demo": "scroll",
+      "demoVariant": "progress",
+      "cases": []
+    },
+    {
+      "id": "pointer.magnetic",
+      "no": 29,
+      "zh": "磁吸按钮",
+      "en": "Magnetic button",
+      "group": "指针与鼠标",
+      "layer": "动效类型",
+      "nature": "effect",
+      "trigger": [
+        "pointer",
+        "hover"
+      ],
+      "core": "光标靠近时轻微向光标移动，看起来像按钮与鼠标之间存在吸引力。光标离开后回到原位。",
+      "variants": [
+        "整个按钮向光标方向靠近",
+        "按钮保持不动，内部文字轻微偏移",
+        "圆形图标靠近光标并扩大感应范围",
+        "按钮边缘产生柔和形变",
+        "离开时带少量弹性回到中心"
+      ],
+      "fits": [
+        "首要行动按钮、作品集入口和少量重点链接"
+      ],
+      "avoid": [
+        "每个按钮都磁吸（界面会显得不稳定）",
+        "一页超过两个磁吸元素"
+      ],
+      "scenarios": {
+        "text": "avoid",
+        "bg": "avoid",
+        "card": "good",
+        "screen": "caution",
+        "chart": "avoid"
+      },
+      "render": "deterministic",
+      "shotRoles": [
+        "cta",
+        "ui-demo"
+      ],
+      "timing": {
+        "duration_ms": [
+          200,
+          400
+        ],
+        "easing": "ease-out",
+        "note": "位移量控制在按钮尺寸的 10–18%"
+      },
+      "prompt": "主按钮使用磁吸效果（Magnetic button）。光标靠近时，按钮和文字轻微向光标方向移动；移开后柔和回到原位。只应用在主按钮，触屏设备保持普通点击反馈。",
+      "video": "视频里需要一条可见的光标轨迹来「喂」这个效果，否则观众只看到按钮在无理由地飘。触屏素材直接换成按压反馈。",
+      "demo": "pointer",
+      "demoVariant": "magnetic",
+      "cases": []
+    },
+    {
+      "id": "pointer.tilt-card",
+      "no": 30,
+      "zh": "立体倾斜卡片",
+      "en": "Tilt card",
+      "group": "指针与鼠标",
+      "layer": "动效类型",
+      "nature": "effect",
+      "trigger": [
+        "pointer",
+        "hover"
+      ],
+      "core": "根据光标在卡片中的位置向不同方向轻微旋转，高光和阴影同步变化，产生一层可感知的厚度。",
+      "variants": [
+        "卡片跟随光标向四周倾斜",
+        "卡片表面高光跟随光标移动",
+        "图片与文字产生轻微前后分层",
+        "悬停时卡片抬起并增加透视",
+        "光标离开后平稳回正"
+      ],
+      "fits": [
+        "作品卡片、产品卡片、游戏道具和视觉型首页"
+      ],
+      "avoid": [
+        "文字很多的卡片大幅倾斜（阅读时页面需要保持稳定）",
+        "手机上开启（触屏关闭）"
+      ],
+      "scenarios": {
+        "text": "avoid",
+        "bg": "avoid",
+        "card": "core",
+        "screen": "caution",
+        "chart": "avoid"
+      },
+      "render": "deterministic",
+      "shotRoles": [
+        "card",
+        "hero"
+      ],
+      "timing": {
+        "duration_ms": [
+          150,
+          350
+        ],
+        "easing": "ease-out",
+        "note": "旋转角度 ≤8°；文字层不做透视"
+      },
+      "prompt": "作品卡片使用轻微立体倾斜（Tilt card）。卡片根据光标位置向对应方向小幅旋转，表面高光同步移动；文字层保持清晰，光标移开后平稳回正，手机端关闭倾斜。",
+      "video": "倾斜卡片是「产品质感」的高性价比来源。视频里建议同时保留一条淡出的高光层，倾斜停止后高光再走一段，观感会明显更贵。",
+      "demo": "pointer",
+      "demoVariant": "tilt-card",
+      "cases": []
+    },
+    {
+      "id": "pointer.cursor-follower",
+      "no": 31,
+      "zh": "自定义光标跟随",
+      "en": "Cursor follower",
+      "group": "指针与鼠标",
+      "layer": "动效类型",
+      "nature": "effect",
+      "trigger": [
+        "pointer",
+        "hover"
+      ],
+      "core": "用圆点、圆环、图标或短文字替代或陪伴系统光标。跟随元素通常稍微落后于真实指针，形成柔和的追随感。",
+      "variants": [
+        "小圆点紧跟指针，大圆环延迟跟随",
+        "进入图片后显示「查看」",
+        "进入视频后变成播放图标",
+        "进入可拖拽区域后显示「拖动」",
+        "光标经过链接时改变大小和颜色"
+      ],
+      "fits": [
+        "作品集、图片画廊、品牌首页和需要强化操作提示的区域"
+      ],
+      "avoid": [
+        "系统光标失去可定位性（不能迟钝或消失）",
+        "输入框与表单区域覆盖自定义光标"
+      ],
+      "scenarios": {
+        "text": "avoid",
+        "bg": "avoid",
+        "card": "good",
+        "screen": "avoid",
+        "chart": "avoid"
+      },
+      "niche": true,
+      "nicheNote": "只在桌面端作品集/画廊类页面成立。视频里需要额外合成一层可见光标，否则观众读不到这个效果。",
+      "render": "deterministic",
+      "shotRoles": [
+        "hero",
+        "gallery"
+      ],
+      "timing": {
+        "duration_ms": [
+          200,
+          500
+        ],
+        "easing": "ease-out",
+        "note": "主跟随元素延迟 0.08–0.15 秒；输入区域必须还原系统光标"
+      },
+      "prompt": "桌面端增加自定义光标跟随（Cursor follower）。小圆点准确跟随系统光标，外层圆环稍微延迟；进入作品图片时显示「查看」，离开后恢复。输入框和手机端使用系统默认光标。",
+      "video": "视频里光标本身就是「演」出来的，跟随时最多保留一层延迟即可；多层跟随在成片里会显得脏。",
+      "demo": "pointer",
+      "demoVariant": "cursor-follower",
+      "cases": []
+    },
+    {
+      "id": "pointer.spotlight",
+      "no": 32,
+      "zh": "光标聚光灯",
+      "en": "Cursor spotlight",
+      "group": "指针与鼠标",
+      "layer": "动效类型",
+      "nature": "effect",
+      "trigger": [
+        "pointer",
+        "hover"
+      ],
+      "core": "一块亮区跟随鼠标移动。可以照亮深色背景，也可以在浅色页面中揭示隐藏纹理、网格或第二层内容。",
+      "variants": [
+        "圆形光晕跟随光标",
+        "渐变中心随着指针改变位置",
+        "光标经过时显示背景中的隐藏文字",
+        "聚光区域内的卡片边框变亮",
+        "一束柔和光线照向当前内容"
+      ],
+      "fits": [
+        "深色产品页、创意作品集、科技首页和局部探索区域"
+      ],
+      "avoid": [
+        "正文区域持续追光（亮度变化会干扰阅读）"
+      ],
+      "scenarios": {
+        "text": "avoid",
+        "bg": "good",
+        "card": "caution",
+        "screen": "avoid",
+        "chart": "avoid"
+      },
+      "render": "shader",
+      "shotRoles": [
+        "hero",
+        "background"
+      ],
+      "timing": {
+        "duration_ms": [
+          300,
+          800
+        ],
+        "easing": "ease-out",
+        "note": "光晕移动必须平滑，不能有跟随抖动"
+      },
+      "prompt": "首屏背景增加光标聚光灯（Cursor spotlight）。一块柔和圆形亮区跟随光标，经过网格时让局部纹理变清楚；光晕移动保持平滑，不改变正文亮度，手机端显示固定的静态光区。",
+      "video": "聚光灯属于 Shader 层，完全不需要生成模型。视频里要喂一条平滑轨迹，且起止点要落在画面内有意义的位置。",
+      "demo": "pointer",
+      "demoVariant": "spotlight",
+      "cases": []
+    },
+    {
+      "id": "pointer.eyes",
+      "no": 33,
+      "zh": "鼠标跟随眼睛",
+      "en": "Mouse-following eyes",
+      "group": "指针与鼠标",
+      "layer": "动效类型",
+      "nature": "effect",
+      "trigger": [
+        "pointer",
+        "hover"
+      ],
+      "core": "让角色的瞳孔朝光标方向移动。眼白保持不动，瞳孔只在眼睛内部小范围移动，于是角色看起来一直在观察用户。",
+      "variants": [
+        "两只瞳孔同时跟随光标",
+        "多个角色分别看向同一个位置",
+        "光标离开页面后瞳孔回到中央",
+        "点击时角色眨眼或改变表情",
+        "手机端保持静态，或短暂看向触摸位置"
+      ],
+      "fits": [
+        "吉祥物、登录页、404 页面、儿童产品和有角色 IP 的品牌页面"
+      ],
+      "avoid": [
+        "瞳孔越出眼白（移动范围过大会像眼睛坏掉）",
+        "在严肃的金融与企业场景使用"
+      ],
+      "scenarios": {
+        "text": "avoid",
+        "bg": "avoid",
+        "card": "caution",
+        "screen": "avoid",
+        "chart": "avoid"
+      },
+      "niche": true,
+      "nicheNote": "只在有角色 IP 的品牌页面上值得做。视频里必须主动指定瞳孔的注视目标，否则观众会误读角色视线。",
+      "render": "deterministic",
+      "shotRoles": [
+        "mascot",
+        "spot-illustration"
+      ],
+      "timing": {
+        "duration_ms": [
+          150,
+          400
+        ],
+        "easing": "ease-out",
+        "note": "瞳孔位移限制在眼白内切圆半径的 60% 以内"
+      },
+      "prompt": "让角色瞳孔使用鼠标跟随眼睛（Mouse-following eyes）。瞳孔根据光标方向在眼白内部小幅移动，始终不能越过眼睛边缘；光标离开页面后回到中央，手机端保持静态。",
+      "video": "品牌吉祥物的高性价比彩蛋。视频里必须给瞳孔一个明确的「看哪里」的目标点，不要让它随机游走——观众会主动解读角色的视线方向。",
+      "demo": "pointer",
+      "demoVariant": "eyes",
+      "cases": []
+    },
+    {
+      "id": "pointer.trail",
+      "no": 34,
+      "zh": "光标拖尾",
+      "en": "Cursor trail",
+      "group": "指针与鼠标",
+      "layer": "动效类型",
+      "nature": "effect",
+      "trigger": [
+        "pointer"
+      ],
+      "core": "在鼠标经过的位置留下短暂痕迹。痕迹可能是圆点、线条、图形、文字或图片残影，并在片刻后消失。",
+      "variants": [
+        "一串逐渐缩小的圆点",
+        "柔和的连续线条",
+        "光标移动时依次出现小图片",
+        "快速移动时产生文字或图标残影",
+        "粒子从路径上散开并消失"
+      ],
+      "fits": [
+        "活动页、作品集、音乐网站、互动艺术和少量彩蛋"
+      ],
+      "avoid": [
+        "按钮和正文附近（拖尾太密会遮挡点击目标）"
+      ],
+      "scenarios": {
+        "text": "avoid",
+        "bg": "good",
+        "card": "avoid",
+        "screen": "avoid",
+        "chart": "avoid"
+      },
+      "niche": true,
+      "nicheNote": "纯氛围填充物，用来撑住没有信息量的过场。任何需要观众读字的段落都必须关掉。",
+      "render": "shader",
+      "shotRoles": [
+        "hero",
+        "background",
+        "act-break"
+      ],
+      "timing": {
+        "duration_ms": [
+          400,
+          1200
+        ],
+        "easing": "ease-out",
+        "note": "痕迹寿命 0.4–0.8 秒；数量与不透明度都要克制"
+      },
+      "prompt": "在首屏空白区域加入克制的光标拖尾（Cursor trail）。鼠标移动时留下少量圆点，圆点逐渐缩小并淡出；经过正文、按钮和输入框时暂停拖尾，手机端关闭。",
+      "video": "视频里拖尾是「氛围填充物」——用来撑住没有信息量的过场。但它会和字幕抢注意力，正文段一律关闭。",
+      "demo": "pointer",
+      "demoVariant": "trail",
+      "cases": []
+    },
+    {
+      "id": "pointer.reactive-bg",
+      "no": 35,
+      "zh": "指针响应背景",
+      "en": "Pointer-reactive background",
+      "group": "指针与鼠标",
+      "layer": "动效类型",
+      "nature": "effect",
+      "trigger": [
+        "pointer"
+      ],
+      "core": "背景中的渐变、网格、粒子或图形根据鼠标位置变化。范围通常比光标聚光灯更大，整个首屏都可能产生轻微响应。",
+      "variants": [
+        "渐变中心跟随光标缓慢移动",
+        "网格在光标附近轻微弯曲",
+        "粒子靠近光标时避让或聚集",
+        "背景图片按指针方向产生小幅位移",
+        "多层图形根据距离产生不同响应"
+      ],
+      "fits": [
+        "产品首页、创意工具、AI 网站、数据可视化和互动作品集"
+      ],
+      "avoid": [
+        "响应快于光标（整个页面会像贴在鼠标上）",
+        "正文和按钮跟着位移"
+      ],
+      "scenarios": {
+        "text": "avoid",
+        "bg": "core",
+        "card": "good",
+        "screen": "avoid",
+        "chart": "avoid"
+      },
+      "render": "shader",
+      "shotRoles": [
+        "hero",
+        "background"
+      ],
+      "timing": {
+        "duration_ms": [
+          600,
+          1500
+        ],
+        "easing": "ease-out",
+        "note": "响应要慢于光标，停止后缓慢恢复"
+      },
+      "prompt": "首屏使用指针响应背景（Pointer-reactive background）。背景网格在光标附近轻微弯曲，远处保持稳定；响应带一点延迟，光标停止后缓慢恢复。正文和按钮不能发生位移，手机端使用静态背景。",
+      "video": "性价比极高的「高级感」来源，纯 Shader，完全确定性。注意合成时不要压在文字下面——它会降低文字对比度。",
+      "demo": "pointer",
+      "demoVariant": "reactive-bg",
+      "cases": []
+    },
+    {
+      "id": "pointer.3d-follow",
+      "no": 36,
+      "zh": "3D 物体跟随",
+      "en": "3D object follow",
+      "group": "指针与鼠标",
+      "layer": "动效类型",
+      "nature": "effect",
+      "trigger": [
+        "pointer",
+        "scroll"
+      ],
+      "core": "让网页中的立体模型根据鼠标位置旋转、偏移或改变观察角度。效果名称描述的是画面行为，工具名称只决定怎样完成。",
+      "variants": [
+        "产品模型朝光标方向轻微旋转",
+        "3D 角色的头部跟随指针转动",
+        "相机根据光标位置绕物体小幅移动",
+        "模型的灯光方向随指针变化",
+        "光标离开后物体缓慢回到正面"
+      ],
+      "fits": [
+        "硬件、汽车、鞋服、3D 角色、游戏和科技产品首页"
+      ],
+      "avoid": [
+        "模型加载慢却没有静态图替代",
+        "手机端仍要求指针跟随（改为自动缓慢旋转）"
+      ],
+      "scenarios": {
+        "text": "avoid",
+        "bg": "good",
+        "card": "caution",
+        "screen": "avoid",
+        "chart": "avoid"
+      },
+      "render": "shader",
+      "shotRoles": [
+        "hero",
+        "product-shot"
+      ],
+      "timing": {
+        "duration_ms": [
+          400,
+          1000
+        ],
+        "easing": "ease-out",
+        "note": "旋转幅度控制在小幅范围，主体始终正面可见"
+      },
+      "prompt": "首屏产品模型使用 3D 物体跟随（3D object follow）。光标在页面中移动时，模型只做小幅旋转并保持主体正面可见；光标离开后缓慢回正。加载前显示静态产品图，手机端改为轻微自动旋转。",
+      "video": "3D 渲染要保证帧级确定：先预热一帧再开录，否则第一帧会是未编译 shader 的空白。做视频时它比生成模型更划算——同一模型可复用无数镜头。",
+      "demo": "pointer",
+      "demoVariant": "3d-follow",
+      "cases": []
+    },
+    {
+      "id": "component.accordion",
+      "no": 37,
+      "zh": "折叠展开",
+      "en": "Accordion",
+      "group": "组件状态",
+      "layer": "动效类型",
+      "nature": "effect",
+      "trigger": [
+        "click",
+        "state"
+      ],
+      "core": "点击标题后内容沿垂直方向打开，下面的内容平稳让位；再次点击时按原路径收起。",
+      "variants": [
+        "问答列表向下展开答案",
+        "设置面板展开更多选项",
+        "侧边栏展开二级目录",
+        "「查看详情」打开一段补充内容",
+        "加号在展开后变成减号"
+      ],
+      "fits": [
+        "常见问题、设置项、目录和需要节省空间的长列表"
+      ],
+      "avoid": [
+        "收起后标题不清晰（用户找不回来）",
+        "同时展开多个长内容却不做高度过渡"
+      ],
+      "scenarios": {
+        "text": "avoid",
+        "bg": "avoid",
+        "card": "good",
+        "screen": "core",
+        "chart": "caution"
+      },
+      "render": "deterministic",
+      "shotRoles": [
+        "ui-demo",
+        "faq"
+      ],
+      "timing": {
+        "duration_ms": [
+          240,
+          400
+        ],
+        "easing": "ease-in-out",
+        "note": "高度过渡要真实测高，不要用固定 max-height"
+      },
+      "prompt": "问答列表使用折叠展开（Accordion）。点击问题后，答案从标题下方向下展开，下面的内容平稳下移；再次点击时按原路径收起。展开项保持高亮，加号同步变成减号。",
+      "video": "折叠是「信息密度调节器」。做 15 秒演示时它能让观众一次只看一件事——比堆满元素的界面更容易看懂。",
+      "demo": "component",
+      "demoVariant": "accordion",
+      "cases": []
+    },
+    {
+      "id": "component.popover",
+      "no": 38,
+      "zh": "锚定浮层",
+      "en": "Dropdown / Tooltip / Popover",
+      "group": "组件状态",
+      "layer": "动效类型",
+      "nature": "effect",
+      "trigger": [
+        "click",
+        "hover",
+        "focus"
+      ],
+      "core": "依附在某个触发点附近的浮层。出现和关闭时都要让用户看出它属于哪个触发点。",
+      "variants": [
+        "Tooltip 短提示，悬停/聚焦触发",
+        "Popover 带操作按钮的浮层",
+        "Dropdown 一组选项",
+        "Mega menu 导航栏多列大菜单",
+        "空间不足时改为向上展开"
+      ],
+      "fits": [
+        "导航、账号操作、筛选器、图标说明和选择框"
+      ],
+      "avoid": [
+        "重要操作只放在悬停才出现的 Tooltip 里",
+        "空间不足时不翻转方向（会被裁掉）"
+      ],
+      "scenarios": {
+        "text": "avoid",
+        "bg": "avoid",
+        "card": "good",
+        "screen": "core",
+        "chart": "caution"
+      },
+      "render": "deterministic",
+      "shotRoles": [
+        "ui-demo",
+        "navigation"
+      ],
+      "timing": {
+        "duration_ms": [
+          140,
+          240
+        ],
+        "easing": "ease-out",
+        "note": "浮层出现要比弹窗更快"
+      },
+      "prompt": "导航使用下拉菜单（Dropdown）。鼠标悬停或键盘聚焦产品入口时，菜单从导航项下方展开并轻微淡入；指针移出菜单区域后平稳关闭。普通图标说明使用短提示（Tooltip），带操作按钮的浮层使用 Popover。手机端改为点击展开。",
+      "video": "浮层是「因果最清楚」的一类动效——从哪来、回到哪去一目了然。视频里它是解释界面逻辑最有效的工具。",
+      "demo": "component",
+      "demoVariant": "popover",
+      "cases": []
+    },
+    {
+      "id": "component.modal",
+      "no": 39,
+      "zh": "弹窗过渡",
+      "en": "Modal / Dialog transition",
+      "group": "组件状态",
+      "layer": "动效类型",
+      "nature": "effect",
+      "trigger": [
+        "click",
+        "state"
+      ],
+      "core": "覆盖在当前页面上方的弹窗。出现时通常先让背景变暗，再让弹窗淡入、放大或从下方进入；关闭时沿相反方向离开。",
+      "variants": [
+        "确认弹窗在画面中央轻微放大",
+        "登录弹窗从触发按钮附近出现",
+        "图片预览从缩略图扩展到中央",
+        "警告弹窗快速出现并保持稳定",
+        "手机端弹窗从底部进入"
+      ],
+      "fits": [
+        "确认操作、登录、图片预览、重要提醒和短表单"
+      ],
+      "avoid": [
+        "打开后不锁定背景滚动",
+        "不把键盘焦点移进弹窗",
+        "关闭后焦点不回原按钮"
+      ],
+      "scenarios": {
+        "text": "avoid",
+        "bg": "caution",
+        "card": "good",
+        "screen": "good",
+        "chart": "avoid"
+      },
+      "render": "deterministic",
+      "shotRoles": [
+        "ui-demo",
+        "modal"
+      ],
+      "timing": {
+        "duration_ms": [
+          200,
+          360
+        ],
+        "easing": "ease-out",
+        "note": "遮罩淡入比弹窗快 20%，关闭时反过来"
+      },
+      "prompt": "点击「删除」后打开确认弹窗（Modal）。背景遮罩先轻微变暗，弹窗随后在中央淡入并小幅放大；关闭时按相反顺序退出。弹窗打开期间锁定背景滚动，并把键盘焦点放进弹窗。",
+      "video": "注意遮罩变暗会改变整屏亮度——如果这一帧紧接着另一个镜头，剪辑点会跳。建议遮罩不透明度 ≤40%，并在转场处多留 8 帧。",
+      "demo": "component",
+      "demoVariant": "modal",
+      "cases": []
+    },
+    {
+      "id": "component.drawer",
+      "no": 40,
+      "zh": "抽屉与底部面板",
+      "en": "Drawer / Bottom sheet",
+      "group": "组件状态",
+      "layer": "动效类型",
+      "nature": "effect",
+      "trigger": [
+        "click",
+        "gesture",
+        "state"
+      ],
+      "core": "从页面边缘滑出的抽屉，或从屏幕底部升起的面板。适合承载比弹窗更多的内容，同时保留用户对原页面的方位感。",
+      "variants": [
+        "购物车从右侧滑入",
+        "手机导航从左侧打开",
+        "筛选条件从页面边缘进入",
+        "分享选项从手机底部升起",
+        "向下拖动关闭底部面板"
+      ],
+      "fits": [
+        "导航、购物车、筛选器、详情面板和移动端操作"
+      ],
+      "avoid": [
+        "从哪侧进却不从哪侧出（方向必须一致）",
+        "手机底部面板不支持下滑关闭"
+      ],
+      "scenarios": {
+        "text": "avoid",
+        "bg": "avoid",
+        "card": "good",
+        "screen": "core",
+        "chart": "avoid"
+      },
+      "render": "deterministic",
+      "shotRoles": [
+        "ui-demo",
+        "navigation"
+      ],
+      "timing": {
+        "duration_ms": [
+          280,
+          420
+        ],
+        "easing": "ease-out",
+        "note": "移动端进出方向必须一致；底部面板保留拖拽关闭"
+      },
+      "prompt": "点击购物车后打开右侧抽屉（Drawer）。抽屉从右侧滑入，背景同时出现轻微遮罩；关闭时向右退回。手机端让抽屉接近全屏，并支持向下滑动关闭。",
+      "video": "9:16 竖屏演示的主角。抽屉/底部面板天然适配竖版画幅，且能在一个画面里同时展示「原页面 + 新内容」。",
+      "demo": "component",
+      "demoVariant": "drawer",
+      "cases": []
+    },
+    {
+      "id": "component.tabs",
+      "no": 41,
+      "zh": "标签页切换",
+      "en": "Tab transition",
+      "group": "组件状态",
+      "layer": "动效类型",
+      "nature": "effect",
+      "trigger": [
+        "click",
+        "state"
+      ],
+      "core": "同一块区域内部切换。选中指示器先移动到新标签，下面的内容再切换，让操作与结果连成一次动作。",
+      "variants": [
+        "下划线滑到新的标签",
+        "胶囊背景在标签之间移动",
+        "内容交叉淡化",
+        "新内容按左右方向滑入",
+        "数据加载完成后再切换内容"
+      ],
+      "fits": [
+        "价格周期、商品详情、设置页面和数据面板"
+      ],
+      "avoid": [
+        "标签很多时内容大幅飞来飞去",
+        "容器高度不做过渡（下面页面会突然跳动）"
+      ],
+      "scenarios": {
+        "text": "avoid",
+        "bg": "avoid",
+        "card": "core",
+        "screen": "core",
+        "chart": "good"
+      },
+      "render": "deterministic",
+      "shotRoles": [
+        "ui-demo",
+        "comparison"
+      ],
+      "timing": {
+        "duration_ms": [
+          200,
+          340
+        ],
+        "easing": "ease-in-out",
+        "note": "指示器先动，内容后动，间隔 60–100ms"
+      },
+      "prompt": "标签页切换使用平滑过渡（Tab transition）。点击新标签后，选中指示器先滑到对应位置，内容区域再交叉淡化；容器高度平稳调整，避免下面的页面突然跳动。",
+      "video": "「指示器先动、内容后动」这个顺序是这一类的灵魂。做视频时把它拆成两段时间点写进 ShotSpec，剪辑时才能精确对齐音乐重音。",
+      "demo": "component",
+      "demoVariant": "tabs",
+      "cases": []
+    },
+    {
+      "id": "component.carousel",
+      "no": 42,
+      "zh": "轮播与滑块切换",
+      "en": "Carousel / Slider transition",
+      "group": "组件状态",
+      "layer": "动效类型",
+      "nature": "effect",
+      "trigger": [
+        "click",
+        "gesture",
+        "timer",
+        "scroll"
+      ],
+      "core": "在固定区域里切换多张图片或卡片。常见动作是左右滑动、交叉淡化，或让当前卡片缩小后退到旁边。",
+      "variants": [
+        "图片左右滑动切换",
+        "两张图片交叉淡化",
+        "中央卡片放大，两侧卡片缩小",
+        "拖拽后吸附到最近一张",
+        "自动播放，用户操作后暂停"
+      ],
+      "fits": [
+        "商品图、案例、评价、作品和短步骤介绍"
+      ],
+      "avoid": [
+        "没有上一张/下一张按钮和当前位置指示",
+        "只靠自动播放"
+      ],
+      "scenarios": {
+        "text": "avoid",
+        "bg": "caution",
+        "card": "core",
+        "screen": "good",
+        "chart": "caution"
+      },
+      "render": "deterministic",
+      "shotRoles": [
+        "gallery",
+        "product-shot",
+        "testimonial"
+      ],
+      "timing": {
+        "duration_ms": [
+          300,
+          500
+        ],
+        "easing": "ease-out",
+        "note": "自动播放间隔 ≥4 秒，用户操作后必须先暂停"
+      },
+      "prompt": "案例区使用轮播切换（Carousel）。用户点击箭头或横向拖拽时，当前卡片向左离开，下一张从右侧进入并吸附到中央；显示当前位置，用户操作后暂停自动播放。",
+      "video": "轮播是少数「自动播放天然成立」的动效。视频里给足每张的停留时间（≥1.2 秒），否则观众来不及读。",
+      "demo": "component",
+      "demoVariant": "carousel",
+      "cases": []
+    },
+    {
+      "id": "component.toast",
+      "no": 43,
+      "zh": "轻提示消息",
+      "en": "Toast / Snackbar",
+      "group": "组件状态",
+      "layer": "动效类型",
+      "nature": "effect",
+      "trigger": [
+        "state",
+        "timer",
+        "click"
+      ],
+      "core": "短暂出现的操作反馈，显示片刻后自动离开，不像弹窗那样中断任务。",
+      "variants": [
+        "从页面顶部或底部滑入",
+        "在角落淡入并停留",
+        "多条消息依次堆叠",
+        "带一个撤销按钮",
+        "错误消息保持更久，等待用户处理"
+      ],
+      "fits": [
+        "保存、复制、加入购物车、网络状态和不需要立刻回答的提示"
+      ],
+      "avoid": [
+        "关键错误只闪一下就消失（必须给处理入口）",
+        "多条消息同时出现遮住页面"
+      ],
+      "scenarios": {
+        "text": "avoid",
+        "bg": "avoid",
+        "card": "good",
+        "screen": "core",
+        "chart": "avoid"
+      },
+      "render": "deterministic",
+      "shotRoles": [
+        "ui-demo",
+        "lower-third"
+      ],
+      "timing": {
+        "duration_ms": [
+          240,
+          400
+        ],
+        "easing": "ease-out",
+        "note": "停留 3–5 秒；错误类 6 秒以上或需手动关闭"
+      },
+      "prompt": "复制链接后显示轻提示（Toast）。提示从页面底部轻微上移并淡入，显示「已复制」，停留片刻后淡出；连续操作时更新同一条提示，不要让多条消息遮住页面。",
+      "video": "做动效视频时它是「结果声明」——观众需要明确知道操作成功了。建议最少停留 1.5 秒，并让它落在画面下半部分（靠近操作发生的位置）。",
+      "demo": "component",
+      "demoVariant": "toast",
+      "cases": []
+    },
+    {
+      "id": "feedback.counter",
+      "no": 44,
+      "zh": "数字计数与翻牌",
+      "en": "Animated counter / Odometer",
+      "group": "等待与反馈",
+      "layer": "动效类型",
+      "nature": "effect",
+      "trigger": [
+        "in-view",
+        "state",
+        "load"
+      ],
+      "core": "数值从旧结果平滑变化到新结果。Odometer 指像里程表一样逐位翻动数字。",
+      "variants": [
+        "数字从零增长到最终值",
+        "旧数值平滑更新到新数值",
+        "每一位数字上下翻动",
+        "百分比与进度条同步增长",
+        "金额变化时短暂标出增减方向"
+      ],
+      "fits": [
+        "数据概览、销售额、里程、完成率和关键成绩"
+      ],
+      "avoid": [
+        "动画不停在准确结果上",
+        "没有等宽数字（数字跳动时容器会左右晃）"
+      ],
+      "scenarios": {
+        "text": "core",
+        "bg": "avoid",
+        "card": "core",
+        "screen": "good",
+        "chart": "core"
+      },
+      "render": "deterministic",
+      "shotRoles": [
+        "data-callout",
+        "kpi-card"
+      ],
+      "timing": {
+        "duration_ms": [
+          600,
+          1400
+        ],
+        "easing": "ease-out",
+        "note": "必须使用等宽数字（tabular-nums），否则会抖动"
+      },
+      "prompt": "数据卡片进入视口后播放数字计数（Animated counter）。数字从旧值平滑增长到最终结果，只播放一次；千位分隔符和单位始终保持稳定，动画结束后显示准确数值。",
+      "video": "数字绝对不能让生成模型写——一个错字就毁掉整条素材。这一条是「确定性层」不可让渡的边界。",
+      "demo": "feedback",
+      "demoVariant": "counter",
+      "cases": []
+    },
+    {
+      "id": "feedback.skeleton",
+      "no": 45,
+      "zh": "骨架屏加载",
+      "en": "Skeleton loading",
+      "group": "等待与反馈",
+      "layer": "动效类型",
+      "nature": "effect",
+      "trigger": [
+        "state",
+        "route",
+        "load"
+      ],
+      "core": "先用灰色占位块展示页面大致结构，真实内容加载完成后再替换进去。用户能提前看到内容会出现在哪里，页面也不容易跳动。",
+      "variants": [
+        "卡片标题与正文使用灰色条占位",
+        "图片位置显示固定比例的色块",
+        "列表先显示多行相同骨架",
+        "占位块缓慢明暗呼吸",
+        "一道柔和高光从骨架表面经过"
+      ],
+      "fits": [
+        "信息流、商品列表、个人主页和结构已经确定的异步内容"
+      ],
+      "avoid": [
+        "等待时间很短还让骨架闪一下（不如直接显示内容）",
+        "骨架尺寸与真实内容不一致（替换时会跳）"
+      ],
+      "scenarios": {
+        "text": "avoid",
+        "bg": "avoid",
+        "card": "caution",
+        "screen": "core",
+        "chart": "caution"
+      },
+      "render": "deterministic",
+      "shotRoles": [
+        "ui-demo",
+        "loading"
+      ],
+      "timing": {
+        "duration_ms": [
+          1200,
+          2400
+        ],
+        "easing": "linear",
+        "note": "高光扫过 1.2–1.6 秒一轮；骨架必须与真实内容同尺寸同布局"
+      },
+      "prompt": "内容加载时显示骨架屏（Skeleton loading）。骨架块保持与真实卡片相同的尺寸和布局，并使用轻微的明暗呼吸；数据到达后平滑替换为真实内容，页面位置不能跳动。",
+      "video": "演示「加载—完成」链路时很有效，但不宜超过 2 秒。超过就压掉中间帧，只保留「骨架出现 → 高光扫过一次 → 内容替换」。",
+      "demo": "feedback",
+      "demoVariant": "skeleton",
+      "cases": []
+    },
+    {
+      "id": "feedback.loading",
+      "no": 46,
+      "zh": "加载指示与进度",
+      "en": "Loading indicator",
+      "group": "等待与反馈",
+      "layer": "动效类型",
+      "nature": "effect",
+      "trigger": [
+        "state",
+        "click",
+        "load"
+      ],
+      "core": "分两类：系统不知道何时完成时用旋转图标、跳动圆点、循环进度条，只表达「还在工作」；知道完成多少时用百分比、进度条或步骤编号显示真实进度。",
+      "variants": [
+        "按钮内部出现小型旋转图标",
+        "三个圆点依次跳动，表示正在生成",
+        "文件上传显示完成百分比",
+        "圆形进度环逐渐填满",
+        "批量任务显示已完成数量"
+      ],
+      "fits": [
+        "提交、搜索、生成、上传、下载和导出"
+      ],
+      "avoid": [
+        "能算进度却一直转圈",
+        "等待变长后不补充状态文字和取消入口"
+      ],
+      "scenarios": {
+        "text": "avoid",
+        "bg": "avoid",
+        "card": "caution",
+        "screen": "core",
+        "chart": "avoid"
+      },
+      "render": "deterministic",
+      "shotRoles": [
+        "ui-demo",
+        "loading"
+      ],
+      "timing": {
+        "duration_ms": [
+          600,
+          6000
+        ],
+        "easing": "linear",
+        "note": "旋转匀速（linear）；进度条用 ease-out 让结尾稳定"
+      },
+      "prompt": "提交后显示加载指示（Loading indicator）。无法估算进度时，在按钮内显示旋转图标并禁止重复点击；能够计算进度时，改为显示真实百分比和进度条。任务完成后进入成功或失败状态。",
+      "video": "「转圈」要短，「进度条」可以长——进度条本身有信息量，转圈只是等待。视频里转圈超过 1.5 秒观众就开始走神。",
+      "demo": "feedback",
+      "demoVariant": "loading",
+      "cases": []
+    },
+    {
+      "id": "feedback.result",
+      "no": 47,
+      "zh": "成功与错误反馈",
+      "en": "Success / Error feedback",
+      "group": "等待与反馈",
+      "layer": "动效类型",
+      "nature": "effect",
+      "trigger": [
+        "state"
+      ],
+      "core": "确认结果。成功常用勾选、颜色变化和轻微放大；错误常用边框变色、提示文字或一次短促抖动。",
+      "variants": [
+        "对勾沿路径绘制出来",
+        "按钮从加载状态变成成功状态",
+        "输入框错误时短促左右抖动",
+        "错误字段出现说明文字",
+        "操作完成后内容更新并高亮一次"
+      ],
+      "fits": [
+        "表单提交、付款、保存、上传和关键操作"
+      ],
+      "avoid": [
+        "只用颜色区分成功与错误（加图标或文字）",
+        "错误提示不说明如何修正"
+      ],
+      "scenarios": {
+        "text": "avoid",
+        "bg": "avoid",
+        "card": "good",
+        "screen": "core",
+        "chart": "avoid"
+      },
+      "render": "deterministic",
+      "shotRoles": [
+        "ui-demo",
+        "result"
+      ],
+      "timing": {
+        "duration_ms": [
+          200,
+          600
+        ],
+        "easing": "ease-out",
+        "note": "抖动幅度 ≤6px，且只抖一次"
+      },
+      "prompt": "提交完成后显示结果反馈（Success / Error feedback）。成功时让按钮变为对勾并显示「已保存」；失败时让对应输入框短促抖动一次，并在下方显示具体错误原因和修正方法。",
+      "video": "视频压缩会吃掉细腻的颜色差异，所以必须做「颜色 + 图标 + 文字」三重编码。抖动在成片里只保留一次，重复抖动看起来像 bug。",
+      "demo": "feedback",
+      "demoVariant": "result",
+      "cases": []
+    },
+    {
+      "id": "feedback.icon-morph",
+      "no": 48,
+      "zh": "图标形变",
+      "en": "Icon morphing",
+      "group": "等待与反馈",
+      "layer": "动效类型",
+      "nature": "effect",
+      "trigger": [
+        "click",
+        "state"
+      ],
+      "core": "让一个图标平滑变成另一个图标，表示同一按钮的状态已经改变。",
+      "variants": [
+        "三条菜单线变成关闭叉号",
+        "加号变成减号",
+        "播放三角形变成暂停双线",
+        "收藏空心图标变成实心",
+        "箭头旋转表示展开与收起"
+      ],
+      "fits": [
+        "同一个按钮承担两种相反状态时"
+      ],
+      "avoid": [
+        "图标变化后按钮位置或点击范围改变",
+        "形变过程看不出终点状态"
+      ],
+      "scenarios": {
+        "text": "avoid",
+        "bg": "avoid",
+        "card": "good",
+        "screen": "core",
+        "chart": "avoid"
+      },
+      "render": "deterministic",
+      "shotRoles": [
+        "ui-demo",
+        "icon"
+      ],
+      "timing": {
+        "duration_ms": [
+          200,
+          360
+        ],
+        "easing": "ease-in-out",
+        "note": "两端共享同一个按钮位置与点击范围"
+      },
+      "prompt": "菜单按钮使用图标形变（Icon morphing）。导航关闭时显示三条横线，打开后平滑变成关闭叉号；两种状态共用同一个按钮位置，键盘用户也能读取当前展开状态。",
+      "video": "图标形变在视频里是「状态箭头」——它用最小的画面面积传达「这里发生了变化」。适合放在镜头角落做持续性提示。",
+      "demo": "feedback",
+      "demoVariant": "icon-morph",
+      "cases": []
+    },
+    {
+      "id": "layout.layout-animation",
+      "no": 49,
+      "zh": "布局过渡",
+      "en": "Layout animation",
+      "group": "布局与页面",
+      "layer": "动效类型",
+      "nature": "effect",
+      "trigger": [
+        "state",
+        "click",
+        "gesture"
+      ],
+      "core": "元素增删、排序或尺寸变化时，旧位置与新位置之间出现连续移动，周围内容一起让位，不会瞬间跳到结果。",
+      "variants": [
+        "筛选后卡片重新排列",
+        "删除一项后下面的列表向上补位",
+        "拖拽卡片时其他卡片自动让出位置",
+        "展开卡片后周围布局平稳调整",
+        "网格在不同列数之间重新排布"
+      ],
+      "fits": [
+        "列表、网格、看板和任何会重排的内容"
+      ],
+      "avoid": [
+        "整个列表闪烁或重新从头入场",
+        "用 fixed 定位硬撑（周围内容不让位）"
+      ],
+      "scenarios": {
+        "text": "avoid",
+        "bg": "avoid",
+        "card": "core",
+        "screen": "good",
+        "chart": "caution"
+      },
+      "render": "deterministic",
+      "shotRoles": [
+        "card-grid",
+        "list",
+        "ui-demo"
+      ],
+      "timing": {
+        "duration_ms": [
+          240,
+          420
+        ],
+        "easing": "ease-in-out",
+        "note": "FLIP 是实现思路之一；写提示词时直接说「从旧位置平滑移动到新位置」就够"
+      },
+      "prompt": "筛选结果使用布局过渡（Layout animation）。卡片从旧位置平滑移动到新位置，隐藏项淡出，剩余卡片自然补位；不要让整个列表闪烁或重新从头入场。",
+      "video": "布局过渡最难做「确定性」——元素顺序一变，整段动画都会重算。所以在 ShotSpec 里要把初始顺序写死，避免每次渲染结果不同。",
+      "demo": "layout",
+      "demoVariant": "layout-animation",
+      "cases": []
+    },
+    {
+      "id": "layout.shared-element",
+      "no": 50,
+      "zh": "共享元素转场",
+      "en": "Shared element transition",
+      "group": "布局与页面",
+      "layer": "动效类型",
+      "nature": "effect",
+      "trigger": [
+        "route",
+        "click",
+        "state"
+      ],
+      "core": "两个界面中的同一个元素保持连续。卡片里的图片一边放大、一边移动到详情页主图的位置，用户能看到自己点的东西去了哪里。",
+      "variants": [
+        "卡片图片扩展为详情页主图",
+        "头像移动到个人主页顶部",
+        "小播放器扩展成完整播放页",
+        "缩略图放大为全屏预览",
+        "列表中的标题移动到详情页标题栏"
+      ],
+      "fits": [
+        "列表到详情、图库预览、音乐播放和具有明确主物体的页面"
+      ],
+      "avoid": [
+        "两端没有同一个可识别元素（改用普通页面转场更清楚）"
+      ],
+      "scenarios": {
+        "text": "good",
+        "bg": "good",
+        "card": "core",
+        "screen": "good",
+        "chart": "caution"
+      },
+      "render": "deterministic",
+      "shotRoles": [
+        "card-to-detail",
+        "gallery",
+        "hero"
+      ],
+      "timing": {
+        "duration_ms": [
+          300,
+          500
+        ],
+        "easing": "ease-in-out",
+        "note": "两端几何差异大时可以用轻微的路径弯曲"
+      },
+      "prompt": "从作品卡片进入详情页时使用共享元素转场（Shared element transition）。卡片中的主图连续放大并移动到详情页顶部，标题跟随到新位置；返回列表时按原路径恢复到原卡片。",
+      "video": "叙事连贯性最强的动效，也最适合当「章节缝合件」。做视频时它能把两个独立渲染的镜头变成一个连续镜头。",
+      "demo": "layout",
+      "demoVariant": "shared-element",
+      "cases": []
+    },
+    {
+      "id": "layout.page-transition",
+      "no": 51,
+      "zh": "页面转场",
+      "en": "Page transition",
+      "group": "布局与页面",
+      "layer": "动效类型",
+      "nature": "effect",
+      "trigger": [
+        "route",
+        "click"
+      ],
+      "core": "描述旧页面怎样离开、新页面怎样进入。发生在路由切换或章节跳转时，范围比组件动效更大。",
+      "variants": [
+        "旧页面淡出，新页面淡入",
+        "新页面从右侧进入，表示继续前进",
+        "返回时沿相反方向退出",
+        "一块色幕扫过画面完成切换",
+        "页面先轻微缩小，再进入下一个空间"
+      ],
+      "fits": [
+        "作品集、品牌网站、应用页面和章节式故事"
+      ],
+      "avoid": [
+        "普通内容网站用复杂转场（每次点击都变慢）"
+      ],
+      "scenarios": {
+        "text": "avoid",
+        "bg": "core",
+        "card": "good",
+        "screen": "core",
+        "chart": "avoid"
+      },
+      "render": "deterministic",
+      "shotRoles": [
+        "section-transition",
+        "act-break"
+      ],
+      "timing": {
+        "duration_ms": [
+          240,
+          600
+        ],
+        "easing": "ease-in-out",
+        "note": "转场期间必须保留加载反馈，避免长时间空白"
+      },
+      "prompt": "路由切换使用页面转场（Page transition）。进入下一层页面时，新页面从右侧轻微滑入并淡入；返回时沿相反方向退出。转场期间保留加载反馈，并避免整页长时间空白。",
+      "video": "转场就是视频的剪辑点。做动效视频时不要「两个镜头之间加一个转场」，而要让转场发生在某个元素的连续运动里——观众才不会感觉被打断。",
+      "demo": "layout",
+      "demoVariant": "page-transition",
+      "cases": []
+    },
+    {
+      "id": "ux.feedback",
+      "no": 52,
+      "zh": "反馈",
+      "en": "Feedback",
+      "group": "UX 规则",
+      "layer": "UX 规则",
+      "nature": "rule",
+      "trigger": [
+        "all"
+      ],
+      "core": "用户做出操作后，界面立即告诉他「我收到了」。",
+      "variants": [
+        "操作前：用户看得出哪里能点",
+        "操作时：按钮有按下或加载状态",
+        "操作后：页面明确显示成功或失败",
+        "失败后：用户知道怎样修正或重试"
+      ],
+      "fits": [
+        "所有可操作组件",
+        "异步操作必须补齐加载与结果两态"
+      ],
+      "avoid": [
+        "点了没反应",
+        "异步操作没有加载态",
+        "失败不给修正路径"
+      ],
+      "scenarios": {
+        "text": "good",
+        "bg": "avoid",
+        "card": "core",
+        "screen": "core",
+        "chart": "good"
+      },
+      "render": "deterministic",
+      "shotRoles": [
+        "ui-demo",
+        "all"
+      ],
+      "timing": {
+        "duration_ms": [
+          80,
+          400
+        ],
+        "easing": "ease-out",
+        "note": "按下反馈必须 <160ms，否则用户会觉得没点上"
+      },
+      "prompt": "给所有可操作组件补齐反馈（Feedback）。悬停、键盘聚焦和按下时要有清楚的状态变化；异步操作显示加载，完成后显示成功或错误结果，并提供下一步操作。",
+      "video": "做视频时这条规则决定「观众信不信这个界面」。演示里点了一下什么都没变，比画面不够漂亮严重得多。",
+      "demo": "ux",
+      "demoVariant": "feedback",
+      "cases": []
+    },
+    {
+      "id": "ux.affordance",
+      "no": 53,
+      "zh": "操作暗示",
+      "en": "Affordance",
+      "group": "UX 规则",
+      "layer": "UX 规则",
+      "nature": "rule",
+      "trigger": [
+        "all"
+      ],
+      "core": "界面元素本身的样子就要告诉用户能做什么。按钮的形状说明可以点击，下划线说明这是链接，把手说明这里能拖。",
+      "variants": [
+        "按钮拥有清楚的边界和文字",
+        "链接使用下划线、颜色或箭头",
+        "可拖拽区域显示把手或抓取光标",
+        "可展开项带箭头、加号或状态文字",
+        "输入框拥有标签、边框和键盘焦点样式"
+      ],
+      "fits": [
+        "所有交互元素"
+      ],
+      "avoid": [
+        "动效变成唯一信号（关键操作隐藏在悬停之后）",
+        "把按钮做成看起来像普通文字"
+      ],
+      "scenarios": {
+        "text": "good",
+        "bg": "avoid",
+        "card": "core",
+        "screen": "core",
+        "chart": "good"
+      },
+      "render": "deterministic",
+      "shotRoles": [
+        "ui-demo",
+        "all"
+      ],
+      "timing": {
+        "duration_ms": [
+          0,
+          300
+        ],
+        "easing": "ease-out",
+        "note": "动效只能强化已有信号，不能代替它"
+      },
+      "prompt": "强化组件的操作暗示（Affordance）。可点击按钮要有清楚边界，可展开区域显示方向箭头，可拖拽卡片显示把手；动效只用于确认这些已有信号，不要把关键操作隐藏到悬停之后。",
+      "video": "视频观众没法把鼠标移过去试。所以静态帧里就必须能看出「哪里可以点」——这是视频比交互界面更严格的地方。",
+      "demo": "ux",
+      "demoVariant": "affordance",
+      "cases": []
+    },
+    {
+      "id": "ux.focus",
+      "no": 54,
+      "zh": "焦点与注意力",
+      "en": "Focus",
+      "group": "UX 规则",
+      "layer": "UX 规则",
+      "nature": "rule",
+      "trigger": [
+        "all"
+      ],
+      "core": "两层含义：视觉上把注意力引向当前任务，操作上让键盘焦点落在正确位置。",
+      "variants": [
+        "主操作比次要操作更醒目",
+        "弹窗打开后注意力留在弹窗内",
+        "键盘聚焦状态清楚可见",
+        "关闭弹窗后焦点回到原按钮",
+        "动画结束后，用户知道下一步看哪里"
+      ],
+      "fits": [
+        "所有页面，尤其是弹窗、表单和多步骤流程"
+      ],
+      "avoid": [
+        "动画很热闹却不知道看哪里",
+        "弹窗关闭后焦点丢失",
+        "键盘聚焦样式不可见"
+      ],
+      "scenarios": {
+        "text": "good",
+        "bg": "avoid",
+        "card": "core",
+        "screen": "core",
+        "chart": "good"
+      },
+      "render": "deterministic",
+      "shotRoles": [
+        "ui-demo",
+        "all"
+      ],
+      "timing": {
+        "duration_ms": [
+          120,
+          400
+        ],
+        "easing": "ease-out",
+        "note": "动画结束后必须留下明确的视觉落点"
+      },
+      "prompt": "使用焦点与注意力规则（Focus）。弹窗打开时弱化背景，把键盘焦点移动到弹窗中的第一个操作；关闭后把焦点还给原按钮。所有可操作元素都保留清楚的键盘聚焦样式。",
+      "video": "做视频时这条规则等价于「引导视线」：每个镜头只允许一个视觉落点。观众的眼睛被你别的地方抢走一次，这个镜头就白做了。",
+      "demo": "ux",
+      "demoVariant": "focus",
+      "cases": []
+    },
+    {
+      "id": "ux.reduced-motion",
+      "no": 55,
+      "zh": "减少动态",
+      "en": "Reduced motion",
+      "group": "UX 规则",
+      "layer": "UX 规则",
+      "nature": "rule",
+      "trigger": [
+        "all"
+      ],
+      "core": "检测到用户开启系统「减少动态」时，换成更安静的版本，避免眩晕。",
+      "variants": [
+        "优先减弱：大幅视差、长距离飞入飞出、自动循环、光标拖尾、强烈闪烁",
+        "优先减弱：无法暂停的图片序列与自动轮播",
+        "保留：短促淡化、颜色变化、进度、成功/错误提示"
+      ],
+      "fits": [
+        "所有页面",
+        "有大量视差、缩放、循环的页面尤其必须覆盖"
+      ],
+      "avoid": [
+        "直接关闭所有动效（状态变化仍然要看得懂）",
+        "只在首页做适配"
+      ],
+      "scenarios": {
+        "text": "core",
+        "bg": "core",
+        "card": "core",
+        "screen": "core",
+        "chart": "core"
+      },
+      "render": "deterministic",
+      "shotRoles": [
+        "all"
+      ],
+      "timing": {
+        "duration_ms": [
+          120,
+          240
+        ],
+        "easing": "ease-out",
+        "note": "降级为短促淡入淡出，保留必要反馈"
+      },
+      "prompt": "支持减少动态（Reduced motion）。检测到用户开启减少动态后，关闭视差、滚动缩放、光标拖尾和自动循环，把大幅位移改为短促淡入淡出；保留加载、成功和错误等必要反馈。",
+      "video": "视频没有「用户的系统设置」可读，所以这一条在制片里转化为：为每个动效准备一个「安静版」。成片给到对闪烁/眩晕敏感的场景时可以直接替换。",
+      "demo": "ux",
+      "demoVariant": "reduced-motion",
+      "cases": []
+    },
+    {
+      "id": "ux.modality",
+      "no": 56,
+      "zh": "多输入方式适配",
+      "en": "Input modality support",
+      "group": "UX 规则",
+      "layer": "UX 规则",
+      "nature": "rule",
+      "trigger": [
+        "all"
+      ],
+      "core": "关键功能不能只靠鼠标悬停，要同时支持鼠标、触屏、键盘三种输入。",
+      "variants": [
+        "鼠标悬停 ↔ 键盘聚焦",
+        "桌面悬停展开 ↔ 手机点击展开",
+        "拖拽排序 ↔ 上移/下移按钮",
+        "光标跟随效果 ↔ 触屏端改为静态",
+        "左右滑动 ↔ 上一张/下一张按钮"
+      ],
+      "fits": [
+        "所有交互功能"
+      ],
+      "avoid": [
+        "把关键功能只交给 Hover",
+        "移动端没有等价入口"
+      ],
+      "scenarios": {
+        "text": "good",
+        "bg": "caution",
+        "card": "core",
+        "screen": "core",
+        "chart": "good"
+      },
+      "render": "deterministic",
+      "shotRoles": [
+        "all"
+      ],
+      "timing": {
+        "duration_ms": [
+          120,
+          400
+        ],
+        "easing": "ease-out",
+        "note": "每个悬停功能都要有一个非悬停的等价入口"
+      },
+      "prompt": "完善不同输入方式适配（Input modality support）。所有悬停功能都提供键盘聚焦状态，手机端改为点击；拖拽和滑动之外保留可见按钮。装饰性的指针跟随在触屏设备上关闭。",
+      "video": "这条规则在制片里最直接的用处是：**一个动效要一次性决定它的桌面版与移动版**，出素材时就出两套，不要在剪辑时临时裁切。",
+      "demo": "ux",
+      "demoVariant": "modality",
+      "cases": []
+    },
+    {
+      "id": "chart.bar-compare",
+      "no": 57,
+      "zh": "柱状对比",
+      "en": "Bar compare",
+      "group": "数据叙事",
+      "layer": "动效类型",
+      "nature": "effect",
+      "trigger": [
+        "in-view",
+        "load"
+      ],
+      "core": "柱条从基线增长到各自数值，回答「谁多、谁少」。",
+      "variants": [
+        "竖直柱",
+        "水平条",
+        "分组柱",
+        "强调目标项"
+      ],
+      "fits": [
+        "排名与规模对比",
+        "几项之间的差距"
+      ],
+      "avoid": [
+        "项数超过 8（改用排名变化）",
+        "用面积或体积表示数值"
+      ],
+      "scenarios": {
+        "text": "caution",
+        "bg": "avoid",
+        "card": "caution",
+        "screen": "good",
+        "chart": "core"
+      },
+      "render": "deterministic",
+      "shotRoles": [
+        "data-story"
+      ],
+      "timing": {
+        "duration_ms": [
+          4000,
+          4000
+        ],
+        "easing": "power2.out",
+        "stagger_ms": [
+          60,
+          120
+        ],
+        "note": "图元用不超调插值；结束必须停在准确值，不循环、不回弹"
+      },
+      "prompt": "用柱状对比呈现这组数据：先出现结论标题、单位与坐标轴，柱条从基线依次增长到各自数值，最后强调目标项并停留读数。不循环、不回弹。",
+      "video": "图表属确定性层，数值绝不能交给生成模型。渲染时把最终值写进 ShotConfig，动画只负责从 0 到最终值。",
+      "demo": "chart",
+      "demoVariant": "barCompare",
+      "cases": []
+    },
+    {
+      "id": "chart.line-trend",
+      "no": 58,
+      "zh": "折线趋势",
+      "en": "Line trend",
+      "group": "数据叙事",
+      "layer": "动效类型",
+      "nature": "effect",
+      "trigger": [
+        "in-view",
+        "load"
+      ],
+      "core": "折线沿时间轴描绘出来，回答「如何变化」。",
+      "variants": [
+        "单折线",
+        "双折线对比",
+        "带拐点标注",
+        "带终值标签"
+      ],
+      "fits": [
+        "随时间变化的指标",
+        "多序列走势对比"
+      ],
+      "avoid": [
+        "折线数量超过 3 条",
+        "缺失值补零"
+      ],
+      "scenarios": {
+        "text": "caution",
+        "bg": "avoid",
+        "card": "caution",
+        "screen": "good",
+        "chart": "core"
+      },
+      "render": "deterministic",
+      "shotRoles": [
+        "data-story"
+      ],
+      "timing": {
+        "duration_ms": [
+          5000,
+          5000
+        ],
+        "easing": "power2.out",
+        "note": "图元用不超调插值；结束必须停在准确值，不循环、不回弹"
+      },
+      "prompt": "用折线趋势呈现这组数据：先出现坐标轴与时间范围，折线从左到右描绘，到拐点处短暂停顿并标注，最后显示终值。缺失处断开，不补零。",
+      "video": "缺失值必须断开而不是补 0，否则会读出一条不存在的走势。断点信息要写进 ShotConfig 的数据里。",
+      "demo": "chart",
+      "demoVariant": "lineTrend",
+      "cases": []
+    },
+    {
+      "id": "chart.share",
+      "no": 59,
+      "zh": "占比条",
+      "en": "Share bar",
+      "group": "数据叙事",
+      "layer": "动效类型",
+      "nature": "effect",
+      "trigger": [
+        "in-view",
+        "load"
+      ],
+      "core": "100% 横向堆叠条逐段揭示，回答「各部分占多少」。",
+      "variants": [
+        "横向堆叠",
+        "段间留缝",
+        "标注占比",
+        "强调一项"
+      ],
+      "fits": [
+        "构成占比",
+        "预算或份额分配"
+      ],
+      "avoid": [
+        "占比总和不是 100% 却当成 100% 用",
+        "段数超过 6"
+      ],
+      "scenarios": {
+        "text": "caution",
+        "bg": "avoid",
+        "card": "caution",
+        "screen": "good",
+        "chart": "core"
+      },
+      "render": "deterministic",
+      "shotRoles": [
+        "data-story"
+      ],
+      "timing": {
+        "duration_ms": [
+          4000,
+          4000
+        ],
+        "easing": "power2.out",
+        "stagger_ms": [
+          80,
+          140
+        ],
+        "note": "图元用不超调插值；结束必须停在准确值，不循环、不回弹"
+      },
+      "prompt": "用占比条呈现这组数据：先出现总长 100% 的底槽，各段依次从左侧展开并显示占比，最后强调目标项。占比非负且总和有效，不静默修改数据。",
+      "video": "占比类数据必须先校验：出现负数或总和不为 100% 时，应当报错并拒绝播放，而不是悄悄归一化。",
+      "demo": "chart",
+      "demoVariant": "share",
+      "cases": []
+    },
+    {
+      "id": "chart.before-after",
+      "no": 60,
+      "zh": "前后对比",
+      "en": "Before / after",
+      "group": "数据叙事",
+      "layer": "动效类型",
+      "nature": "effect",
+      "trigger": [
+        "in-view",
+        "load"
+      ],
+      "core": "前值与后值先后出现，再用连线标出差值，回答「改善了多少」。",
+      "variants": [
+        "双柱对比",
+        "哑铃图",
+        "带差值连线",
+        "带百分比变化"
+      ],
+      "fits": [
+        "A/B 结果",
+        "优化前后"
+      ],
+      "avoid": [
+        "前后口径不一致",
+        "只给百分比不给绝对值"
+      ],
+      "scenarios": {
+        "text": "caution",
+        "bg": "avoid",
+        "card": "caution",
+        "screen": "good",
+        "chart": "core"
+      },
+      "render": "deterministic",
+      "shotRoles": [
+        "data-story"
+      ],
+      "timing": {
+        "duration_ms": [
+          4000,
+          4000
+        ],
+        "easing": "power2.out",
+        "note": "图元用不超调插值；结束必须停在准确值，不循环、不回弹"
+      },
+      "prompt": "用前后对比呈现这组数据：先前值、再后值，然后用连线连接两柱并标注差值。差值同时给绝对值和百分比，停留读数。",
+      "video": "前后对比最容易被误读成同一时点的两根柱子。用连线把「同一个对象的两个时点」在视觉上绑起来。",
+      "demo": "chart",
+      "demoVariant": "beforeAfter",
+      "cases": []
+    },
+    {
+      "id": "chart.waterfall",
+      "no": 61,
+      "zh": "瀑布归因",
+      "en": "Waterfall",
+      "group": "数据叙事",
+      "layer": "动效类型",
+      "nature": "effect",
+      "trigger": [
+        "in-view",
+        "load"
+      ],
+      "core": "从起点出发逐项增减，最后回到终点并标出净变化，回答「总变化由什么构成」。",
+      "variants": [
+        "水平瀑布",
+        "垂直瀑布",
+        "带累计基线",
+        "标注净变化"
+      ],
+      "fits": [
+        "归因分析",
+        "预算差异拆解"
+      ],
+      "avoid": [
+        "增减项之间没有加法关系"
+      ],
+      "scenarios": {
+        "text": "caution",
+        "bg": "avoid",
+        "card": "caution",
+        "screen": "good",
+        "chart": "core"
+      },
+      "render": "deterministic",
+      "shotRoles": [
+        "data-story"
+      ],
+      "timing": {
+        "duration_ms": [
+          6000,
+          6000
+        ],
+        "easing": "power2.out",
+        "stagger_ms": [
+          120,
+          200
+        ],
+        "note": "图元用不超调插值；结束必须停在准确值，不循环、不回弹"
+      },
+      "prompt": "用瀑布归因呈现这组数据：先立起点，再逐项展示增减并保持累计基线可见，最后显示终点与净变化。各项之间必须是加法关系。",
+      "video": "瀑布图的前提是各项相加等于净变化。渲染前校验这一点，不成立时应当报错而不是照画。",
+      "demo": "chart",
+      "demoVariant": "waterfall",
+      "cases": []
+    },
+    {
+      "id": "chart.rank-race",
+      "no": 62,
+      "zh": "排名变化",
+      "en": "Rank race",
+      "group": "数据叙事",
+      "layer": "动效类型",
+      "nature": "effect",
+      "trigger": [
+        "in-view",
+        "load"
+      ],
+      "core": "固定实体颜色，按离散时间更新数值与位置，回答「排名怎样演变」。",
+      "variants": [
+        "条形排名",
+        "固定全时段尺度",
+        "并列排序规则",
+        "终局高亮"
+      ],
+      "fits": [
+        "多主体长期排名",
+        "市场份额演变"
+      ],
+      "avoid": [
+        "每帧自动缩放（会制造假变化）",
+        "实体颜色中途改变"
+      ],
+      "scenarios": {
+        "text": "caution",
+        "bg": "avoid",
+        "card": "caution",
+        "screen": "good",
+        "chart": "core"
+      },
+      "render": "deterministic",
+      "shotRoles": [
+        "data-story"
+      ],
+      "timing": {
+        "duration_ms": [
+          8000,
+          8000
+        ],
+        "easing": "power2.out",
+        "note": "图元用不超调插值；结束必须停在准确值，不循环、不回弹"
+      },
+      "prompt": "用排名变化呈现这组数据：实体颜色全程固定，坐标轴使用全时段统一尺度，按离散时间点更新数值与位置，并列时按既定规则排序，终局高亮第一名。",
+      "video": "排名动画最容易骗人：如果每帧按当前最大值自动缩放，观众会看到不存在的暴涨。尺度必须固定为全时段最大值。",
+      "demo": "chart",
+      "demoVariant": "rankRace",
+      "cases": []
+    }
+  ]
+}

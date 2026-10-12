@@ -1,0 +1,868 @@
+{
+  "version": "1.0",
+  "width": 1920,
+  "height": 1080,
+  "fps": 60,
+  "films": [
+    {
+      "id": "director.forma",
+      "name": "FORMA · 收起杂念",
+      "en": "FORMA",
+      "category": "director",
+      "collection": "director",
+      "sequenceKind": "film",
+      "film": "forma",
+      "sourceStart": 0,
+      "sourceEnd": 15,
+      "durationMs": 15000,
+      "snippet": "director-forma",
+      "mapsToCombo": "combo.overview-select-detail",
+      "palette": "paper",
+      "logline": "纸片收成任务卡，目标卡放大，动作区收成圆环，最后用 ONE. 回答开场。",
+      "derivedFrom": [
+        "纸片收成任务卡，目标卡放大，动作区收成圆环，最后用 ONE. 回答开场。",
+        "原创概念样片；数字与界面为设计研究内容"
+      ],
+      "mechanism": "纸片收成任务卡，目标卡放大，动作区收成圆环，最后用 ONE. 回答开场。",
+      "useWhen": "任务管理、内容筛选、聚焦功能",
+      "avoidWhen": "无关 UI 状态连续变形",
+      "capability": "production-verified",
+      "renderModel": "2D editorial geometry",
+      "shots": [
+        {
+          "id": "s1",
+          "name": "问题建立",
+          "fromMs": 0,
+          "toMs": 2400,
+          "framing": "ms",
+          "cameraMove": "static",
+          "anchor": "lm",
+          "world": "none",
+          "depth": {
+            "foreground": "交接主体与阅读信息",
+            "midground": "TOO MUCH. 与散落纸片",
+            "background": "主题环境与材质"
+          },
+          "transitionIn": "完整画面建立",
+          "transitionOut": "空间收束",
+          "note": "TOO MUCH. 与散落纸片",
+          "reason": "纸片收成任务卡，目标卡放大，动作区收成圆环，最后用 ONE. 回答开场。",
+          "subjectMotion": "TOO MUCH. 与散落纸片"
+        },
+        {
+          "id": "s2",
+          "name": "选择重点",
+          "fromMs": 2400,
+          "toMs": 5400,
+          "framing": "ms",
+          "cameraMove": "static",
+          "anchor": "lm",
+          "world": "none",
+          "depth": {
+            "foreground": "交接主体与阅读信息",
+            "midground": "三张任务卡中的朱红目标卡",
+            "background": "主题环境与材质"
+          },
+          "transitionIn": "空间收束",
+          "transitionOut": "主体变形",
+          "note": "三张任务卡中的朱红目标卡",
+          "reason": "纸片收成任务卡，目标卡放大，动作区收成圆环，最后用 ONE. 回答开场。",
+          "subjectMotion": "三张任务卡中的朱红目标卡"
+        },
+        {
+          "id": "s3",
+          "name": "放大任务",
+          "fromMs": 5400,
+          "toMs": 8400,
+          "framing": "cu",
+          "cameraMove": "static",
+          "anchor": "lm",
+          "world": "none",
+          "depth": {
+            "foreground": "交接主体与阅读信息",
+            "midground": "朱红选择标记与专注面板",
+            "background": "主题环境与材质"
+          },
+          "transitionIn": "主体变形",
+          "transitionOut": "几何交接",
+          "note": "朱红选择标记与专注面板",
+          "reason": "纸片收成任务卡，目标卡放大，动作区收成圆环，最后用 ONE. 回答开场。",
+          "subjectMotion": "朱红选择标记与专注面板"
+        },
+        {
+          "id": "s4",
+          "name": "进入专注",
+          "fromMs": 8400,
+          "toMs": 11400,
+          "framing": "cu",
+          "cameraMove": "static",
+          "anchor": "lm",
+          "world": "none",
+          "depth": {
+            "foreground": "交接主体与阅读信息",
+            "midground": "动作区收为计时圆环",
+            "background": "主题环境与材质"
+          },
+          "transitionIn": "几何交接",
+          "transitionOut": "形状匹配",
+          "note": "动作区收为计时圆环",
+          "reason": "纸片收成任务卡，目标卡放大，动作区收成圆环，最后用 ONE. 回答开场。",
+          "subjectMotion": "动作区收为计时圆环"
+        },
+        {
+          "id": "s5",
+          "name": "确认结果",
+          "fromMs": 11400,
+          "toMs": 13200,
+          "framing": "ecu",
+          "cameraMove": "static",
+          "anchor": "lm",
+          "world": "none",
+          "depth": {
+            "foreground": "交接主体与阅读信息",
+            "midground": "ONE. 与完成勾，对照开场",
+            "background": "主题环境与材质"
+          },
+          "transitionIn": "形状匹配",
+          "transitionOut": "排版交接",
+          "note": "ONE. 与完成勾，对照开场",
+          "reason": "纸片收成任务卡，目标卡放大，动作区收成圆环，最后用 ONE. 回答开场。",
+          "subjectMotion": "ONE. 与完成勾，对照开场"
+        },
+        {
+          "id": "s6",
+          "name": "品牌收束",
+          "fromMs": 13200,
+          "toMs": 15000,
+          "framing": "ms",
+          "cameraMove": "static",
+          "anchor": "lm",
+          "world": "none",
+          "depth": {
+            "foreground": "交接主体与阅读信息",
+            "midground": "FORMA 与纸片标志",
+            "background": "主题环境与材质"
+          },
+          "transitionIn": "排版交接",
+          "transitionOut": "稳定结束",
+          "note": "FORMA 与纸片标志",
+          "reason": "纸片收成任务卡，目标卡放大，动作区收成圆环，最后用 ONE. 回答开场。",
+          "subjectMotion": "FORMA 与纸片标志"
+        }
+      ],
+      "keyMoments": [
+        "问题建立",
+        "选择重点",
+        "放大任务",
+        "进入专注",
+        "确认结果",
+        "品牌收束"
+      ],
+      "posterTime": 1,
+      "referenceUrls": [
+        "https://prompt-motion.com/twoclipping-5cba86",
+        "https://prompt-motion.com/shneural-2abdfa"
+      ],
+      "deliverables": {
+        "video": "films/director-forma.mp4",
+        "contact": "studio/evidence/forma-contact.png"
+      },
+      "prompt": "制作 15 秒镜头组合。主题：FORMA · 收起杂念。视觉因果：纸片收成任务卡，目标卡放大，动作区收成圆环，最后用 ONE. 回答开场。。复用导演脚手架的时间轨与状态交接，重写文案与内容；主体运动和摄影机分别说明，文字在变形后进入，结果保留阅读停留。适用：任务管理、内容筛选、聚焦功能。避免：无关 UI 状态连续变形。",
+      "sourcePlan": "studio/docs/DIRECTION.md",
+      "verification": {
+        "scope": "specified conceptual content / 1920x1080 / 60fps / 15s",
+        "evidence": "studio/evidence/verification.md",
+        "source": "same seek renderer as workbench preview"
+      },
+      "performers": [
+        {
+          "name": "纸片 / 重点卡",
+          "role": "贯穿主体",
+          "action": "被选择、扩展为面板，再交给计时与结果"
+        },
+        {
+          "name": "光标",
+          "role": "主动者",
+          "action": "触发专注操作，建立行动与结果的因果"
+        }
+      ]
+    },
+    {
+      "id": "director.relay",
+      "name": "RELAY · 一点成网",
+      "en": "RELAY",
+      "category": "director",
+      "collection": "director",
+      "sequenceKind": "film",
+      "film": "relay",
+      "sourceStart": 0,
+      "sourceEnd": 15,
+      "durationMs": 15000,
+      "snippet": "director-relay",
+      "mapsToCombo": "combo.title-product-focus",
+      "palette": "carbon",
+      "logline": "同一信号从波形交给路径、节点和网络，最终成为数据与品牌折线。",
+      "derivedFrom": [
+        "同一信号从波形交给路径、节点和网络，最终成为数据与品牌折线。",
+        "原创概念样片；数字与界面为设计研究内容"
+      ],
+      "mechanism": "同一信号从波形交给路径、节点和网络，最终成为数据与品牌折线。",
+      "useWhen": "连接、协作、网络与数据主题",
+      "avoidWhen": "没有领域含义的粒子球",
+      "capability": "production-verified",
+      "renderModel": "2D + perspective-projected 3D network",
+      "shots": [
+        {
+          "id": "s1",
+          "name": "信号建立",
+          "fromMs": 0,
+          "toMs": 2400,
+          "framing": "ms",
+          "cameraMove": "static",
+          "anchor": "lm",
+          "world": "none",
+          "depth": {
+            "foreground": "交接主体与阅读信息",
+            "midground": "A SIGNAL. 与穿行波形",
+            "background": "主题环境与材质"
+          },
+          "transitionIn": "完整画面建立",
+          "transitionOut": "路径交接",
+          "note": "A SIGNAL. 与穿行波形",
+          "reason": "同一信号从波形交给路径、节点和网络，最终成为数据与品牌折线。",
+          "subjectMotion": "A SIGNAL. 与穿行波形"
+        },
+        {
+          "id": "s2",
+          "name": "路径传递",
+          "fromMs": 2400,
+          "toMs": 5400,
+          "framing": "ms",
+          "cameraMove": "static",
+          "anchor": "lm",
+          "world": "none",
+          "depth": {
+            "foreground": "交接主体与阅读信息",
+            "midground": "蓝色信号沿分支到达节点",
+            "background": "主题环境与材质"
+          },
+          "transitionIn": "路径交接",
+          "transitionOut": "节点匹配",
+          "note": "蓝色信号沿分支到达节点",
+          "reason": "同一信号从波形交给路径、节点和网络，最终成为数据与品牌折线。",
+          "subjectMotion": "蓝色信号沿分支到达节点"
+        },
+        {
+          "id": "s3",
+          "name": "空间网络",
+          "fromMs": 5400,
+          "toMs": 8400,
+          "framing": "ls",
+          "cameraMove": "orbit",
+          "anchor": "lm",
+          "world": "none",
+          "depth": {
+            "foreground": "交接主体与阅读信息",
+            "midground": "具有深度排序的透视网络平面",
+            "background": "主题环境与材质"
+          },
+          "transitionIn": "节点匹配",
+          "transitionOut": "信息重排",
+          "note": "具有深度排序的透视网络平面",
+          "reason": "同一信号从波形交给路径、节点和网络，最终成为数据与品牌折线。",
+          "subjectMotion": "具有深度排序的透视网络平面"
+        },
+        {
+          "id": "s4",
+          "name": "数据落定",
+          "fromMs": 8400,
+          "toMs": 11400,
+          "framing": "ecu",
+          "cameraMove": "static",
+          "anchor": "lm",
+          "world": "none",
+          "depth": {
+            "foreground": "交接主体与阅读信息",
+            "midground": "遮罩内机械滚动数字 1024",
+            "background": "主题环境与材质"
+          },
+          "transitionIn": "信息重排",
+          "transitionOut": "方向匹配",
+          "note": "遮罩内机械滚动数字 1024",
+          "reason": "同一信号从波形交给路径、节点和网络，最终成为数据与品牌折线。",
+          "subjectMotion": "遮罩内机械滚动数字 1024"
+        },
+        {
+          "id": "s5",
+          "name": "网络效应",
+          "fromMs": 11400,
+          "toMs": 13200,
+          "framing": "ecu",
+          "cameraMove": "static",
+          "anchor": "lm",
+          "world": "none",
+          "depth": {
+            "foreground": "交接主体与阅读信息",
+            "midground": "NETWORK EFFECT. 跨画面排版",
+            "background": "主题环境与材质"
+          },
+          "transitionIn": "方向匹配",
+          "transitionOut": "图形收束",
+          "note": "NETWORK EFFECT. 跨画面排版",
+          "reason": "同一信号从波形交给路径、节点和网络，最终成为数据与品牌折线。",
+          "subjectMotion": "NETWORK EFFECT. 跨画面排版"
+        },
+        {
+          "id": "s6",
+          "name": "品牌收束",
+          "fromMs": 13200,
+          "toMs": 15000,
+          "framing": "ms",
+          "cameraMove": "static",
+          "anchor": "lm",
+          "world": "none",
+          "depth": {
+            "foreground": "交接主体与阅读信息",
+            "midground": "三段折线构成 RELAY 标志",
+            "background": "主题环境与材质"
+          },
+          "transitionIn": "图形收束",
+          "transitionOut": "稳定结束",
+          "note": "三段折线构成 RELAY 标志",
+          "reason": "同一信号从波形交给路径、节点和网络，最终成为数据与品牌折线。",
+          "subjectMotion": "三段折线构成 RELAY 标志"
+        }
+      ],
+      "keyMoments": [
+        "信号建立",
+        "路径传递",
+        "空间网络",
+        "数据落定",
+        "网络效应",
+        "品牌收束"
+      ],
+      "posterTime": 1,
+      "referenceUrls": [
+        "https://prompt-motion.com/twoclipping-5cba86",
+        "https://prompt-motion.com/shneural-2abdfa"
+      ],
+      "deliverables": {
+        "video": "films/director-relay.mp4",
+        "contact": "studio/evidence/relay-contact.png"
+      },
+      "prompt": "制作 15 秒镜头组合。主题：RELAY · 一点成网。视觉因果：同一信号从波形交给路径、节点和网络，最终成为数据与品牌折线。。复用导演脚手架的时间轨与状态交接，重写文案与内容；主体运动和摄影机分别说明，文字在变形后进入，结果保留阅读停留。适用：连接、协作、网络与数据主题。避免：没有领域含义的粒子球。",
+      "sourcePlan": "studio/docs/DIRECTION.md",
+      "verification": {
+        "scope": "specified conceptual content / 1920x1080 / 60fps / 15s",
+        "evidence": "studio/evidence/verification.md",
+        "source": "same seek renderer as workbench preview"
+      },
+      "performers": [
+        {
+          "name": "信号点",
+          "role": "贯穿主体",
+          "action": "沿路径抵达节点，再形成网络与数据"
+        },
+        {
+          "name": "网络节点",
+          "role": "群演",
+          "action": "由个体组成空间关系，支持规模叙述"
+        }
+      ]
+    }
+  ],
+  "excerpts": [
+    {
+      "id": "director.forma.selection",
+      "name": "空间收束 → 选择 → 局部放大",
+      "en": "FORMA",
+      "category": "handoff",
+      "collection": "director",
+      "sequenceKind": "excerpt",
+      "film": "forma",
+      "sourceStart": 2.4,
+      "sourceEnd": 8.4,
+      "durationMs": 6000,
+      "snippet": "director-forma-selection",
+      "mapsToCombo": "combo.overview-select-detail",
+      "palette": "paper",
+      "logline": "保留朱红目标的身份，让观众从多项内容自然进入一项详情。",
+      "derivedFrom": [
+        "保留朱红目标的身份，让观众从多项内容自然进入一项详情。",
+        "原创概念样片；数字与界面为设计研究内容"
+      ],
+      "mechanism": "保留朱红目标的身份，让观众从多项内容自然进入一项详情。",
+      "useWhen": "总览选择、主次关系、局部取景",
+      "avoidWhen": "多个重点同时放大",
+      "capability": "production-adapted",
+      "renderModel": "2D editorial geometry",
+      "shots": [
+        {
+          "id": "s2",
+          "name": "选择重点",
+          "fromMs": 0,
+          "toMs": 3000,
+          "framing": "ms",
+          "cameraMove": "static",
+          "anchor": "lm",
+          "world": "none",
+          "depth": {
+            "foreground": "交接主体与阅读信息",
+            "midground": "三张任务卡中的朱红目标卡",
+            "background": "主题环境与材质"
+          },
+          "transitionIn": "空间收束",
+          "transitionOut": "主体变形",
+          "note": "三张任务卡中的朱红目标卡",
+          "reason": "保留朱红目标的身份，让观众从多项内容自然进入一项详情。",
+          "subjectMotion": "三张任务卡中的朱红目标卡"
+        },
+        {
+          "id": "s3",
+          "name": "放大任务",
+          "fromMs": 3000,
+          "toMs": 6000,
+          "framing": "cu",
+          "cameraMove": "static",
+          "anchor": "lm",
+          "world": "none",
+          "depth": {
+            "foreground": "交接主体与阅读信息",
+            "midground": "朱红选择标记与专注面板",
+            "background": "主题环境与材质"
+          },
+          "transitionIn": "主体变形",
+          "transitionOut": "几何交接",
+          "note": "朱红选择标记与专注面板",
+          "reason": "保留朱红目标的身份，让观众从多项内容自然进入一项详情。",
+          "subjectMotion": "朱红选择标记与专注面板"
+        }
+      ],
+      "keyMoments": [
+        "选择重点",
+        "放大任务"
+      ],
+      "posterTime": 1,
+      "referenceUrls": [
+        "https://prompt-motion.com/twoclipping-5cba86",
+        "https://prompt-motion.com/shneural-2abdfa"
+      ],
+      "deliverables": {
+        "video": "films/director-forma.mp4",
+        "contact": "studio/evidence/forma-contact.png"
+      },
+      "prompt": "制作 6 秒镜头组合。主题：空间收束 → 选择 → 局部放大。视觉因果：保留朱红目标的身份，让观众从多项内容自然进入一项详情。。复用导演脚手架的时间轨与状态交接，重写文案与内容；主体运动和摄影机分别说明，文字在变形后进入，结果保留阅读停留。适用：总览选择、主次关系、局部取景。避免：多个重点同时放大。",
+      "sourcePlan": "studio/docs/DIRECTION.md",
+      "performers": [
+        {
+          "name": "纸片 / 重点卡",
+          "role": "贯穿主体",
+          "action": "被选择、扩展为面板，再交给计时与结果"
+        },
+        {
+          "name": "光标",
+          "role": "主动者",
+          "action": "触发专注操作，建立行动与结果的因果"
+        }
+      ]
+    },
+    {
+      "id": "director.forma.focus",
+      "name": "动作区 → 圆环 → 结果确认",
+      "en": "FORMA",
+      "category": "handoff",
+      "collection": "director",
+      "sequenceKind": "excerpt",
+      "film": "forma",
+      "sourceStart": 8.4,
+      "sourceEnd": 13.2,
+      "durationMs": 4800,
+      "snippet": "director-forma-focus",
+      "mapsToCombo": "combo.capsule-input-result",
+      "palette": "paper",
+      "logline": "动作区的几何与色彩交给计时圆环，再交给完成结果。",
+      "derivedFrom": [
+        "动作区的几何与色彩交给计时圆环，再交给完成结果。",
+        "原创概念样片；数字与界面为设计研究内容"
+      ],
+      "mechanism": "动作区的几何与色彩交给计时圆环，再交给完成结果。",
+      "useWhen": "操作反馈、任务完成、状态连续性",
+      "avoidWhen": "实际功能与示例状态不符",
+      "capability": "production-adapted",
+      "renderModel": "2D editorial geometry",
+      "shots": [
+        {
+          "id": "s4",
+          "name": "进入专注",
+          "fromMs": 0,
+          "toMs": 3000,
+          "framing": "cu",
+          "cameraMove": "static",
+          "anchor": "lm",
+          "world": "none",
+          "depth": {
+            "foreground": "交接主体与阅读信息",
+            "midground": "动作区收为计时圆环",
+            "background": "主题环境与材质"
+          },
+          "transitionIn": "几何交接",
+          "transitionOut": "形状匹配",
+          "note": "动作区收为计时圆环",
+          "reason": "动作区的几何与色彩交给计时圆环，再交给完成结果。",
+          "subjectMotion": "动作区收为计时圆环"
+        },
+        {
+          "id": "s5",
+          "name": "确认结果",
+          "fromMs": 3000,
+          "toMs": 4800,
+          "framing": "ecu",
+          "cameraMove": "static",
+          "anchor": "lm",
+          "world": "none",
+          "depth": {
+            "foreground": "交接主体与阅读信息",
+            "midground": "ONE. 与完成勾，对照开场",
+            "background": "主题环境与材质"
+          },
+          "transitionIn": "形状匹配",
+          "transitionOut": "排版交接",
+          "note": "ONE. 与完成勾，对照开场",
+          "reason": "动作区的几何与色彩交给计时圆环，再交给完成结果。",
+          "subjectMotion": "ONE. 与完成勾，对照开场"
+        }
+      ],
+      "keyMoments": [
+        "进入专注",
+        "确认结果"
+      ],
+      "posterTime": 1,
+      "referenceUrls": [
+        "https://prompt-motion.com/twoclipping-5cba86",
+        "https://prompt-motion.com/shneural-2abdfa"
+      ],
+      "deliverables": {
+        "video": "films/director-forma.mp4",
+        "contact": "studio/evidence/forma-contact.png"
+      },
+      "prompt": "制作 4.8 秒镜头组合。主题：动作区 → 圆环 → 结果确认。视觉因果：动作区的几何与色彩交给计时圆环，再交给完成结果。。复用导演脚手架的时间轨与状态交接，重写文案与内容；主体运动和摄影机分别说明，文字在变形后进入，结果保留阅读停留。适用：操作反馈、任务完成、状态连续性。避免：实际功能与示例状态不符。",
+      "sourcePlan": "studio/docs/DIRECTION.md",
+      "performers": [
+        {
+          "name": "纸片 / 重点卡",
+          "role": "贯穿主体",
+          "action": "被选择、扩展为面板，再交给计时与结果"
+        },
+        {
+          "name": "光标",
+          "role": "主动者",
+          "action": "触发专注操作，建立行动与结果的因果"
+        }
+      ]
+    },
+    {
+      "id": "director.relay.network",
+      "name": "路径交接 → 透视网络",
+      "en": "RELAY",
+      "category": "handoff",
+      "collection": "director",
+      "sequenceKind": "excerpt",
+      "film": "relay",
+      "sourceStart": 2.4,
+      "sourceEnd": 8.4,
+      "durationMs": 6000,
+      "snippet": "director-relay-network",
+      "mapsToCombo": "combo.phone-focus-return",
+      "palette": "carbon",
+      "logline": "路径末端成为网络节点，摄影机改变视点而节点保持空间位置。",
+      "derivedFrom": [
+        "路径末端成为网络节点，摄影机改变视点而节点保持空间位置。",
+        "原创概念样片；数字与界面为设计研究内容"
+      ],
+      "mechanism": "路径末端成为网络节点，摄影机改变视点而节点保持空间位置。",
+      "useWhen": "架构、路由、服务连接",
+      "avoidWhen": "将整画布缩放称为真实运镜",
+      "capability": "production-adapted",
+      "renderModel": "2D + perspective-projected 3D network",
+      "shots": [
+        {
+          "id": "s2",
+          "name": "路径传递",
+          "fromMs": 0,
+          "toMs": 3000,
+          "framing": "ms",
+          "cameraMove": "static",
+          "anchor": "lm",
+          "world": "none",
+          "depth": {
+            "foreground": "交接主体与阅读信息",
+            "midground": "蓝色信号沿分支到达节点",
+            "background": "主题环境与材质"
+          },
+          "transitionIn": "路径交接",
+          "transitionOut": "节点匹配",
+          "note": "蓝色信号沿分支到达节点",
+          "reason": "路径末端成为网络节点，摄影机改变视点而节点保持空间位置。",
+          "subjectMotion": "蓝色信号沿分支到达节点"
+        },
+        {
+          "id": "s3",
+          "name": "空间网络",
+          "fromMs": 3000,
+          "toMs": 6000,
+          "framing": "ls",
+          "cameraMove": "orbit",
+          "anchor": "lm",
+          "world": "none",
+          "depth": {
+            "foreground": "交接主体与阅读信息",
+            "midground": "具有深度排序的透视网络平面",
+            "background": "主题环境与材质"
+          },
+          "transitionIn": "节点匹配",
+          "transitionOut": "信息重排",
+          "note": "具有深度排序的透视网络平面",
+          "reason": "路径末端成为网络节点，摄影机改变视点而节点保持空间位置。",
+          "subjectMotion": "具有深度排序的透视网络平面"
+        }
+      ],
+      "keyMoments": [
+        "路径传递",
+        "空间网络"
+      ],
+      "posterTime": 1,
+      "referenceUrls": [
+        "https://prompt-motion.com/twoclipping-5cba86",
+        "https://prompt-motion.com/shneural-2abdfa"
+      ],
+      "deliverables": {
+        "video": "films/director-relay.mp4",
+        "contact": "studio/evidence/relay-contact.png"
+      },
+      "prompt": "制作 6 秒镜头组合。主题：路径交接 → 透视网络。视觉因果：路径末端成为网络节点，摄影机改变视点而节点保持空间位置。。复用导演脚手架的时间轨与状态交接，重写文案与内容；主体运动和摄影机分别说明，文字在变形后进入，结果保留阅读停留。适用：架构、路由、服务连接。避免：将整画布缩放称为真实运镜。",
+      "sourcePlan": "studio/docs/DIRECTION.md",
+      "performers": [
+        {
+          "name": "信号点",
+          "role": "贯穿主体",
+          "action": "沿路径抵达节点，再形成网络与数据"
+        },
+        {
+          "name": "网络节点",
+          "role": "群演",
+          "action": "由个体组成空间关系，支持规模叙述"
+        }
+      ]
+    },
+    {
+      "id": "director.relay.data",
+      "name": "数字滚轮 → 大字排版交接",
+      "en": "RELAY",
+      "category": "handoff",
+      "collection": "director",
+      "sequenceKind": "excerpt",
+      "film": "relay",
+      "sourceStart": 8.4,
+      "sourceEnd": 13.2,
+      "durationMs": 4800,
+      "snippet": "director-relay-data",
+      "mapsToCombo": "combo.before-after-confirm",
+      "palette": "carbon",
+      "logline": "用短滚动建立数量变化，稳定落定后以方向匹配交给大字。",
+      "derivedFrom": [
+        "用短滚动建立数量变化，稳定落定后以方向匹配交给大字。",
+        "原创概念样片；数字与界面为设计研究内容"
+      ],
+      "mechanism": "用短滚动建立数量变化，稳定落定后以方向匹配交给大字。",
+      "useWhen": "数据结果、规模揭示、证据确认",
+      "avoidWhen": "宣称概念数字为真实指标",
+      "capability": "production-adapted",
+      "renderModel": "2D + perspective-projected 3D network",
+      "shots": [
+        {
+          "id": "s4",
+          "name": "数据落定",
+          "fromMs": 0,
+          "toMs": 3000,
+          "framing": "ecu",
+          "cameraMove": "static",
+          "anchor": "lm",
+          "world": "none",
+          "depth": {
+            "foreground": "交接主体与阅读信息",
+            "midground": "遮罩内机械滚动数字 1024",
+            "background": "主题环境与材质"
+          },
+          "transitionIn": "信息重排",
+          "transitionOut": "方向匹配",
+          "note": "遮罩内机械滚动数字 1024",
+          "reason": "用短滚动建立数量变化，稳定落定后以方向匹配交给大字。",
+          "subjectMotion": "遮罩内机械滚动数字 1024"
+        },
+        {
+          "id": "s5",
+          "name": "网络效应",
+          "fromMs": 3000,
+          "toMs": 4800,
+          "framing": "ecu",
+          "cameraMove": "static",
+          "anchor": "lm",
+          "world": "none",
+          "depth": {
+            "foreground": "交接主体与阅读信息",
+            "midground": "NETWORK EFFECT. 跨画面排版",
+            "background": "主题环境与材质"
+          },
+          "transitionIn": "方向匹配",
+          "transitionOut": "图形收束",
+          "note": "NETWORK EFFECT. 跨画面排版",
+          "reason": "用短滚动建立数量变化，稳定落定后以方向匹配交给大字。",
+          "subjectMotion": "NETWORK EFFECT. 跨画面排版"
+        }
+      ],
+      "keyMoments": [
+        "数据落定",
+        "网络效应"
+      ],
+      "posterTime": 1,
+      "referenceUrls": [
+        "https://prompt-motion.com/twoclipping-5cba86",
+        "https://prompt-motion.com/shneural-2abdfa"
+      ],
+      "deliverables": {
+        "video": "films/director-relay.mp4",
+        "contact": "studio/evidence/relay-contact.png"
+      },
+      "prompt": "制作 4.8 秒镜头组合。主题：数字滚轮 → 大字排版交接。视觉因果：用短滚动建立数量变化，稳定落定后以方向匹配交给大字。。复用导演脚手架的时间轨与状态交接，重写文案与内容；主体运动和摄影机分别说明，文字在变形后进入，结果保留阅读停留。适用：数据结果、规模揭示、证据确认。避免：宣称概念数字为真实指标。",
+      "sourcePlan": "studio/docs/DIRECTION.md",
+      "performers": [
+        {
+          "name": "信号点",
+          "role": "贯穿主体",
+          "action": "沿路径抵达节点，再形成网络与数据"
+        },
+        {
+          "name": "网络节点",
+          "role": "群演",
+          "action": "由个体组成空间关系，支持规模叙述"
+        }
+      ]
+    }
+  ],
+  "audio": {
+    "source": "original deterministic synthesis",
+    "providerFallback": "media-use unavailable: heygen executable missing"
+  },
+  "segments": [
+    {
+      "id": "director.collection",
+      "name": "一张作品 → 一整个作品库",
+      "en": "ATELIER / Collection",
+      "category": "handoff",
+      "collection": "director",
+      "sequenceKind": "segment",
+      "film": "collection",
+      "sourceStart": 0,
+      "sourceEnd": 8.6,
+      "durationMs": 8600,
+      "snippet": "director-collection",
+      "mapsToCombo": "combo.phone-focus-return",
+      "palette": "paper",
+      "logline": "让一张珊瑚色作品始终可辨：从单体到八张作品，再在群像中认出起点。",
+      "derivedFrom": [
+        "群演的意义来自规模与差异；八张作品使用不同内容，不是复制同一个占位框。",
+        "原作品的色彩、图案和身份连续；主体位置与尺寸改变，摄影机保持静止。",
+        "先看单体，再看扩展过程，最后留时间阅读整体与原作。"
+      ],
+      "mechanism": "单体展开为群像，原作持续可追踪",
+      "useWhen": "作品库、模板集合、内容规模、从个体到群像",
+      "avoidWhen": "必须精确证明库存数量，或每张卡都需要详细阅读",
+      "capability": "browser-demo",
+      "renderModel": "2D Canvas 连续场景；主体走位与尺度变化，固定摄影机",
+      "shots": [
+        {
+          "id": "s1",
+          "name": "建立原作",
+          "fromMs": 0,
+          "toMs": 1800,
+          "framing": "cu",
+          "cameraMove": "static",
+          "anchor": "mc",
+          "world": "none",
+          "depth": {
+            "foreground": "标题与原作确认",
+            "midground": "八张作品及原作",
+            "background": "纸感底色"
+          },
+          "transitionIn": "连续主体走位",
+          "transitionOut": "状态保持",
+          "note": "大字与珊瑚作品构成主次，先认识一个具体对象",
+          "reason": "让一张珊瑚色作品始终可辨：从单体到八张作品，再在群像中认出起点。",
+          "subjectMotion": "大字与珊瑚作品构成主次，先认识一个具体对象"
+        },
+        {
+          "id": "s2",
+          "name": "展开群像",
+          "fromMs": 1800,
+          "toMs": 4900,
+          "framing": "ms",
+          "cameraMove": "static",
+          "anchor": "mc",
+          "world": "none",
+          "depth": {
+            "foreground": "标题与原作确认",
+            "midground": "八张作品及原作",
+            "background": "纸感底色"
+          },
+          "transitionIn": "连续主体走位",
+          "transitionOut": "状态保持",
+          "note": "主角收束到网格，七张不同作品错时展开",
+          "reason": "让一张珊瑚色作品始终可辨：从单体到八张作品，再在群像中认出起点。",
+          "subjectMotion": "主角收束到网格，七张不同作品错时展开"
+        },
+        {
+          "id": "s3",
+          "name": "辨认原作",
+          "fromMs": 4900,
+          "toMs": 8600,
+          "framing": "ws",
+          "cameraMove": "static",
+          "anchor": "mc",
+          "world": "none",
+          "depth": {
+            "foreground": "标题与原作确认",
+            "midground": "八张作品及原作",
+            "background": "纸感底色"
+          },
+          "transitionIn": "连续主体走位",
+          "transitionOut": "状态保持",
+          "note": "标题确认规模，边框找回原作，整体保留阅读时间",
+          "reason": "让一张珊瑚色作品始终可辨：从单体到八张作品，再在群像中认出起点。",
+          "subjectMotion": "标题确认规模，边框找回原作，整体保留阅读时间"
+        }
+      ],
+      "keyMoments": [
+        "建立原作",
+        "展开为群像",
+        "辨认原作"
+      ],
+      "posterTime": 6.5,
+      "referenceUrls": [],
+      "deliverables": {},
+      "prompt": "制作 8.6 秒的作品库段落。纸感底色，左侧大字 ONE IDEA，右侧一张珊瑚色几何作品。1.8 秒后原作收束到网格，七张不同作品从原作位置依次展开，形成四列两行。原作图案与色彩保持不变。4.9 秒后标题 ROOM FOR MORE 清晰进入；5.55 秒后细珊瑚边框确认原作位置。结尾保持完整网格与 08 / 08，不用全屏闪光。摄影机固定，动作由卡片走位完成。概念内容，无商业数据与声音。",
+      "sourcePlan": "studio/lib/collection.js",
+      "performers": [
+        {
+          "name": "珊瑚色作品",
+          "role": "贯穿主角",
+          "action": "从单体进入群像，保持色彩与图案身份"
+        },
+        {
+          "name": "七张不同作品",
+          "role": "群演",
+          "action": "从主角位置展开，以差异与数量证明集合的丰富度"
+        }
+      ]
+    }
+  ]
+}

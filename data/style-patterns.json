@@ -1,0 +1,1421 @@
+{
+  "version": 1,
+  "updated": "2026-09-29",
+  "note": "三维选型层（只读）：皮肤 styles × 骨架 concepts × 笔触 media。每项 mapsTo 引用现有 effect/combo/shot；snippet 指向 snippets/ 下复制即用片段。配合决策路由表使用：intake → 查表 → 取片段 → 填内容 → 跑 gate。",
+  "principles": [
+    {
+      "id": "continuous-world",
+      "label": "一个连续世界",
+      "detail": "场景在同一个世界里连续演化，而不是一段段幻灯片。",
+      "checks": [
+        "同一场景内的元素跨镜头持续",
+        "切换靠相机/变形，而非整屏淡入淡出"
+      ]
+    },
+    {
+      "id": "moving-camera",
+      "label": "真动相机",
+      "detail": "相机始终有动机地移动（呼吸漂移 + 推进），不要固定机位。",
+      "checks": [
+        "待机时有轻微呼吸",
+        "每次推进都有叙事动机",
+        "移动由弹簧/曲线驱动，不匀速"
+      ]
+    },
+    {
+      "id": "persisting-subject",
+      "label": "主体持续",
+      "detail": "主体在镜头间持续存在，而不是每个镜头重新出现。",
+      "checks": [
+        "主体跨镜头不被裁切重置",
+        "位置/尺寸变化用同一元素的连续运动"
+      ]
+    },
+    {
+      "id": "text-in-scene",
+      "label": "场景内文字",
+      "detail": "文字活在场景里，有空间关系，不是贴在屏幕正中的标签。",
+      "checks": [
+        "文字随场景移动",
+        "避免长期居中大字",
+        "进出时机与运动对齐"
+      ]
+    },
+    {
+      "id": "moving-background",
+      "label": "背景不静止",
+      "detail": "背景始终有轻微运动（视差/漂移/纹理流动），世界不停。",
+      "checks": [
+        "背景有至少一层慢速运动",
+        "运动与前景形成速度差"
+      ]
+    },
+    {
+      "id": "footage-locked-timeline",
+      "label": "素材锁时间轴",
+      "detail": "素材/事件在时间轴上锁定，任何时刻 seek 都得到同一帧。",
+      "checks": [
+        "无 Math.random/时钟/定时器",
+        "随机只用固定种子",
+        "改动是重排 cue 而非重录"
+      ]
+    }
+  ],
+  "styles": [
+    {
+      "id": "cinematic-dark",
+      "index": "A1",
+      "label": "电影暗色",
+      "en": "Cinematic dark",
+      "keywords": [
+        "深色",
+        "冷暖对比",
+        "镜头推进",
+        "暗角"
+      ],
+      "whenToUse": [
+        "科技/产品发布",
+        "需要电影感与高级感"
+      ],
+      "avoidWhen": [
+        "轻松/童趣主题",
+        "需要大留白的编辑内容"
+      ],
+      "snippet": "snippets/style-cinematic-dark.html",
+      "signatureMoments": [
+        "push-through-headline",
+        "spotlight-reveal"
+      ],
+      "mapsTo": [
+        {
+          "type": "effect",
+          "id": "scroll.zoom",
+          "role": "镜头推进"
+        },
+        {
+          "type": "effect",
+          "id": "enter.mask-reveal",
+          "role": "遮罩揭示"
+        },
+        {
+          "type": "effect",
+          "id": "pointer.spotlight",
+          "role": "聚光"
+        },
+        {
+          "type": "combo",
+          "id": "combo.title-product-focus",
+          "role": "标题→产品"
+        }
+      ]
+    },
+    {
+      "id": "poster-color-block",
+      "index": "A2",
+      "label": "海报色块",
+      "en": "Poster color-block",
+      "keywords": [
+        "大块纯色",
+        "硬切",
+        "粗体",
+        "几何"
+      ],
+      "whenToUse": [
+        "海报/活动/促销",
+        "需要强视觉冲击"
+      ],
+      "avoidWhen": [
+        "细腻/质感叙事",
+        "连续照片"
+      ],
+      "snippet": "snippets/style-poster-color-block.html",
+      "signatureMoments": [
+        "hard-cut-block",
+        "geometric-wipe"
+      ],
+      "mapsTo": [
+        {
+          "type": "effect",
+          "id": "enter.wipe",
+          "role": "色块扫切"
+        },
+        {
+          "type": "effect",
+          "id": "enter.clip-path-reveal",
+          "role": "几何裁剪"
+        },
+        {
+          "type": "effect",
+          "id": "layout.page-transition",
+          "role": "页面硬切"
+        }
+      ]
+    },
+    {
+      "id": "editorial-light",
+      "index": "A3",
+      "label": "编辑亮色",
+      "en": "Editorial light",
+      "keywords": [
+        "浅色底",
+        "衬线",
+        "细分隔线",
+        "留白"
+      ],
+      "whenToUse": [
+        "编辑/文章/发布",
+        "长文阅读"
+      ],
+      "avoidWhen": [
+        "炫酷/发布会",
+        "强情绪内容"
+      ],
+      "snippet": "snippets/style-editorial-light.html",
+      "signatureMoments": [
+        "serif-line-reveal",
+        "hairline-divider"
+      ],
+      "mapsTo": [
+        {
+          "type": "effect",
+          "id": "text.line-reveal",
+          "role": "行揭示"
+        },
+        {
+          "type": "effect",
+          "id": "enter.slide",
+          "role": "轻滑"
+        },
+        {
+          "type": "effect",
+          "id": "component.accordion",
+          "role": "折叠"
+        }
+      ]
+    },
+    {
+      "id": "paper-print",
+      "index": "A4",
+      "label": "纸张印刷",
+      "en": "Paper & print",
+      "keywords": [
+        "纸张纹理",
+        "油墨",
+        "叠印",
+        "撕边"
+      ],
+      "whenToUse": [
+        "印刷/手作/出版",
+        "需要实体感"
+      ],
+      "avoidWhen": [
+        "纯数字/科技 UI",
+        "光滑渐变"
+      ],
+      "snippet": "snippets/style-paper-print.html",
+      "signatureMoments": [
+        "overprint-bleed",
+        "torn-edge"
+      ],
+      "mapsTo": [
+        {
+          "type": "effect",
+          "id": "enter.blur-reveal",
+          "role": "油墨晕显"
+        },
+        {
+          "type": "effect",
+          "id": "feedback.skeleton",
+          "role": "叠纸感"
+        }
+      ]
+    },
+    {
+      "id": "retro-analog",
+      "index": "A5",
+      "label": "复古模拟",
+      "en": "Retro · analog",
+      "keywords": [
+        "噪点",
+        "扫描线",
+        "色差",
+        "CRT"
+      ],
+      "whenToUse": [
+        "复古/玩梗/游戏",
+        "需要年代感"
+      ],
+      "avoidWhen": [
+        "现代/高端品牌",
+        "干净产品图"
+      ],
+      "snippet": "snippets/style-retro-analog.html",
+      "signatureMoments": [
+        "scanline-glitch",
+        "crt-power-on"
+      ],
+      "mapsTo": [
+        {
+          "type": "effect",
+          "id": "scroll.image-sequence",
+          "role": "连续影像"
+        },
+        {
+          "type": "effect",
+          "id": "enter.fade",
+          "role": "老片淡入"
+        },
+        {
+          "type": "effect",
+          "id": "feedback.loading",
+          "role": "加载"
+        }
+      ]
+    },
+    {
+      "id": "brutalist-mono",
+      "index": "A6",
+      "label": "粗野极简",
+      "en": "Brutalist mono",
+      "keywords": [
+        "等宽",
+        "黑白",
+        "强网格",
+        "无圆角"
+      ],
+      "whenToUse": [
+        "数据/工程/技术",
+        "严肃/极客"
+      ],
+      "avoidWhen": [
+        "温情/消费品牌",
+        "柔和内容"
+      ],
+      "snippet": "snippets/style-brutalist-mono.html",
+      "signatureMoments": [
+        "mono-scramble",
+        "grid-snap"
+      ],
+      "mapsTo": [
+        {
+          "type": "effect",
+          "id": "text.scramble",
+          "role": "等宽乱码"
+        },
+        {
+          "type": "effect",
+          "id": "text.morph",
+          "role": "文字变形"
+        },
+        {
+          "type": "effect",
+          "id": "layout.layout-animation",
+          "role": "网格重排"
+        }
+      ]
+    },
+    {
+      "id": "pastel-playful",
+      "index": "A7",
+      "label": "粉彩玩趣",
+      "en": "Pastel playful",
+      "keywords": [
+        "低饱和粉彩",
+        "圆角",
+        "弹性",
+        "贴纸"
+      ],
+      "whenToUse": [
+        "年轻化/童趣/消费",
+        "轻松氛围"
+      ],
+      "avoidWhen": [
+        "严肃/高端/商务",
+        "数据密集"
+      ],
+      "snippet": "snippets/style-pastel-playful.html",
+      "signatureMoments": [
+        "sticker-bounce",
+        "spring-pop"
+      ],
+      "mapsTo": [
+        {
+          "type": "effect",
+          "id": "enter.scale",
+          "role": "弹性缩放"
+        },
+        {
+          "type": "effect",
+          "id": "component.carousel",
+          "role": "轮播"
+        },
+        {
+          "type": "effect",
+          "id": "handling.spring",
+          "role": "弹簧"
+        }
+      ]
+    },
+    {
+      "id": "luxury-dark",
+      "index": "A8",
+      "label": "奢华深色",
+      "en": "Luxury dark",
+      "keywords": [
+        "近黑",
+        "金色细线",
+        "缓慢",
+        "克制"
+      ],
+      "whenToUse": [
+        "高端/质感/奢侈品",
+        "意境表达"
+      ],
+      "avoidWhen": [
+        "快节奏/促销",
+        "年轻活泼"
+      ],
+      "snippet": "snippets/style-luxury-dark.html",
+      "signatureMoments": [
+        "gold-line-draw",
+        "slow-parallax"
+      ],
+      "mapsTo": [
+        {
+          "type": "effect",
+          "id": "enter.crossfade",
+          "role": "缓慢交叉"
+        },
+        {
+          "type": "effect",
+          "id": "scroll.parallax",
+          "role": "纵深视差"
+        },
+        {
+          "type": "effect",
+          "id": "feedback.icon-morph",
+          "role": "图标演化"
+        }
+      ]
+    },
+    {
+      "id": "flat-photo",
+      "index": "A9",
+      "label": "扁平照片拼贴",
+      "en": "Flat pop with photos",
+      "keywords": [
+        "扁平色块+照片",
+        "明快",
+        "pop"
+      ],
+      "whenToUse": [
+        "产品/功能讲解",
+        "图文结合"
+      ],
+      "avoidWhen": [
+        "纯抽象",
+        "极高端调性"
+      ],
+      "snippet": "snippets/style-flat-photo.html",
+      "signatureMoments": [
+        "photo-pop-in",
+        "card-slide"
+      ],
+      "mapsTo": [
+        {
+          "type": "effect",
+          "id": "enter.slide",
+          "role": "滑入"
+        },
+        {
+          "type": "effect",
+          "id": "component.tabs",
+          "role": "标签"
+        },
+        {
+          "type": "combo",
+          "id": "combo.card-relay",
+          "role": "卡片接力"
+        }
+      ]
+    },
+    {
+      "id": "grainy-gradient",
+      "index": "A10",
+      "label": "颗粒渐变",
+      "en": "Grainy gradient",
+      "keywords": [
+        "渐变+颗粒",
+        "流体",
+        "光晕"
+      ],
+      "whenToUse": [
+        "品牌氛围/科技",
+        "梦幻感"
+      ],
+      "avoidWhen": [
+        "强结构/信息密集",
+        "严肃内容"
+      ],
+      "snippet": "snippets/style-grainy-gradient.html",
+      "signatureMoments": [
+        "fluid-gradient",
+        "parallax-glow"
+      ],
+      "mapsTo": [
+        {
+          "type": "effect",
+          "id": "scroll.multi-layer-parallax",
+          "role": "多层视差"
+        },
+        {
+          "type": "effect",
+          "id": "pointer.reactive-bg",
+          "role": "反应背景"
+        },
+        {
+          "type": "effect",
+          "id": "pointer.3d-follow",
+          "role": "3D 跟随"
+        }
+      ]
+    }
+  ],
+  "concepts": [
+    {
+      "id": "one-continuous-shot",
+      "index": "B1",
+      "label": "一镜到底",
+      "en": "One continuous shot",
+      "structure": "全程不切，场景在同一世界里累加。",
+      "opening": "从一个细节或全貌起幅",
+      "transition": "靠相机移动与元素变形，不硬切",
+      "ending": "回到起幅或揭示整体",
+      "snippet": "snippets/concept-one-continuous-shot.html",
+      "mapsTo": [
+        {
+          "type": "effect",
+          "id": "layout.shared-element",
+          "role": "神奇移动"
+        },
+        {
+          "type": "effect",
+          "id": "scroll.zoom",
+          "role": "推进"
+        },
+        {
+          "type": "effect",
+          "id": "scroll.sticky-story",
+          "role": "粘滞叙事"
+        }
+      ]
+    },
+    {
+      "id": "pure-typography",
+      "index": "B2",
+      "label": "纯排版",
+      "en": "Pure typography",
+      "structure": "仅靠字体与节奏叙事。",
+      "opening": "关键词大字起幅",
+      "transition": "字重/字号/位置变化",
+      "ending": "主张落定",
+      "snippet": "snippets/concept-pure-typography.html",
+      "mapsTo": [
+        {
+          "type": "effect",
+          "id": "text.word-reveal",
+          "role": "词揭示"
+        },
+        {
+          "type": "effect",
+          "id": "text.character-reveal",
+          "role": "字揭示"
+        },
+        {
+          "type": "effect",
+          "id": "text.morph",
+          "role": "文字变形"
+        }
+      ]
+    },
+    {
+      "id": "problem-gone",
+      "index": "B3",
+      "label": "问题→消失",
+      "en": "Problem → gone",
+      "structure": "痛点呈现，产品出现后痛点消失。",
+      "opening": "痛点用大字呈现",
+      "transition": "产品出现，痛点被清除",
+      "ending": "轻松/解决方案落定",
+      "snippet": "snippets/concept-problem-gone.html",
+      "mapsTo": [
+        {
+          "type": "combo",
+          "id": "combo.title-product-focus",
+          "role": "标题→产品"
+        },
+        {
+          "type": "effect",
+          "id": "enter.wipe",
+          "role": "擦除痛点"
+        }
+      ]
+    },
+    {
+      "id": "before-after",
+      "index": "B4",
+      "label": "前后对比",
+      "en": "Before / after",
+      "structure": "同构视野前后对照。",
+      "opening": "呈现旧态",
+      "transition": "同构对比展开",
+      "ending": "新态确认",
+      "snippet": "snippets/concept-before-after.html",
+      "mapsTo": [
+        {
+          "type": "effect",
+          "id": "chart.before-after",
+          "role": "前后对比"
+        },
+        {
+          "type": "combo",
+          "id": "combo.before-after-confirm",
+          "role": "对比确认"
+        },
+        {
+          "type": "effect",
+          "id": "chart.waterfall",
+          "role": "瀑布"
+        }
+      ]
+    },
+    {
+      "id": "journey-inside-ui",
+      "index": "B5",
+      "label": "进入 UI 之旅",
+      "en": "Journey inside the UI",
+      "structure": "相机飞入界面层层深入。",
+      "opening": "从设备/全貌起幅",
+      "transition": "相机推入局部",
+      "ending": "拉回全貌",
+      "snippet": "snippets/concept-journey-inside-ui.html",
+      "mapsTo": [
+        {
+          "type": "combo",
+          "id": "combo.phone-focus-return",
+          "role": "全局→局部→回归"
+        },
+        {
+          "type": "effect",
+          "id": "scroll.zoom",
+          "role": "推入"
+        },
+        {
+          "type": "effect",
+          "id": "scroll.parallax",
+          "role": "视差"
+        }
+      ]
+    },
+    {
+      "id": "product-macro",
+      "index": "B6",
+      "label": "产品微距",
+      "en": "Product macro",
+      "structure": "产品特写、材质细节、缓推。",
+      "opening": "材质特写起幅",
+      "transition": "缓推扫过细节",
+      "ending": "拉出/锁定产品",
+      "snippet": "snippets/concept-product-macro.html",
+      "mapsTo": [
+        {
+          "type": "effect",
+          "id": "scroll.zoom",
+          "role": "缓推"
+        },
+        {
+          "type": "effect",
+          "id": "pointer.tilt-card",
+          "role": "倾斜"
+        },
+        {
+          "type": "effect",
+          "id": "scroll.multi-layer-parallax",
+          "role": "多层视差"
+        }
+      ]
+    },
+    {
+      "id": "object-metaphor",
+      "index": "B7",
+      "label": "物体隐喻",
+      "en": "Object metaphor",
+      "structure": "用一个具象物体承载概念。",
+      "opening": "物体出现",
+      "transition": "物体形变/组合",
+      "ending": "概念被点题",
+      "snippet": "snippets/concept-object-metaphor.html",
+      "mapsTo": [
+        {
+          "type": "effect",
+          "id": "feedback.icon-morph",
+          "role": "图标变形"
+        },
+        {
+          "type": "effect",
+          "id": "layout.shared-element",
+          "role": "神奇移动"
+        }
+      ]
+    },
+    {
+      "id": "living-number",
+      "index": "B8",
+      "label": "会呼吸的数字",
+      "en": "Living number",
+      "structure": "数字作为主角持续生长。",
+      "opening": "数字从 0 起",
+      "transition": "数字滚动/对比",
+      "ending": "关键数字锁定",
+      "snippet": "snippets/concept-living-number.html",
+      "mapsTo": [
+        {
+          "type": "effect",
+          "id": "feedback.counter",
+          "role": "计数"
+        },
+        {
+          "type": "effect",
+          "id": "chart.rank-race",
+          "role": "排名竞赛"
+        },
+        {
+          "type": "effect",
+          "id": "chart.bar-compare",
+          "role": "柱对比"
+        }
+      ]
+    },
+    {
+      "id": "one-feature-demo",
+      "index": "B9",
+      "label": "单功能完整演示",
+      "en": "One feature fully demoed",
+      "structure": "一个功能从头到尾真实操作。",
+      "opening": "功能入口",
+      "transition": "真实操作流程",
+      "ending": "结果呈现",
+      "snippet": "snippets/concept-one-feature-demo.html",
+      "mapsTo": [
+        {
+          "type": "combo",
+          "id": "combo.capsule-input-result",
+          "role": "输入→结果"
+        },
+        {
+          "type": "effect",
+          "id": "component.modal",
+          "role": "模态"
+        },
+        {
+          "type": "effect",
+          "id": "component.drawer",
+          "role": "抽屉"
+        }
+      ]
+    },
+    {
+      "id": "diegetic-qa",
+      "index": "B10",
+      "label": "场景内问答",
+      "en": "Diegetic question → answer",
+      "structure": "场景内提出问题并就地解答。",
+      "opening": "场景内疑问",
+      "transition": "就地弹出解答",
+      "ending": "解答确认",
+      "snippet": "snippets/concept-diegetic-qa.html",
+      "mapsTo": [
+        {
+          "type": "effect",
+          "id": "component.popover",
+          "role": "气泡"
+        },
+        {
+          "type": "effect",
+          "id": "component.toast",
+          "role": "提示"
+        },
+        {
+          "type": "effect",
+          "id": "component.tabs",
+          "role": "标签"
+        }
+      ]
+    },
+    {
+      "id": "rhythmic-collage",
+      "index": "B11",
+      "label": "节奏拼贴",
+      "en": "Rhythmic collage",
+      "structure": "多素材按节拍快速拼贴。",
+      "opening": "第一素材入",
+      "transition": "节拍切换",
+      "ending": "拼贴收束",
+      "snippet": "snippets/concept-rhythmic-collage.html",
+      "mapsTo": [
+        {
+          "type": "effect",
+          "id": "enter.crossfade",
+          "role": "交叉"
+        },
+        {
+          "type": "effect",
+          "id": "component.carousel",
+          "role": "轮播"
+        },
+        {
+          "type": "effect",
+          "id": "scroll.snap",
+          "role": "吸附"
+        }
+      ]
+    },
+    {
+      "id": "logo-as-stage",
+      "index": "B12",
+      "label": "舞台即 Logo",
+      "en": "Logo as stage",
+      "structure": "Logo 演化成舞台再回到 Logo。",
+      "opening": "Logo 起",
+      "transition": "Logo 展开为舞台",
+      "ending": "回到 Logo",
+      "snippet": "snippets/concept-logo-as-stage.html",
+      "mapsTo": [
+        {
+          "type": "effect",
+          "id": "feedback.icon-morph",
+          "role": "图标演化"
+        },
+        {
+          "type": "effect",
+          "id": "enter.scale",
+          "role": "缩放"
+        },
+        {
+          "type": "effect",
+          "id": "layout.shared-element",
+          "role": "神奇移动"
+        }
+      ]
+    },
+    {
+      "id": "object-relay",
+      "index": "B13",
+      "label": "物体接力",
+      "en": "Object relay",
+      "structure": "同一物体在镜头间接力传递。",
+      "opening": "物体在 A 处",
+      "transition": "物体传递/移动",
+      "ending": "物体到 B 处",
+      "snippet": "snippets/concept-object-relay.html",
+      "mapsTo": [
+        {
+          "type": "combo",
+          "id": "combo.card-relay",
+          "role": "卡片接力"
+        },
+        {
+          "type": "effect",
+          "id": "layout.shared-element",
+          "role": "神奇移动"
+        }
+      ]
+    },
+    {
+      "id": "brand-system",
+      "index": "B14",
+      "label": "品牌系统展示",
+      "en": "Brand system showcase",
+      "structure": "系统组件依次陈列。",
+      "opening": "首个组件",
+      "transition": "组件依次出现",
+      "ending": "系统全貌",
+      "snippet": "snippets/concept-brand-system.html",
+      "mapsTo": [
+        {
+          "type": "effect",
+          "id": "layout.layout-animation",
+          "role": "布局动画"
+        },
+        {
+          "type": "effect",
+          "id": "component.tabs",
+          "role": "标签"
+        },
+        {
+          "type": "effect",
+          "id": "component.toast",
+          "role": "提示"
+        }
+      ]
+    },
+    {
+      "id": "claim-how-result",
+      "index": "B15",
+      "label": "主张→原理→结果",
+      "en": "Claim → how → result",
+      "structure": "先抛主张，再演示，再给结果。",
+      "opening": "主张大字",
+      "transition": "演示原理",
+      "ending": "结果锁定",
+      "snippet": "snippets/concept-claim-how-result.html",
+      "mapsTo": [
+        {
+          "type": "combo",
+          "id": "combo.overview-select-detail",
+          "role": "总览→详情"
+        },
+        {
+          "type": "effect",
+          "id": "chart.line-trend",
+          "role": "趋势"
+        }
+      ]
+    },
+    {
+      "id": "living-ui-ecosystem",
+      "index": "B16",
+      "label": "活的 UI 生态",
+      "en": "Living UI ecosystem",
+      "structure": "多组件同时运转的生态。",
+      "opening": "生态一隅",
+      "transition": "多组件联动",
+      "ending": "生态全景",
+      "snippet": "snippets/concept-living-ui-ecosystem.html",
+      "mapsTo": [
+        {
+          "type": "effect",
+          "id": "scroll.sticky-story",
+          "role": "粘滞叙事"
+        },
+        {
+          "type": "effect",
+          "id": "component.tabs",
+          "role": "标签"
+        },
+        {
+          "type": "effect",
+          "id": "layout.page-transition",
+          "role": "页面过渡"
+        }
+      ]
+    },
+    {
+      "id": "flat-photo",
+      "index": "B17",
+      "label": "扁平照片",
+      "en": "Flat pop with photos",
+      "structure": "照片在扁平色块里 pop。",
+      "opening": "色块起",
+      "transition": "照片 pop",
+      "ending": "图文落定",
+      "snippet": "snippets/concept-flat-photo.html",
+      "mapsTo": [
+        {
+          "type": "effect",
+          "id": "enter.slide",
+          "role": "滑入"
+        },
+        {
+          "type": "effect",
+          "id": "component.carousel",
+          "role": "轮播"
+        },
+        {
+          "type": "effect",
+          "id": "scroll.snap",
+          "role": "吸附"
+        }
+      ]
+    },
+    {
+      "id": "through-gradient-shapes",
+      "index": "B18",
+      "label": "穿过渐变形体",
+      "en": "Through the gradient shapes",
+      "structure": "相机穿过层层渐变形体。",
+      "opening": "第一个形体",
+      "transition": "穿越形体",
+      "ending": "到达最后一层",
+      "snippet": "snippets/concept-through-gradient-shapes.html",
+      "mapsTo": [
+        {
+          "type": "effect",
+          "id": "scroll.zoom",
+          "role": "推进"
+        },
+        {
+          "type": "effect",
+          "id": "scroll.multi-layer-parallax",
+          "role": "视差"
+        },
+        {
+          "type": "effect",
+          "id": "pointer.reactive-bg",
+          "role": "反应背景"
+        }
+      ]
+    },
+    {
+      "id": "product-tour",
+      "index": "B19",
+      "label": "产品巡览+主张",
+      "en": "Product tour with claims",
+      "structure": "巡览各模块，每站配一句主张。",
+      "opening": "巡览起点",
+      "transition": "横向/分段巡览",
+      "ending": "总结/CTA",
+      "snippet": "snippets/concept-product-tour.html",
+      "mapsTo": [
+        {
+          "type": "combo",
+          "id": "combo.overview-select-detail",
+          "role": "总览→详情"
+        },
+        {
+          "type": "effect",
+          "id": "scroll.horizontal",
+          "role": "横向滚动"
+        },
+        {
+          "type": "effect",
+          "id": "scroll.snap",
+          "role": "吸附"
+        }
+      ]
+    }
+  ],
+  "media": [
+    {
+      "id": "flat-vector",
+      "index": "C1",
+      "label": "扁平矢量（默认）",
+      "en": "Flat vector",
+      "keywords": [
+        "干净几何",
+        "长投影",
+        "轻颗粒"
+      ],
+      "drawOrder": [
+        "几何形底",
+        "主体",
+        "长投影/高光"
+      ],
+      "snippet": "snippets/media-flat-vector.html",
+      "mapsTo": [
+        {
+          "type": "effect",
+          "id": "enter.scale",
+          "role": "扁平进入"
+        }
+      ]
+    },
+    {
+      "id": "pencil-watercolour",
+      "index": "C2",
+      "label": "铅笔水彩",
+      "en": "Pencil & watercolour",
+      "keywords": [
+        "浅色晕染",
+        "铅笔轮廓"
+      ],
+      "drawOrder": [
+        "先铅笔起稿",
+        "由浅到深晕染",
+        "最后勾线"
+      ],
+      "snippet": "snippets/media-pencil-watercolour.html",
+      "mapsTo": [
+        {
+          "type": "effect",
+          "id": "enter.draw-on",
+          "role": "逐笔生长"
+        }
+      ]
+    },
+    {
+      "id": "ink-line-wash",
+      "index": "C3",
+      "label": "水墨淡彩",
+      "en": "Ink & line-wash",
+      "keywords": [
+        "淡墨",
+        "柔笔尖"
+      ],
+      "drawOrder": [
+        "淡墨起",
+        "淡彩渲染",
+        "浓墨点题"
+      ],
+      "snippet": "snippets/media-ink-line-wash.html",
+      "mapsTo": [
+        {
+          "type": "effect",
+          "id": "enter.draw-on",
+          "role": "逐笔生长"
+        }
+      ]
+    },
+    {
+      "id": "marker-comic",
+      "index": "C4",
+      "label": "马克笔漫画",
+      "en": "Marker comic",
+      "keywords": [
+        "平涂色块",
+        "粗轮廓"
+      ],
+      "drawOrder": [
+        "粗轮廓",
+        "平涂色",
+        "强调线"
+      ],
+      "snippet": "snippets/media-marker-comic.html",
+      "mapsTo": [
+        {
+          "type": "effect",
+          "id": "enter.draw-on",
+          "role": "逐笔生长"
+        }
+      ]
+    },
+    {
+      "id": "risograph",
+      "index": "C5",
+      "label": "孔版印刷",
+      "en": "Risograph",
+      "keywords": [
+        "套色网点",
+        "错位叠印"
+      ],
+      "drawOrder": [
+        "第一色版",
+        "错位第二色",
+        "网点"
+      ],
+      "snippet": "snippets/media-risograph.html",
+      "mapsTo": [
+        {
+          "type": "effect",
+          "id": "enter.draw-on",
+          "role": "逐笔生长"
+        }
+      ]
+    },
+    {
+      "id": "cut-paper",
+      "index": "C6",
+      "label": "剪纸拼贴",
+      "en": "Cut-paper collage",
+      "keywords": [
+        "撕纸",
+        "分层",
+        "投影"
+      ],
+      "drawOrder": [
+        "底层纸",
+        "分层拼贴",
+        "投影"
+      ],
+      "snippet": "snippets/media-cut-paper.html",
+      "mapsTo": [
+        {
+          "type": "effect",
+          "id": "enter.draw-on",
+          "role": "逐笔生长"
+        }
+      ]
+    },
+    {
+      "id": "newsprint-halftone",
+      "index": "C7",
+      "label": "报纸网点",
+      "en": "Newsprint halftone",
+      "keywords": [
+        "黑网点",
+        "一个专色"
+      ],
+      "drawOrder": [
+        "网点底",
+        "图文",
+        "专色点缀"
+      ],
+      "snippet": "snippets/media-newsprint-halftone.html",
+      "mapsTo": [
+        {
+          "type": "effect",
+          "id": "enter.draw-on",
+          "role": "逐笔生长"
+        }
+      ]
+    },
+    {
+      "id": "pixel-art",
+      "index": "C8",
+      "label": "像素",
+      "en": "Pixel art",
+      "keywords": [
+        "16 色",
+        "低分辨率网格"
+      ],
+      "drawOrder": [
+        "像素网格",
+        "色块",
+        "高亮点"
+      ],
+      "snippet": "snippets/media-pixel-art.html",
+      "mapsTo": [
+        {
+          "type": "effect",
+          "id": "enter.draw-on",
+          "role": "逐笔生长"
+        }
+      ]
+    },
+    {
+      "id": "sumi-e",
+      "index": "C9",
+      "label": "水墨画",
+      "en": "Sumi-e",
+      "keywords": [
+        "一笔成形",
+        "宣纸",
+        "留白"
+      ],
+      "drawOrder": [
+        "一笔主形",
+        "淡墨衬",
+        "留白"
+      ],
+      "snippet": "snippets/media-sumi-e.html",
+      "mapsTo": [
+        {
+          "type": "effect",
+          "id": "enter.draw-on",
+          "role": "逐笔生长"
+        }
+      ]
+    },
+    {
+      "id": "single-line-engraving",
+      "index": "C10",
+      "label": "单线雕刻",
+      "en": "Single-line engraving",
+      "keywords": [
+        "一条螺旋线",
+        "宽度即明暗"
+      ],
+      "drawOrder": [
+        "单线起",
+        "螺旋密度变化",
+        "收笔"
+      ],
+      "snippet": "snippets/media-single-line-engraving.html",
+      "mapsTo": [
+        {
+          "type": "effect",
+          "id": "enter.draw-on",
+          "role": "逐笔生长"
+        }
+      ]
+    },
+    {
+      "id": "chalkboard",
+      "index": "C11",
+      "label": "黑板",
+      "en": "Chalkboard",
+      "keywords": [
+        "粉笔侧涂",
+        "粉尘"
+      ],
+      "drawOrder": [
+        "粉笔侧涂底",
+        "线条",
+        "粉尘点"
+      ],
+      "snippet": "snippets/media-chalkboard.html",
+      "mapsTo": [
+        {
+          "type": "effect",
+          "id": "enter.draw-on",
+          "role": "逐笔生长"
+        }
+      ]
+    },
+    {
+      "id": "cyanotype",
+      "index": "C12",
+      "label": "蓝晒蓝图",
+      "en": "Cyanotype blueprint",
+      "keywords": [
+        "蓝图",
+        "制图笔",
+        "白线"
+      ],
+      "drawOrder": [
+        "蓝图底",
+        "白线制图",
+        "标注"
+      ],
+      "snippet": "snippets/media-cyanotype.html",
+      "mapsTo": [
+        {
+          "type": "effect",
+          "id": "enter.draw-on",
+          "role": "逐笔生长"
+        }
+      ]
+    },
+    {
+      "id": "rubber-hose",
+      "index": "C13",
+      "label": "橡皮管卡通",
+      "en": "Rubber-hose",
+      "keywords": [
+        "30 年代卡通",
+        "软肢体",
+        "胶片颗粒"
+      ],
+      "drawOrder": [
+        "软肢体",
+        "卡通五官",
+        "颗粒"
+      ],
+      "snippet": "snippets/media-rubber-hose.html",
+      "mapsTo": [
+        {
+          "type": "effect",
+          "id": "enter.draw-on",
+          "role": "逐笔生长"
+        }
+      ]
+    },
+    {
+      "id": "woodcut-ukiyo-e",
+      "index": "C14",
+      "label": "木刻浮世绘",
+      "en": "Woodcut / ukiyo-e",
+      "keywords": [
+        "主版+色块",
+        "和纸"
+      ],
+      "drawOrder": [
+        "主版线",
+        "色块",
+        "和纸纹理"
+      ],
+      "snippet": "snippets/media-woodcut.html",
+      "mapsTo": [
+        {
+          "type": "effect",
+          "id": "enter.draw-on",
+          "role": "逐笔生长"
+        }
+      ]
+    }
+  ],
+  "scoringDimensions": [
+    {
+      "id": "hook",
+      "label": "前 2 秒钩子",
+      "detail": "开场 2 秒内是否有最抓人的画面或信息"
+    },
+    {
+      "id": "phone",
+      "label": "手机尺寸可读性",
+      "detail": "360px 宽下文字与主体清晰可读"
+    },
+    {
+      "id": "motion",
+      "label": "运动质量",
+      "detail": "用弹簧/缓动，无滑动感、无死帧"
+    },
+    {
+      "id": "variety",
+      "label": "多样性",
+      "detail": "每 2–4 秒有新事件或新技法"
+    },
+    {
+      "id": "brand",
+      "label": "品牌一致性",
+      "detail": "调色、字体、风格统一"
+    },
+    {
+      "id": "sound",
+      "label": "声画同步",
+      "detail": "如有配乐/音效，卡点与画面一致"
+    }
+  ],
+  "fixRunbook": [
+    {
+      "id": "F1",
+      "symptom": "文字 swap 时新旧文字重叠",
+      "detect": "contact sheet 或展开片段，看到两段文字同时出现",
+      "fix": "用 swapAlpha(t,tIn,tOut)：新文字在 morph 开始后进入、旧文字在下一阶段前离开，进出错开约 0.1s"
+    },
+    {
+      "id": "F2",
+      "symptom": "该缓动却在滑动（linear、匀速）",
+      "detect": "strip（连续 12 帧）里位移间距均匀、无加减速",
+      "fix": "把 linear 换成闭式弹簧 spring(t,k,d)；按钮/前沿用 k=320,卡片 k=170,大字 k=120"
+    },
+    {
+      "id": "F3",
+      "symptom": "缩放/放大后文字发虚模糊",
+      "detect": "放大后的帧文字不锐利",
+      "fix": "对被相机缩放的元素不要用 will-change；缩放结束后让文字回到 1.0 尺度再排版，或用子帧混合"
+    },
+    {
+      "id": "F4",
+      "symptom": "循环接缝卡顿、跳变",
+      "detect": "loop_check（连放两遍）首尾衔接处有跳变",
+      "fix": "让最后一帧等于第一帧（含光标位置与速度）；用 loopT(t,dur) 包裹时间"
+    },
+    {
+      "id": "F5",
+      "symptom": "死帧 / dead air（超过 4 秒无事件）",
+      "detect": "gate 的 dead air WARN；contact sheet 上相邻帧无变化",
+      "fix": "在空档插入次级运动（呼吸漂移、背景缓动、局部推进），或压缩该段时长"
+    },
+    {
+      "id": "F6",
+      "symptom": "居中渐变 + 全 fade（slop 信号）",
+      "detect": "连续出现居中文字、所有元素淡入淡出",
+      "fix": "改用非对称构图与逐笔/位移/遮罩入场；一帧内元素用 stagger 错峰，不要同时 fade"
+    },
+    {
+      "id": "F7",
+      "symptom": "元素同时全动、没有层次",
+      "detect": "一个镜头里所有元素同一时刻开始运动",
+      "fix": "按 i*0.03 加 stagger；前景/中景/背景分层，运动方向与速度不同"
+    },
+    {
+      "id": "F8",
+      "symptom": "灰块划过之后图片仍是 A、没切到 B",
+      "detect": "wipe 完成后画面未更新",
+      "fix": "在灰块完全覆盖（遮罩值=1）的瞬间切换 A→B，再让灰块划出；切换时机锁在 cue 表"
+    },
+    {
+      "id": "F9",
+      "symptom": "音效与画面不同步",
+      "detect": "whoosh/click 落在动作之外",
+      "fix": "先用 librosa 测 beat grid 写 beats.json，把状态变化放在 beat、音效放在 onset hit"
+    },
+    {
+      "id": "F10",
+      "symptom": "手机尺寸下文字太小/不可读",
+      "detect": "phone test（360px 缩略图）文字看不清",
+      "fix": "竖版关键文字占屏宽 ≥70%，正文字号上调；避免长段文字，拆成大字短句"
+    }
+  ]
+}

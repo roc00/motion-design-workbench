@@ -1,0 +1,15 @@
+[
+  { "t": 0.2, "type": "click" },
+  { "t": 0.45, "type": "thump" },
+  { "t": 0.85, "type": "pop" },
+  { "t": 2.9, "type": "whoosh" },
+  { "t": 5.5, "type": "riser" },
+  { "t": 6.3, "type": "thump" },
+  { "t": 6.6, "type": "pop" },
+  { "t": 8.6, "type": "whoosh" },
+  { "t": 9.0, "type": "riser" },
+  { "t": 10.8, "type": "pop" },
+  { "t": 11.4, "type": "whoosh" },
+  { "t": 12.6, "type": "click" },
+  { "t": 13.6, "type": "thump" }
+]

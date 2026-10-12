@@ -1,0 +1,181 @@
+{
+  "version": "0.7.0",
+  "contentProfiles": {
+    "generic": {
+      "eyebrow": "智能工作台",
+      "inputTitle": "一句话，找到下一步",
+      "query": "整理今天最值得关注的信息",
+      "response": "系统正在分析任务…",
+      "resultKicker": "分析完成",
+      "resultMain": "关键变化已定位，可以继续查看证据",
+      "resultMetaLeft": "可信结果",
+      "resultMetaRight": "更新于刚刚",
+      "focusTitle": "重点信息",
+      "focusSubtitle": "系统正在整理关键信号",
+      "taskName": "信息分析任务",
+      "oldState": "等待分析",
+      "newState": "结果已生成",
+      "beforeLabel": "之前",
+      "beforeValue": "6 步完成",
+      "afterLabel": "现在",
+      "afterValue": "2 步完成",
+      "difference": "步骤减少 67%",
+      "overviewItems": ["信息总览", "重点分析", "结果验证"],
+      "selectedItem": "重点分析",
+      "detailTitle": "关键变化",
+      "detailBody": "变化原因与支持证据已整理完成"
+    },
+    "opportunity-ai-vertical": {
+      "eyebrow": "AI 投资助手",
+      "inputTitle": "一句话，找到下一步",
+      "query": "扫描今天值得关注的机会",
+      "response": "AI 正在分析查询…",
+      "resultKicker": "机会扫描完成",
+      "resultMain": "现金流改善，关注盈利拐点",
+      "resultMetaLeft": "置信度 86%",
+      "resultMetaRight": "更新于刚刚",
+      "focusTitle": "机会选股",
+      "focusSubtitle": "AI 正在扫描市场信号",
+      "taskName": "机会扫描任务",
+      "oldState": "等待分析",
+      "newState": "策略已生成",
+      "beforeLabel": "之前",
+      "beforeValue": "6 步完成",
+      "afterLabel": "现在",
+      "afterValue": "2 步完成",
+      "difference": "步骤减少 67%",
+      "overviewItems": ["账户诊断", "机会扫描", "策略回测"],
+      "selectedItem": "机会扫描",
+      "detailTitle": "盈利拐点机会",
+      "detailBody": "现金流改善与估值修复同时出现"
+    }
+  },
+  "plans": {
+    "combo.title-product-focus": {
+      "sceneType": "claim-proof",
+      "coverageStrategy": "claim-to-evidence",
+      "cutDecision": "within-shot",
+      "shots": [
+        {
+          "id": "claim-proof-main",
+          "purpose": "在同一视野中建立主张并展示支持证据",
+          "coverageRole": "establish-result-confirm",
+          "fromMs": 0,
+          "toMs": 5200,
+          "primarySubject": "evidence-card",
+          "framing": "medium",
+          "cameraMotion": "static",
+          "contentMotion": ["title-reveal", "product-reveal", "evidence-highlight"],
+          "entryState": "标题和产品均未建立",
+          "exitState": "主张与证据同时可读"
+        }
+      ],
+      "editEdges": []
+    },
+    "combo.capsule-input-result": {
+      "sceneType": "causal-interaction",
+      "coverageStrategy": "action-response-result",
+      "cutDecision": "within-shot",
+      "shots": [
+        {
+          "id": "interaction-main",
+          "purpose": "保持输入、响应和结果的因果关系可追踪",
+          "coverageRole": "action-response-result",
+          "fromMs": 0,
+          "toMs": 7200,
+          "primarySubject": "query-task",
+          "framing": "medium",
+          "cameraMotion": "static",
+          "contentMotion": ["type", "submit", "processing", "result-reveal"],
+          "entryState": "输入为空",
+          "exitState": "输入和结果同时可核对"
+        }
+      ],
+      "editEdges": []
+    },
+    "combo.phone-focus-return": {
+      "sceneType": "detail-inspection",
+      "coverageStrategy": "context-detail-context",
+      "cutDecision": "within-shot",
+      "shots": [
+        {
+          "id": "context-detail-main",
+          "purpose": "从设备上下文进入指定区域并返回定位",
+          "coverageRole": "establish-detail-return",
+          "fromMs": 0,
+          "toMs": 6200,
+          "primarySubject": "focus-card",
+          "framing": "wide-to-close-to-wide",
+          "cameraMotion": "virtual-reframe",
+          "contentMotion": ["focus-marker"],
+          "entryState": "设备整体可见",
+          "exitState": "设备整体可见且重点保留标记"
+        }
+      ],
+      "editEdges": []
+    },
+    "combo.card-relay": {
+      "sceneType": "state-transformation",
+      "coverageStrategy": "before-change-after",
+      "cutDecision": "within-shot",
+      "shots": [
+        {
+          "id": "state-change-main",
+          "purpose": "在固定视野中追踪同一任务的状态变化",
+          "coverageRole": "before-transform-after",
+          "fromMs": 0,
+          "toMs": 5200,
+          "primarySubject": "task-card",
+          "framing": "medium",
+          "cameraMotion": "static",
+          "contentMotion": ["state-relay"],
+          "entryState": "任务等待处理",
+          "exitState": "同一任务结果已生成"
+        }
+      ],
+      "editEdges": []
+    },
+    "combo.before-after-confirm": {
+      "sceneType": "comparison",
+      "coverageStrategy": "locked-split-comparison",
+      "cutDecision": "within-shot",
+      "shots": [
+        {
+          "id": "comparison-main",
+          "purpose": "在相同尺度下同时展示前后状态并确认差异",
+          "coverageRole": "baseline-compare-confirm",
+          "fromMs": 0,
+          "toMs": 5600,
+          "primarySubject": "comparison-metric",
+          "framing": "locked-split",
+          "cameraMotion": "static",
+          "contentMotion": ["after-reveal", "difference-confirm"],
+          "entryState": "旧态完整可读",
+          "exitState": "前后状态与差异同时可读"
+        }
+      ],
+      "editEdges": []
+    },
+    "combo.overview-select-detail": {
+      "sceneType": "hierarchy-navigation",
+      "coverageStrategy": "overview-selection-detail",
+      "cutDecision": "within-shot",
+      "shots": [
+        {
+          "id": "navigation-main",
+          "purpose": "保留选中对象身份并进入详情",
+          "coverageRole": "orient-action-detail",
+          "fromMs": 0,
+          "toMs": 6000,
+          "primarySubject": "selected-item",
+          "framing": "medium",
+          "cameraMotion": "static",
+          "contentMotion": ["selection", "detail-reveal"],
+          "entryState": "总览项目全部可见",
+          "exitState": "详情可读且选中项身份保留"
+        }
+      ],
+      "editEdges": []
+    }
+  }
+}

@@ -1,0 +1,218 @@
+<!doctype html>
+<html lang="zh">
+<head>
+<meta charset="utf-8">
+<title>brand · 品牌温情（弱模型成片）</title>
+<style>
+  html,body{margin:0;height:100%;background:#3d3530;overflow:hidden}
+  #wrap{display:flex;align-items:center;justify-content:center;height:100%}
+  canvas{display:block;height:100%}
+</style>
+</head>
+<body>
+<div id="wrap"><canvas id="c" width="1080" height="1920"></canvas></div>
+<script>
+const W=1080,H=1920,DUR=15;
+const g=document.getElementById('c').getContext('2d');
+const clamp=(x,a=0,b=1)=>Math.min(b,Math.max(a,x));
+const lerp=(a,b,t)=>a+(b-a)*t;
+function spring(t,k=170,d=26){
+  if(t<=0)return 0;
+  const w0=Math.sqrt(k),z=d/(2*w0);
+  if(z<1){const wd=w0*Math.sqrt(1-z*z);
+    return 1-Math.exp(-z*w0*t)*(Math.cos(wd*t)+(z*w0/wd)*Math.sin(wd*t));}
+  return 1-Math.exp(-w0*t)*(1+w0*t);
+}
+function rng(seed){return()=>{seed|=0;seed=seed+0x6D2B79F5|0;
+  let t=Math.imul(seed^seed>>>15,1|seed);t=t+Math.imul(t^t>>>7,61|t)^t;
+  return((t^t>>>14)>>>0)/4294967296;};}
+function rrPath(g,x,y,w,h,r){
+  r=Math.min(r,w/2,h/2);
+  g.beginPath();
+  g.moveTo(x+r,y);g.arcTo(x+w,y,x+w,y+h,r);g.arcTo(x+w,y+h,x,y+h,r);
+  g.arcTo(x,y+h,x,y,r);g.arcTo(x,y,x+w,y,r);g.closePath();
+}
+
+const BG='#fdf6ee', INK='#3d3530';
+const PINK='#ff9fb2', MINT='#8fd8b8', SKY='#8cc6ff', YEL='#ffd166', CORAL='#ff9f7a', LIL='#c9b6ff';
+const PAL=[PINK,MINT,SKY,YEL,CORAL,LIL];
+const ROUND='"Quicksand","Nunito","PingFang SC",sans-serif';
+const CJK='"Quicksand","PingFang SC","Microsoft YaHei",sans-serif';
+
+/* ---------- 背景：暖奶油 + 柔和波点（不渐变、不暗场） ---------- */
+function bg(T){
+  g.fillStyle=BG;g.fillRect(0,0,W,H);
+  // 波点（轻微漂移）
+  const gap=90, ox=(T*8)%gap, oy=(T*6)%gap;
+  g.fillStyle='rgba(61,53,48,0.05)';
+  for(let x=-gap+ox;x<W+gap;x+=gap)
+    for(let y=-gap+oy;y<H+gap;y+=gap){
+      g.beginPath();g.arc(x,y,6,0,7);g.fill();
+    }
+}
+
+/* 圆角贴纸（带白色描边，像贴纸） */
+function sticker(x,y,r,fill,rot,drawFace){
+  g.save();g.translate(x,y);g.rotate(rot);
+  g.fillStyle='#fff';g.beginPath();g.arc(0,0,r+12,0,7);g.fill();
+  g.fillStyle=fill;g.beginPath();g.arc(0,0,r,0,7);g.fill();
+  if(drawFace)drawFace();
+  g.restore();
+}
+
+/* ---------- Scene 1 · 温暖开场 ---------- */
+function b1(t){
+  g.textAlign='center';g.textBaseline='middle';
+  // 小彩色点装饰
+  for(let i=0;i<5;i++){
+    const s=spring(t-0.05-i*0.06,140,14);
+    const x=W*0.5-200+i*100, y=H*0.3;
+    g.save();g.globalAlpha=clamp(s);
+    g.fillStyle=PAL[i];g.beginPath();g.arc(x,y,18*s,0,7);g.fill();
+    g.restore();
+  }
+  // 大字（playful 弹跳，过冲）
+  const a=spring(t-0.25,120,14);
+  g.save();g.translate(W*0.5,H*0.42);g.scale(0.5+0.5*a,0.5+0.5*a);
+  g.fillStyle=INK;g.font='900 98px '+CJK;
+  g.fillText('协作，本该',0,0);
+  g.fillStyle=CORAL;g.fillText('很轻松',0,110);
+  g.restore();
+  const c=spring(t-0.8,120,14);
+  g.globalAlpha=clamp(c);
+  g.fillStyle=INK;g.font='700 44px '+CJK;
+  g.fillText('别再一个人默默返工啦',W*0.5,H*0.6);
+  g.globalAlpha=1;
+}
+
+/* ---------- Scene 2 · 彩色贴纸弹跳入场 ---------- */
+function b2(t){
+  g.textAlign='center';g.textBaseline='middle';
+  const spots=[
+    {x:-280,y:-80,c:PINK},{x:-120,y:120,c:MINT},{x:60,y:-120,c:SKY},
+    {x:220,y:100,c:YEL},{x:300,y:-140,c:CORAL},
+  ];
+  spots.forEach((p,i)=>{
+    const s=spring(t-0.15-i*0.12,110,12); // playful 大过冲
+    const yy=p.y+(1-s)*500;
+    sticker(W*0.5+p.x, H*0.44+yy, 78, p.c, (i-2)*0.12*s, ()=>{
+      // 简单笑脸
+      g.fillStyle=INK;
+      g.beginPath();g.arc(-22,-8,8,0,7);g.fill();
+      g.beginPath();g.arc(22,-8,8,0,7);g.fill();
+      g.strokeStyle=INK;g.lineWidth=6;g.lineCap='round';
+      g.beginPath();g.arc(0,10,28,0.2,Math.PI-0.2);g.stroke();
+    });
+  });
+  const a=spring(t-0.9,120,14);
+  g.globalAlpha=clamp(a);
+  g.fillStyle=INK;g.font='800 48px '+CJK;
+  g.fillText('伙伴们，都在',W*0.5,H*0.7);
+  g.globalAlpha=1;
+}
+
+/* ---------- Scene 3 · 贴纸围圈拼贴（rhythmic） ---------- */
+function b3(t){
+  g.textAlign='center';g.textBaseline='middle';
+  // 中心卡片
+  const ca=spring(t-0.1,120,13);
+  g.save();g.translate(W*0.5,H*0.44);g.scale(ca,ca);
+  g.fillStyle='#fff';rrPath(g,-150,-150,300,300,48);g.fill();
+  g.fillStyle=MINT;rrPath(g,-130,-130,260,260,40);g.fill();
+  g.fillStyle='#fff';g.font='900 90px '+CJK;g.textAlign='center';g.textBaseline='middle';
+  g.fillText('一起',0,6);
+  g.restore();
+  // 贴纸围中心一圈
+  for(let i=0;i<6;i++){
+    const s=spring(t-0.3-i*0.1,110,12);
+    const ang=-Math.PI/2+i*(Math.PI*2/6);
+    const R=300;
+    const x=W*0.5+Math.cos(ang)*R*s, y=H*0.44+Math.sin(ang)*R*s;
+    sticker(x,y,52,PAL[i],ang+Math.PI/2,null);
+  }
+  const a=spring(t-1.1,120,14);
+  g.globalAlpha=clamp(a);
+  g.fillStyle=INK;g.font='800 46px '+CJK;g.textAlign='center';
+  g.fillText('想法，自然汇聚',W*0.5,H*0.7);
+  g.globalAlpha=1;
+}
+
+/* ---------- Scene 4 · 心形高光（情感） ---------- */
+function b4(t){
+  g.textAlign='center';g.textBaseline='middle';
+  const a=spring(t-0.2,120,13);
+  // 心形（用两个圆 + 三角近似）
+  g.save();g.translate(W*0.5,H*0.42);g.scale(a,a);
+  g.fillStyle='#fff';
+  g.beginPath();
+  g.arc(-55,-20,70,0,7);g.arc(55,-20,70,0,7);g.fill();
+  g.beginPath();g.moveTo(-118,20);g.lineTo(0,150);g.lineTo(118,20);g.closePath();g.fill();
+  g.fillStyle=PINK;
+  g.beginPath();g.arc(-45,-18,55,0,7);g.arc(45,-18,55,0,7);g.fill();
+  g.beginPath();g.moveTo(-96,18);g.lineTo(0,118);g.lineTo(96,18);g.closePath();g.fill();
+  g.restore();
+  const b=spring(t-0.6,120,14);
+  g.globalAlpha=clamp(b);
+  g.fillStyle=INK;g.font='900 72px '+CJK;g.textAlign='center';
+  g.fillText('让协作，有温度',W*0.5,H*0.62);
+  g.fillStyle=CORAL;g.font='700 40px '+CJK;
+  g.fillText('每一次对齐，都是一起完成',W*0.5,H*0.69);
+  g.globalAlpha=1;
+}
+
+/* ---------- Scene 5 · logo + 温暖收尾 ---------- */
+function b5(t){
+  g.textAlign='center';g.textBaseline='middle';
+  const a=spring(t-0.15,110,12);
+  g.save();g.translate(W*0.5,H*0.33);g.scale(a,a);
+  g.fillStyle='#fff';g.beginPath();g.arc(0,0,104,0,7);g.fill();
+  g.fillStyle=MINT;g.beginPath();g.arc(0,0,90,0,7);g.fill();
+  g.fillStyle=INK;g.beginPath();g.arc(-30,-10,15,0,7);g.fill();g.beginPath();g.arc(30,-10,15,0,7);g.fill();
+  g.strokeStyle=INK;g.lineWidth=7;g.lineCap='round';
+  g.beginPath();g.arc(0,12,30,0.2,Math.PI-0.2);g.stroke();
+  g.restore();
+  g.fillStyle=INK;g.font='900 104px '+ROUND;
+  g.fillText('Doubao',W*0.5,H*0.47);
+  g.fillStyle=CORAL;g.font='800 50px '+CJK;
+  g.fillText('一起，把事情做好',W*0.5,H*0.55);
+  const c=spring(t-0.6,110,12);
+  g.save();g.translate(W*0.5,H*0.67);g.scale(c,c);
+  g.fillStyle=PINK;rrPath(g,-210,-54,420,108,54);g.fill();
+  g.fillStyle='#fff';g.font='800 44px '+CJK;g.fillText('免费加入团队',0,2);
+  g.restore();
+}
+
+/* ---------- 场景时间轴 ---------- */
+const SCENES=[
+  {from:0,to:2.8,draw:b1},
+  {from:2.8,to:5.5,draw:b2},
+  {from:5.5,to:8.4,draw:b3},
+  {from:8.4,to:11.2,draw:b4},
+  {from:11.2,to:14,draw:b5},
+];
+/* 相机：柔和摇摆（playful） */
+function camera(T){return {zoom:1+Math.sin(T*0.8)*0.005, x:Math.cos(T*0.5)*0.003, y:0};}
+function draw(T){
+  bg(T);
+  const endOut=spring(T-14.2,100,16);
+  const cam=camera(T);
+  g.save();
+  g.translate(W/2,H/2);g.scale(cam.zoom,cam.zoom);
+  g.translate(-W/2+cam.x*W,-H/2+cam.y*H);
+  g.save();g.globalAlpha=1-endOut;
+  for(const s of SCENES){if(T>=s.from&&T<s.to)s.draw(T-s.from);}
+  g.restore();
+  g.restore();
+}
+window.seek=(t)=>{draw(clamp(t,0,DUR));return true;};
+if(!navigator.webdriver){
+  const t0=performance.now();
+  (function loop(){
+    if(window.__stop)return;
+    draw(((performance.now()-t0)/1000)%DUR);
+    requestAnimationFrame(loop);
+  })();
+}
+</script>
+</body>
+</html>

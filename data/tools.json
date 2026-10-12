@@ -1,0 +1,251 @@
+{
+  "version": "0.2.0",
+  "updated": "2026-10-11",
+  "source": "《网页动效提示词词典》上/中/下 · Punk · 得到大脑 2026-09-17",
+  "note": "技术总监选实现，导演选叙事。工具按时间编排、图形空间、数据图表组织；四个渲染层继续规定输出责任。",
+  "promptTip": "先复用现有平台与依赖。工具条目是选型参考，不代表已安装或已实现生产适配。需要预制素材的播放器按素材引入。",
+  "implementations": [
+    {
+      "id": "css",
+      "name": "CSS",
+      "fits": [
+        "普通按钮、卡片、文字动画"
+      ],
+      "tech": "transition / transform / opacity / @keyframes",
+      "note": "平台原生交互与样式；逐帧渲染将状态直接设为 t 对应的值，不依赖 transition 自己运行。",
+      "group": "motion",
+      "renderLayers": [
+        "deterministic"
+      ],
+      "status": "in-use",
+      "when": "根据主体与时间合同选择，不能替代叙事决定。",
+      "seekRule": "所有动画由外部 t 或可 seek 时间线求值；不依赖上一次状态。"
+    },
+    {
+      "id": "motion",
+      "name": "Motion",
+      "fits": [
+        "React 组件动画"
+      ],
+      "tech": "motion / framer-motion",
+      "note": "React 项目已有该库时使用；本项目没有安装 Motion。",
+      "group": "motion",
+      "renderLayers": [
+        "deterministic"
+      ],
+      "status": "reference",
+      "when": "根据主体与时间合同选择，不能替代叙事决定。",
+      "seekRule": "所有动画由外部 t 或可 seek 时间线求值；不依赖上一次状态。"
+    },
+    {
+      "id": "gsap",
+      "name": "GSAP",
+      "fits": [
+        "复杂时间线、滚动叙事"
+      ],
+      "tech": "gsap + ScrollTrigger + timeline",
+      "note": "时间轴可 seek，天然适合帧级确定的视频渲染。做动效视频时优先它。",
+      "group": "motion",
+      "renderLayers": [
+        "deterministic"
+      ],
+      "status": "in-use",
+      "when": "根据主体与时间合同选择，不能替代叙事决定。",
+      "seekRule": "所有动画由外部 t 或可 seek 时间线求值；不依赖上一次状态。"
+    },
+    {
+      "id": "three",
+      "name": "Three.js",
+      "fits": [
+        "网页 3D 场景"
+      ],
+      "tech": "three / R3F / WebGPU",
+      "note": "需要真正的相机、空间遮挡、模型或场景时考虑。当前工作台的透视网络是手写投影，没有接入 Three.js。",
+      "group": "graphics",
+      "renderLayers": [
+        "deterministic",
+        "shader"
+      ],
+      "status": "reference",
+      "when": "根据主体与时间合同选择，不能替代叙事决定。",
+      "seekRule": "所有动画由外部 t 或可 seek 时间线求值；不依赖上一次状态。"
+    },
+    {
+      "id": "webgl",
+      "name": "WebGL",
+      "group": "graphics",
+      "fits": [
+        "自定义 Shader",
+        "GPU 粒子与二维/三维图形"
+      ],
+      "tech": "Canvas WebGL / WebGL2 + GLSL",
+      "note": "浏览器底层图形 API；Shader 像素处理与三维场景要按实际责任分别归层。",
+      "when": "平台原语或已有引擎无法表达所需 GPU 图形时",
+      "seekRule": "时间 uniform、seed、纹理与视口固定；状态模拟需可重置或预计算。",
+      "renderLayers": [
+        "deterministic",
+        "shader"
+      ],
+      "status": "reference",
+      "source": "https://developer.mozilla.org/en-US/docs/Web/API/WebGL_API"
+    },
+    {
+      "id": "p5",
+      "name": "p5.js",
+      "group": "graphics",
+      "fits": [
+        "程序化图形",
+        "粒子规则",
+        "生成艺术",
+        "2D / WEBGL 草图"
+      ],
+      "tech": "draw / noLoop / redraw / randomSeed / noiseSeed",
+      "note": "适合用规则形成画面；当前项目未安装 p5.js。",
+      "when": "代码图形、形态系统与粒子规则是视觉母题时",
+      "seekRule": "关闭自动 loop，令 draw 从外部 t 重建画面并等待 redraw 完成；不累计位置或将 frameCount 当时间。",
+      "renderLayers": [
+        "deterministic",
+        "shader"
+      ],
+      "status": "reference",
+      "source": "https://p5js.org/reference/p5/redraw/"
+    },
+    {
+      "id": "chartjs",
+      "name": "Chart.js",
+      "group": "data",
+      "fits": [
+        "标准数据图表",
+        "轻量 Canvas 图表"
+      ],
+      "tech": "Canvas chart + options.animation=false + update",
+      "note": "图表的数据与标注属于精确信息层；当前图表示例使用原生 SVG，没有安装 Chart.js。",
+      "when": "需要标准图表且项目已有该库时",
+      "seekRule": "关闭库内动画，按 t 计算数据与视图后 update；固定刻度、尺寸、字体与排序。",
+      "renderLayers": [
+        "deterministic"
+      ],
+      "status": "reference",
+      "source": "https://www.chartjs.org/docs/latest/configuration/animations.html"
+    },
+    {
+      "id": "echarts",
+      "name": "Apache ECharts",
+      "group": "data",
+      "fits": [
+        "复杂多系列图表",
+        "数据关系与组合可视化"
+      ],
+      "tech": "Canvas / SVG renderer + setOption",
+      "note": "可选择 Canvas 或 SVG；根据数据规模与取景需求决定，当前项目未安装 ECharts。",
+      "when": "标准图表以外的数据关系、组合视图或复杂系列需要时",
+      "seekRule": "关闭自动动画，按 t 设置数据；固定轴范围、容器尺寸、渲染器与字体，等待画面完成。",
+      "renderLayers": [
+        "deterministic"
+      ],
+      "status": "reference",
+      "source": "https://echarts.apache.org/handbook/en/best-practices/canvas-vs-svg/"
+    }
+  ],
+  "renderLayers": [
+    {
+      "id": "deterministic",
+      "name": "确定性层 · HTML / CSS / SVG / Canvas",
+      "covers": [
+        "文字",
+        "数字",
+        "品牌元素",
+        "UI",
+        "版式",
+        "字幕",
+        "常规转场",
+        "参数化动效",
+        "Chart.js / ECharts 数据图表",
+        "p5.js 规则图形",
+        "WebGL 精确几何"
+      ],
+      "why": "输入资产 + 参数 + 时间 t 完全决定输出，可局部重算、可版本控制、可逐帧回归。",
+      "rule": "凡是画面里「必须 100% 正确」的东西——文字、数字、价格、Logo、图表——一律留在这一层。"
+    },
+    {
+      "id": "shader",
+      "name": "Shader 层 · WebGL / WebGPU",
+      "covers": [
+        "Blur / Glow / Bloom",
+        "RGB split",
+        "Displacement / Ripple",
+        "Pixelate / Halftone / CRT",
+        "Glitch",
+        "Dissolve / Burn"
+      ],
+      "why": "对已有像素或可计算场做 GPU 处理；明确时间、seed 和资源后检验逐帧一致性。",
+      "rule": "只要效果是「对已有像素做数学变换」，就不要交给生成模型。"
+    },
+    {
+      "id": "generative",
+      "name": "生成层 · 视频生成模型",
+      "covers": [
+        "人物表演",
+        "复杂空间运动",
+        "真实世界重构",
+        "语义化形变",
+        "摄影级光影",
+        "水火烟与人的交互"
+      ],
+      "why": "需要模型理解「世界是什么、应该怎样变化」，HTML/Shader 做到同等质量需要过多资产与工程时间。",
+      "rule": "生成层一律按不透明 plate 设计，不要假设它能直接输出可依赖的 alpha 通道。"
+    },
+    {
+      "id": "hybrid",
+      "name": "混合层 · 生成 plate + HTML overlay",
+      "covers": [
+        "生成背景上的精确 HUD",
+        "生成场景中必须出现的 UI",
+        "标题与人物相互遮挡的镜头"
+      ],
+      "why": "同时拿到生成层的视觉复杂度和确定性层的文字/品牌精度。",
+      "rule": "图层合同固定为：背景 plate 不透明，前景 overlay 走 RGBA（ProRes 4444 / yuva444p10le）。"
+    }
+  ],
+  "routingRule": "先由导演确定信息、主体、视点和交接，再由技术侧按精确性、资产条件、复杂度与可修改性选实现。工具不自动等于渲染层：p5.js 可以画 2D 或 WEBGL，WebGL 可以画精确几何或像素视效，图表库归确定性层。新增参考库不代表已经接入。",
+  "groups": [
+    {
+      "id": "motion",
+      "name": "动画与时间线"
+    },
+    {
+      "id": "graphics",
+      "name": "图形与空间"
+    },
+    {
+      "id": "data",
+      "name": "数据图表"
+    }
+  ],
+  "optionalAssetPlayers": [
+    {
+      "id": "lottie",
+      "name": "Lottie",
+      "fits": [
+        "播放做好的矢量动画"
+      ],
+      "tech": "lottie-web / dotlottie",
+      "note": "AE 导出即用，适合图标与插画；参数化能力弱，改动等于回 AE 重导。",
+      "status": "asset-dependent",
+      "condition": "仅在用户提供或项目已有预制 Lottie JSON / dotLottie 素材时考虑；当前调用链未接入运行时。",
+      "seekRule": "必须冻结资产、状态输入与播放位置，并单独验证 seek；没有素材时不进入默认制作路线。"
+    },
+    {
+      "id": "rive",
+      "name": "Rive",
+      "fits": [
+        "多互动状态的角色动画"
+      ],
+      "tech": "rive runtime + state machine",
+      "note": "状态机驱动，适合角色/图标的多状态切换与实时响应。",
+      "status": "asset-dependent",
+      "condition": "仅在用户提供或项目已有预制 .riv 素材时考虑；当前调用链未接入运行时。",
+      "seekRule": "必须冻结资产、状态输入与播放位置，并单独验证 seek；没有素材时不进入默认制作路线。"
+    }
+  ]
+}

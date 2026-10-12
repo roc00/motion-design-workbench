@@ -1,0 +1,4184 @@
+{
+  "version": "0.8.0",
+  "source": {
+    "repository": "https://github.com/Vincentwei1021/video-shotcraft",
+    "commit": "5e71af35a2daee492dd3ea93e5e8903f32dcd13c",
+    "license": "Apache-2.0",
+    "totalCards": 157,
+    "selectedCards": 44,
+    "selectionPolicy": "优先覆盖高频镜头运动、剪辑衔接、UI 入场、交互、数据表达和节奏；先补齐六个现有叙事配方可直接调用的二八核心集。",
+    "videoSource": {
+      "type": "local-reference-videos",
+      "videoCount": 57,
+      "folder": "0915宣传视频测试材料/风格参考",
+      "analyzedAt": "2026-09-21",
+      "selectedCards": 16,
+      "report": "docs/motion-transition-library.md",
+      "method": "ffmpeg 抽帧 + 场景检测 + 带时间戳联系表逐片拆解，再跨片归纳；每张卡至少 2 个不同视频证据。",
+      "note": "第二批 16 张提炼自真实产品宣传视频，不来自开源仓库；每张卡的 evidence 字段记录证据视频、时间戳与说明。"
+    },
+    "retiredCards": [
+      {
+        "id": "ui-entrance.deck-deal-flyin",
+        "nameZh": "发牌式飞入",
+        "action": "merged-into",
+        "mergedInto": "ui-entrance.card-stack",
+        "date": "2026-09-21",
+        "reason": "真实片中与卡片堆叠被同一标注、机制近同（多卡成组入场），作为 card-stack 的 deal-flyin 变体保留。"
+      },
+      {
+        "id": "camera.space-camera-moves",
+        "nameZh": "空间穿行运镜",
+        "action": "retired-umbrella",
+        "absorbedBy": [
+          "camera.hero-orbit-decor-rings",
+          "transition.zoom-through-portal",
+          "camera.pull-back-reveal-overview"
+        ],
+        "date": "2026-09-21",
+        "reason": "通用相机移动伞卡，本批无独立实例；环绕/穿行/后拉用法已被三张更具体的卡接管。"
+      }
+    ]
+  },
+  "categories": [
+    {
+      "id": "camera",
+      "name": "镜头运动"
+    },
+    {
+      "id": "transition",
+      "name": "转场与衔接"
+    },
+    {
+      "id": "ui-entrance",
+      "name": "UI 入场"
+    },
+    {
+      "id": "interaction",
+      "name": "交互反馈"
+    },
+    {
+      "id": "data",
+      "name": "数据表达"
+    },
+    {
+      "id": "rhythm",
+      "name": "节奏"
+    },
+    {
+      "id": "opening",
+      "name": "开场"
+    },
+    {
+      "id": "typography",
+      "name": "字体与字卡"
+    }
+  ],
+  "layers": [
+    {
+      "id": "camera",
+      "name": "镜头 / 取景"
+    },
+    {
+      "id": "subject-motion",
+      "name": "主体运动"
+    },
+    {
+      "id": "content-motion",
+      "name": "内容运动"
+    },
+    {
+      "id": "edit-relationship",
+      "name": "剪辑关系"
+    },
+    {
+      "id": "transition-effect",
+      "name": "转场表现"
+    },
+    {
+      "id": "rhythm",
+      "name": "节奏"
+    },
+    {
+      "id": "visual-treatment",
+      "name": "视觉处理"
+    }
+  ],
+  "integrationStates": [
+    {
+      "id": "knowledge-integrated",
+      "name": "知识已嵌入"
+    },
+    {
+      "id": "example-linked",
+      "name": "已关联现有示例"
+    },
+    {
+      "id": "production-adapted",
+      "name": "生产已适配"
+    }
+  ],
+  "demoIndex": {
+    "camera.crash-zoom-punch": {
+      "previewKind": "crash-zoom",
+      "description": "整屏字卡急推聚焦一个词，其余字符滑出，随即过曝模糊切到下一章。",
+      "beats": [
+        {
+          "label": "字卡全景",
+          "at": 0.12
+        },
+        {
+          "label": "急推聚焦主角词",
+          "at": 0.55
+        },
+        {
+          "label": "过曝模糊切章",
+          "at": 0.9
+        }
+      ],
+      "durationMs": 2200
+    },
+    "camera.depth-layer-moves": {
+      "previewKind": "depth-layers",
+      "description": "远景星野、中景形状、近景主角卡以不同速度独立漂移，形成慢视差纵深。",
+      "beats": [
+        {
+          "label": "分层就位",
+          "at": 0.15
+        },
+        {
+          "label": "慢视差漂移",
+          "at": 0.6
+        },
+        {
+          "label": "纵深层级成立",
+          "at": 0.9
+        }
+      ],
+      "durationMs": 2400
+    },
+    "camera.overhead-camera-moves": {
+      "previewKind": "overhead",
+      "description": "【本批视频未覆盖·假设式演示】从俯视总览开始，沿路线移动并推进到一个节点。",
+      "beats": [
+        {
+          "label": "俯拍总览",
+          "at": 0.06
+        },
+        {
+          "label": "路径移动",
+          "at": 0.5
+        },
+        {
+          "label": "节点特写",
+          "at": 0.86
+        }
+      ],
+      "durationMs": 2800
+    },
+    "transition.shot-transitions": {
+      "previewKind": "shot-seams",
+      "description": "接缝词典参考：依次演示硬切、闪白、暗场、圆形遮罩四种接缝的适用时机。",
+      "beats": [
+        {
+          "label": "硬切/叠化",
+          "at": 0.2
+        },
+        {
+          "label": "闪白/暗场",
+          "at": 0.55
+        },
+        {
+          "label": "遮罩揭示",
+          "at": 0.9
+        }
+      ],
+      "durationMs": 4000
+    },
+    "transition.transition-hidden-cut": {
+      "previewKind": "hidden-cut",
+      "description": "高速横甩运动模糊（叠一次亮度峰值）在画面最糊/最亮的瞬间藏掉切点。",
+      "beats": [
+        {
+          "label": "起势横甩",
+          "at": 0.2
+        },
+        {
+          "label": "模糊/亮度峰值藏切",
+          "at": 0.5
+        },
+        {
+          "label": "新场景清晰",
+          "at": 0.85
+        }
+      ],
+      "durationMs": 2600
+    },
+    "transition.wipe-transitions": {
+      "previewKind": "wipe",
+      "description": "品牌色对角楔（或横条）沿方向扫过，在楔形覆盖处把旧画面推成新章节。",
+      "beats": [
+        {
+          "label": "品牌色楔入场",
+          "at": 0.2
+        },
+        {
+          "label": "对角扫过中线",
+          "at": 0.5
+        },
+        {
+          "label": "新章节铺满",
+          "at": 0.88
+        }
+      ],
+      "durationMs": 2400
+    },
+    "transition.card-flip-reveal": {
+      "previewKind": "card-flip",
+      "description": "同一张卡绕竖轴翻面，在最窄时切换正反内容。",
+      "beats": [
+        {
+          "label": "功能正面",
+          "at": 0.08
+        },
+        {
+          "label": "翻面切点",
+          "at": 0.5
+        },
+        {
+          "label": "结果背面",
+          "at": 0.85
+        }
+      ],
+      "durationMs": 2400
+    },
+    "transition.circle-match-iris": {
+      "previewKind": "circle-iris",
+      "description": "以前镜圆形焦点为锚点收束，再扩张揭示后镜。",
+      "beats": [
+        {
+          "label": "锁定圆点",
+          "at": 0.08
+        },
+        {
+          "label": "圆形收束",
+          "at": 0.45
+        },
+        {
+          "label": "匹配揭示",
+          "at": 0.8
+        }
+      ],
+      "durationMs": 3000
+    },
+    "transition.line-carry-transition": {
+      "previewKind": "line-carry",
+      "description": "一条箭头/光轨/缎带从前镜画出，跨切点保持方向连续，落到后镜结果上。",
+      "beats": [
+        {
+          "label": "线在前镜生长",
+          "at": 0.25
+        },
+        {
+          "label": "跨切点方向连续",
+          "at": 0.5
+        },
+        {
+          "label": "线落到后镜结果",
+          "at": 0.88
+        }
+      ],
+      "durationMs": 2600
+    },
+    "ui-entrance.platform-hinge-rise": {
+      "previewKind": "hinge-rise",
+      "description": "【本批视频未覆盖·假设式演示】屏幕从底边铰链位置向上翻起，最终正面朝向观众。",
+      "beats": [
+        {
+          "label": "平台基座",
+          "at": 0.06
+        },
+        {
+          "label": "绕底边翻起",
+          "at": 0.55
+        },
+        {
+          "label": "正面停稳",
+          "at": 0.88
+        }
+      ],
+      "durationMs": 2600
+    },
+    "ui-entrance.card-stack": {
+      "previewKind": "card-stack",
+      "description": "卡片从同一发牌点旋转飞入（发牌式），错落叠放成有前后层级的卡堆。",
+      "beats": [
+        {
+          "label": "牌堆蓄势",
+          "at": 0.12
+        },
+        {
+          "label": "发牌旋转飞入",
+          "at": 0.55
+        },
+        {
+          "label": "错落堆叠成立",
+          "at": 0.9
+        }
+      ],
+      "durationMs": 2000
+    },
+    "ui-entrance.product-card-progressive-assemble": {
+      "previewKind": "progressive-assemble",
+      "description": "【本批视频未覆盖·假设式演示】产品卡按图片、标题、指标和按钮的阅读顺序逐步组装。",
+      "beats": [
+        {
+          "label": "卡片骨架",
+          "at": 0.08
+        },
+        {
+          "label": "内容组装",
+          "at": 0.55
+        },
+        {
+          "label": "行动完成",
+          "at": 0.88
+        }
+      ],
+      "durationMs": 2600
+    },
+    "ui-entrance.list-reveal": {
+      "previewKind": "list-reveal",
+      "description": "列表行从上到下错峰进入，最后高亮目标行。",
+      "beats": [
+        {
+          "label": "容器出现",
+          "at": 0.08
+        },
+        {
+          "label": "逐行揭示",
+          "at": 0.55
+        },
+        {
+          "label": "目标高亮",
+          "at": 0.88
+        }
+      ],
+      "durationMs": 2400
+    },
+    "ui-entrance.morph-from-primitive": {
+      "previewKind": "primitive-morph",
+      "description": "一个基础圆形连续拉伸成按钮，再扩展为完整信息卡。",
+      "beats": [
+        {
+          "label": "基础圆形",
+          "at": 0.06
+        },
+        {
+          "label": "形成按钮",
+          "at": 0.45
+        },
+        {
+          "label": "扩展成卡",
+          "at": 0.82
+        }
+      ],
+      "durationMs": 2600
+    },
+    "interaction.type-and-filter": {
+      "previewKind": "type-filter",
+      "description": "输入查询词后，结果列表逐步过滤并只保留匹配项。",
+      "beats": [
+        {
+          "label": "建立结果集",
+          "at": 0.08
+        },
+        {
+          "label": "输入关键词",
+          "at": 0.4
+        },
+        {
+          "label": "筛选收敛",
+          "at": 0.78
+        }
+      ],
+      "durationMs": 2800
+    },
+    "interaction.ai-stream-response": {
+      "previewKind": "ai-stream",
+      "description": "请求发出后经历短暂加载，回答逐行流式生成并进入完成态。",
+      "beats": [
+        {
+          "label": "提交请求",
+          "at": 0.08
+        },
+        {
+          "label": "流式生成",
+          "at": 0.55
+        },
+        {
+          "label": "回答完成",
+          "at": 0.88
+        }
+      ],
+      "durationMs": 3200
+    },
+    "interaction.command-palette-summon": {
+      "previewKind": "command-palette",
+      "description": "【本批视频未覆盖·假设式演示】命令面板从当前界面浮出，输入后移动选择并执行目标命令。",
+      "beats": [
+        {
+          "label": "唤起面板",
+          "at": 0.1
+        },
+        {
+          "label": "输入与选择",
+          "at": 0.55
+        },
+        {
+          "label": "执行反馈",
+          "at": 0.88
+        }
+      ],
+      "durationMs": 3000
+    },
+    "interaction.input-trigger-moves": {
+      "previewKind": "input-trigger",
+      "description": "指针触发按钮，按钮先反馈，再由结果卡承接因果。",
+      "beats": [
+        {
+          "label": "指针接近",
+          "at": 0.1
+        },
+        {
+          "label": "点击反馈",
+          "at": 0.45
+        },
+        {
+          "label": "结果出现",
+          "at": 0.8
+        }
+      ],
+      "durationMs": 2600
+    },
+    "data.before-after-slider-scrub": {
+      "previewKind": "before-after",
+      "description": "【本批视频未覆盖·假设式演示】分界滑杆从左向右移动，在同一构图中揭示优化后的状态。",
+      "beats": [
+        {
+          "label": "建立基线",
+          "at": 0.08
+        },
+        {
+          "label": "拖动分界",
+          "at": 0.55
+        },
+        {
+          "label": "差异确认",
+          "at": 0.88
+        }
+      ],
+      "durationMs": 2800
+    },
+    "data.chart-live-moves": {
+      "previewKind": "chart-live",
+      "description": "【本批视频未覆盖·假设式演示】先建立坐标，再绘制数据，最后用标记指出结论。",
+      "beats": [
+        {
+          "label": "坐标建立",
+          "at": 0.08
+        },
+        {
+          "label": "数据生长",
+          "at": 0.5
+        },
+        {
+          "label": "结论标注",
+          "at": 0.85
+        }
+      ],
+      "durationMs": 2800
+    },
+    "data.odometer-digit-roll": {
+      "previewKind": "odometer",
+      "description": "数字按位向上滚动到新值，终态保持等宽且可准确读取。",
+      "beats": [
+        {
+          "label": "旧值稳定",
+          "at": 0.05
+        },
+        {
+          "label": "数字滚动",
+          "at": 0.6
+        },
+        {
+          "label": "新值停稳",
+          "at": 0.9
+        }
+      ],
+      "durationMs": 3200
+    },
+    "data.timeline-travel": {
+      "previewKind": "timeline",
+      "description": "【本批视频未覆盖·假设式演示】镜头沿时间轴从左向右穿行，节点依次点亮并抵达当前状态。",
+      "beats": [
+        {
+          "label": "历史起点",
+          "at": 0.08
+        },
+        {
+          "label": "沿轴穿行",
+          "at": 0.55
+        },
+        {
+          "label": "当前节点",
+          "at": 0.88
+        }
+      ],
+      "durationMs": 2800
+    },
+    "rhythm.beat-cut-moves": {
+      "previewKind": "beat-cut",
+      "description": "三个画面在声音重音位置硬切，每次切换都对应新的信息。",
+      "beats": [
+        {
+          "label": "节拍一",
+          "at": 0.08
+        },
+        {
+          "label": "节拍二",
+          "at": 0.42
+        },
+        {
+          "label": "节拍三",
+          "at": 0.75
+        }
+      ],
+      "durationMs": 2400
+    },
+    "rhythm.speed-ramp-freeze": {
+      "previewKind": "speed-freeze",
+      "description": "主体先快速掠过，再急减速并在关键位置定格标注。",
+      "beats": [
+        {
+          "label": "加速进入",
+          "at": 0.08
+        },
+        {
+          "label": "急速减速",
+          "at": 0.55
+        },
+        {
+          "label": "结果定格",
+          "at": 0.85
+        }
+      ],
+      "durationMs": 2800
+    },
+    "rhythm.montage-rhythm-moves": {
+      "previewKind": "montage",
+      "description": "多个短镜按长短节奏依次切换，段末回到一个完整结果。",
+      "beats": [
+        {
+          "label": "短镜组接",
+          "at": 0.1
+        },
+        {
+          "label": "节奏加密",
+          "at": 0.5
+        },
+        {
+          "label": "结果停留",
+          "at": 0.85
+        }
+      ],
+      "durationMs": 2600
+    },
+    "opening.spotlight-hero-card": {
+      "previewKind": "spotlight-hero",
+      "description": "暗仪表盘上圆形光圈跟随光标扫过，只点亮一个数据点/榜单行。",
+      "beats": [
+        {
+          "label": "暗看板·光圈进入",
+          "at": 0.18
+        },
+        {
+          "label": "光圈跟随扫过",
+          "at": 0.55
+        },
+        {
+          "label": "锁定一个数据点",
+          "at": 0.9
+        }
+      ],
+      "durationMs": 3000
+    },
+    "opening.brand-ink-open": {
+      "previewKind": "brand-ink",
+      "description": "【本批视频未覆盖·假设式演示】品牌色墨迹从中心扩散成遮罩，随后显露标题和内容入口。",
+      "beats": [
+        {
+          "label": "品牌种子",
+          "at": 0.06
+        },
+        {
+          "label": "墨迹扩散",
+          "at": 0.5
+        },
+        {
+          "label": "内容显露",
+          "at": 0.85
+        }
+      ],
+      "durationMs": 3000
+    },
+    "typography.paper-title-card": {
+      "previewKind": "paper-title",
+      "description": "纸面字卡进入并完成标题排版，停留足够时间后成为章节切点。",
+      "beats": [
+        {
+          "label": "纸面进入",
+          "at": 0.1
+        },
+        {
+          "label": "标题建立",
+          "at": 0.5
+        },
+        {
+          "label": "阅读停留",
+          "at": 0.85
+        }
+      ],
+      "durationMs": 2800
+    },
+    "transition.zoom-through-portal": {
+      "previewKind": "zoom-through-portal",
+      "description": "镜头穿过圆形开口藏切，从工作台飞入太空场景。",
+      "beats": [
+        {
+          "label": "开口居中",
+          "at": 0.08
+        },
+        {
+          "label": "穿口径向模糊",
+          "at": 0.5
+        },
+        {
+          "label": "新场景落位",
+          "at": 0.92
+        }
+      ],
+      "durationMs": 2400,
+      "previewStoryboard": {
+        "start": "工作台画面中央浮现一个发光圆形舷窗，四周是 UI 面板。",
+        "mid": "圆形舷窗急剧放大到满屏，带径向模糊，正在穿入开口。",
+        "end": "从开口中心展开出深色太空场景与一个新产品卡片，开口消失。"
+      }
+    },
+    "transition.match-cut-shape": {
+      "previewKind": "match-cut-shape",
+      "description": "同一橙底数字形状硬切换物体。",
+      "beats": [
+        {
+          "label": "橙底数字1居中",
+          "at": 0.08
+        },
+        {
+          "label": "数字1放大充满",
+          "at": 0.45
+        },
+        {
+          "label": "换成数字6",
+          "at": 0.85
+        }
+      ],
+      "durationMs": 1600,
+      "previewStoryboard": {
+        "start": "橙色背景上一个白色粗体数字'1'居中，周围留白。",
+        "mid": "数字'1'放大到几乎充满画面，边缘被放大出血。",
+        "end": "同一位置同一字号出现白色数字'6'，橙色背景不变。"
+      }
+    },
+    "transition.match-cut-color-veil": {
+      "previewKind": "color-veil-cut",
+      "description": "整屏品牌紫幕跨切章节。",
+      "beats": [
+        {
+          "label": "前镜卡片",
+          "at": 0.1
+        },
+        {
+          "label": "紫色铺满",
+          "at": 0.5
+        },
+        {
+          "label": "紫中浮出新卡",
+          "at": 0.9
+        }
+      ],
+      "durationMs": 2000,
+      "previewStoryboard": {
+        "start": "浅色界面上一张数据卡片，边缘带一点紫色装饰元素。",
+        "mid": "紫色品牌色幕从边缘涌满整屏，紫色锚点元素留在画面中央。",
+        "end": "紫色幕散开，同一中央位置浮出一张新的章节卡片，色调偏紫。"
+      }
+    },
+    "transition.match-cut-motion": {
+      "previewKind": "match-cut-motion",
+      "description": "物体同向运动出画入画藏切。",
+      "beats": [
+        {
+          "label": "球向右运动",
+          "at": 0.1
+        },
+        {
+          "label": "球出右画",
+          "at": 0.5
+        },
+        {
+          "label": "方块从右入",
+          "at": 0.88
+        }
+      ],
+      "durationMs": 1500,
+      "previewStoryboard": {
+        "start": "浅色背景上一个红球正向右移动，刚到画面中线。",
+        "mid": "红球运动到右边缘即将出画，带轻微运动模糊。",
+        "end": "一个方块从右边缘入画，沿同一方向继续向右移动。"
+      }
+    },
+    "transition.glow-bloom-to-scene": {
+      "previewKind": "glow-bloom-scene",
+      "description": "发光点过曝化开成新场景。",
+      "beats": [
+        {
+          "label": "暗底光点",
+          "at": 0.08
+        },
+        {
+          "label": "光点过曝满屏",
+          "at": 0.5
+        },
+        {
+          "label": "光退成新场景环境光",
+          "at": 0.92
+        }
+      ],
+      "durationMs": 2200,
+      "previewStoryboard": {
+        "start": "深色背景中央一个小发光点，四周是暗的。",
+        "mid": "发光点急剧膨胀过曝到接近全白，充满整个画面。",
+        "end": "白光退去成一个带主光的浅色产品场景，同一方向的光打在产品上。"
+      }
+    },
+    "transition.shared-element-morph-chain": {
+      "previewKind": "shared-morph-chain",
+      "description": "进度条连续形变到结果卡。",
+      "beats": [
+        {
+          "label": "进度条",
+          "at": 0.1
+        },
+        {
+          "label": "对勾彩带",
+          "at": 0.5
+        },
+        {
+          "label": "结果卡",
+          "at": 0.9
+        }
+      ],
+      "durationMs": 2200,
+      "previewStoryboard": {
+        "start": "浅色界面上一条蓝色横向进度条接近完成。",
+        "mid": "进度条收缩成一个对勾，周围飘出彩带纸屑。",
+        "end": "对勾放大演化成一张完整的结果卡片，位于同一中心位置。"
+      }
+    },
+    "ui-entrance.device-frame-content-swap": {
+      "previewKind": "device-frame-swap",
+      "description": "手机外框不动框内换图。",
+      "beats": [
+        {
+          "label": "手机框内图A",
+          "at": 0.1
+        },
+        {
+          "label": "框内crossfade",
+          "at": 0.5
+        },
+        {
+          "label": "框内图B",
+          "at": 0.9
+        }
+      ],
+      "durationMs": 1800,
+      "previewStoryboard": {
+        "start": "一台手机样机外框居中，屏幕里显示一张风景图。",
+        "mid": "手机外框、阴影、反光完全不变，屏幕内画面正在交叉淡化。",
+        "end": "手机外框仍在原位，屏幕内换成另一张产品图，背景环境也略作变化。"
+      }
+    },
+    "interaction.persistent-cursor-cross-shot": {
+      "previewKind": "persistent-cursor",
+      "description": "紫色光标跨镜点选连续操作。",
+      "beats": [
+        {
+          "label": "光标在输入框",
+          "at": 0.1
+        },
+        {
+          "label": "光标点选卡片",
+          "at": 0.5
+        },
+        {
+          "label": "光标拖动滑块",
+          "at": 0.9
+        }
+      ],
+      "durationMs": 2400,
+      "previewStoryboard": {
+        "start": "浅色界面底部一个输入框，紫色光标位于框内。",
+        "mid": "光标移到一张建议卡片上点选，卡片被并入正文。",
+        "end": "同一紫色光标继续拖动一个滑块，界面换成调整面板。"
+      }
+    },
+    "ui-entrance.clone-multiply-to-grid": {
+      "previewKind": "clone-to-grid",
+      "description": "单卡克隆成整墙网格。",
+      "beats": [
+        {
+          "label": "单张缩略图",
+          "at": 0.1
+        },
+        {
+          "label": "克隆成网格",
+          "at": 0.55
+        },
+        {
+          "label": "整墙停留",
+          "at": 0.9
+        }
+      ],
+      "durationMs": 2200,
+      "previewStoryboard": {
+        "start": "浅色背景中央单张缩略图卡片。",
+        "mid": "该卡片开始向四周复制，错落飞入成多行多列的网格。",
+        "end": "整墙网格稳定铺满画面，行列对齐，中央仍能认出起始卡片。"
+      }
+    },
+    "transition.liquid-gradient-section-divider": {
+      "previewKind": "liquid-section-divider",
+      "description": "流体光晕涌满再散开做章节。",
+      "beats": [
+        {
+          "label": "前节内容",
+          "at": 0.1
+        },
+        {
+          "label": "流体涌满",
+          "at": 0.5
+        },
+        {
+          "label": "散开露新节",
+          "at": 0.9
+        }
+      ],
+      "durationMs": 2400,
+      "previewStoryboard": {
+        "start": "深色界面上一段文字内容。",
+        "mid": "一团紫青渐变流体从边缘涌满画面，柔和湍流。",
+        "end": "流体散开，露出下一节浅色卡片内容。"
+      }
+    },
+    "opening.particles-gather-to-logo": {
+      "previewKind": "particles-to-logo",
+      "description": "散点聚合拼成品牌 logo。",
+      "beats": [
+        {
+          "label": "满屏散点",
+          "at": 0.1
+        },
+        {
+          "label": "向中心聚拢",
+          "at": 0.55
+        },
+        {
+          "label": "成型 logo",
+          "at": 0.92
+        }
+      ],
+      "durationMs": 2800,
+      "previewStoryboard": {
+        "start": "深色背景上满屏漂浮着彩色小光点，散乱分布。",
+        "mid": "光点开始向画面中心聚拢，拖出细微轨迹。",
+        "end": "光点咬合出一个完整的品牌字母 logo，居中稳定发光。"
+      }
+    },
+    "typography.word-slot-scramble-swap": {
+      "previewKind": "word-slot-scramble",
+      "description": "固定字槽内乱码解码换词。",
+      "beats": [
+        {
+          "label": "旧词hold",
+          "at": 0.1
+        },
+        {
+          "label": "乱码抖动",
+          "at": 0.5
+        },
+        {
+          "label": "新词解码",
+          "at": 0.88
+        }
+      ],
+      "durationMs": 1600,
+      "previewStoryboard": {
+        "start": "中央字槽内显示旧词'Build'，版式居中。",
+        "mid": "整行字符开始乱码抖动，字形快速乱跳。",
+        "end": "字符逐位解码成新词'Create'，关键词跳成品牌色。"
+      }
+    },
+    "camera.hero-orbit-decor-rings": {
+      "previewKind": "hero-orbit-rings",
+      "description": "中心产品缓慢环绕带装饰环。",
+      "beats": [
+        {
+          "label": "正面中心",
+          "at": 0.1
+        },
+        {
+          "label": "缓环绕",
+          "at": 0.55
+        },
+        {
+          "label": "回正",
+          "at": 0.9
+        }
+      ],
+      "durationMs": 3000,
+      "previewStoryboard": {
+        "start": "深色背景中央一个产品，周围有同心细装饰环。",
+        "mid": "镜头绕产品缓慢环绕，装饰环和背景随角度轻微变化。",
+        "end": "镜头回正到产品正面，装饰环稳定，产品居中。"
+      }
+    },
+    "transition.ui-drill-in-out": {
+      "previewKind": "ui-drill-in-out",
+      "description": "从角标钻进界面再钻出。",
+      "beats": [
+        {
+          "label": "角标居中",
+          "at": 0.1
+        },
+        {
+          "label": "钻透放大",
+          "at": 0.5
+        },
+        {
+          "label": "展开界面",
+          "at": 0.9
+        }
+      ],
+      "durationMs": 2400,
+      "previewStoryboard": {
+        "start": "总览画面一角有一个小型功能图标角标。",
+        "mid": "镜头沿角标推近，角标放大带径向模糊正在钻穿。",
+        "end": "钻穿后展开成该功能的完整界面面板，占满画面。"
+      }
+    },
+    "transition.split-screen-split-merge": {
+      "previewKind": "split-split-merge",
+      "description": "单画面裂成左右再合回。",
+      "beats": [
+        {
+          "label": "单画面",
+          "at": 0.1
+        },
+        {
+          "label": "裂成左右",
+          "at": 0.5
+        },
+        {
+          "label": "合回单画面",
+          "at": 0.9
+        }
+      ],
+      "durationMs": 2200,
+      "previewStoryboard": {
+        "start": "单画面一张完整卡片，中央无缝。",
+        "mid": "画面从中线裂成左右两块，左是任务、右是结果，中缝一条细品牌色线。",
+        "end": "中缝收回，两块合回一张完整的结论卡片。"
+      }
+    },
+    "camera.pull-back-reveal-overview": {
+      "previewKind": "pull-back-overview",
+      "description": "从单卡后拉揭示整墙工作流。",
+      "beats": [
+        {
+          "label": "单卡特写",
+          "at": 0.1
+        },
+        {
+          "label": "后拉展开",
+          "at": 0.55
+        },
+        {
+          "label": "整墙全景",
+          "at": 0.92
+        }
+      ],
+      "durationMs": 2600,
+      "previewStoryboard": {
+        "start": "镜头特写一张卡片，只看清这一张。",
+        "mid": "镜头向后拉，四周卡片按层差速展开，工作流浮现。",
+        "end": "落幅在完整的多卡片工作流全景，起始卡片仍在中心可辨。"
+      }
+    }
+  },
+  "recipes": [
+    {
+      "id": "camera.crash-zoom-punch",
+      "sourceCategory": "camera",
+      "name": "Crash Zoom Punch",
+      "nameZh": "急推强调",
+      "summary": "镜头急推到字卡中的一个字符/词并短暂过曝模糊，把章节重音钉在文字上。",
+      "applicable": "章节重音、关键词强调、标题切章",
+      "duration": "0.25–0.8s",
+      "energy": "high",
+      "layers": [
+        "camera",
+        "rhythm"
+      ],
+      "patternIds": [
+        "combo.title-product-focus",
+        "combo.before-after-confirm",
+        "combo.overview-select-detail"
+      ],
+      "effectIds": [
+        "scroll.zoom",
+        "handling.easing"
+      ],
+      "implementationState": "knowledge-integrated",
+      "selectionReason": "高频强调动作，可补足当前配方的景别推进。",
+      "avoidWhen": "长文本仍在阅读，或主体边界无法稳定锁定时。",
+      "sourcePath": "references/shots/camera/crash-zoom-punch.md",
+      "object": "camera",
+      "narrativeUse": "guide",
+      "patternUsage": "在配方「标题 → 产品 → 证据重点」的确认步骤使用：把唯一数字推到特写，让证据成为重音。",
+      "status": {
+        "source": "verified",
+        "demo": "needs-calibration",
+        "production": "planned"
+      },
+      "shot": {
+        "intent": "对整屏字卡急推，只让其中一个字符/词冲到前景，终帧接过曝或横移模糊切到下一章节。",
+        "subject": "一行标题字卡（含一个主角字符/词）。",
+        "camera": "正对字卡沿 Z 轴急推，主角字符居中放大。",
+        "subjectAction": "其余字符滑出/虚化，主角字符清晰定格，随即过曝模糊。",
+        "timing": "急推 0.5s ease-in → 定格 0.2s → 模糊切 0.2s。",
+        "seams": "前接章节铺陈；模糊最满处硬切下一章节。",
+        "constraints": "急推必须落在可读字符上，避免整句都糊。"
+      },
+      "evidence": [
+        {
+          "video": "NextLevel！2023阿里设计年度Showreel请观赏！10业务设计团队成果集锦，炫的是对设计的热爱！各完整版_-_001_-_NextLevel！2023阿里设计年度Showreel请观赏！10业务设计团队成.md",
+          "at": "43.8→44.6",
+          "note": "橙底「1688」镜头急推，只放大首位「1」，其余数字滑出。"
+        },
+        {
+          "video": "Google_是怎么用_60_秒讲好一个新功能的_-_BA品牌引力.md",
+          "at": "9.1→11.0",
+          "note": "急推单词「collaboration」糊成「llaborati」，再淡入「Introducing」。"
+        },
+        {
+          "video": "快手2022设计年鉴.md",
+          "at": "9.0→12.6",
+          "note": "倾斜字标推近做章节重音。"
+        }
+      ],
+      "presentation": {
+        "role": "director",
+        "domain": "viewpoint",
+        "canonicalEffectId": null,
+        "relationship": "editorial-grammar",
+        "reason": "描述视点、镜头之间的信息关系、时间节奏或贯穿段落的角色。",
+        "previewStatus": "retired",
+        "retirementReason": "保留原理与溯源；旧 SVG 演示退出导演案例。"
+      }
+    },
+    {
+      "id": "camera.depth-layer-moves",
+      "sourceCategory": "camera",
+      "name": "Depth Layer Moves",
+      "nameZh": "纵深分层运镜",
+      "summary": "让远/中/近层以不同速度独立漂移，或沿等距网格向纵深推进，建立空间层级。",
+      "applicable": "产品空间、抽象背景、层级关系",
+      "duration": "1.0–3.0s",
+      "energy": "medium",
+      "layers": [
+        "camera",
+        "visual-treatment"
+      ],
+      "patternIds": [
+        "combo.title-product-focus",
+        "combo.phone-focus-return",
+        "combo.overview-select-detail"
+      ],
+      "effectIds": [
+        "scroll.multi-layer-parallax",
+        "scroll.parallax",
+        "scroll.zoom"
+      ],
+      "implementationState": "knowledge-integrated",
+      "selectionReason": "可复用的空间建立手段，能连接全景与局部。",
+      "avoidWhen": "素材没有可分离层级，或视差会破坏界面几何时。",
+      "sourcePath": "references/shots/camera/depth-layer-moves.md",
+      "object": "camera",
+      "narrativeUse": "establish",
+      "patternUsage": "在配方「标题 → 产品 → 证据重点」的展示步骤使用：用纵深差速让产品层自然成为视觉中心。",
+      "status": {
+        "source": "verified",
+        "demo": "needs-calibration",
+        "production": "planned"
+      },
+      "shot": {
+        "intent": "用独立慢视差层（或等距方块沿网格纵深推进）表达层级与空间深度。",
+        "subject": "远景星野/网格、中景形状、近景主角卡。",
+        "camera": "侧向慢移，或沿 Z 轴等距推进。",
+        "subjectAction": "各层按景深以不同速度位移，近快远慢。",
+        "timing": "慢速连续，单段 2–4s，不做硬切。",
+        "seams": "前接建立空间；后接在某一层上进入具体内容。",
+        "constraints": "层级速度差要可读，避免所有层同速成整体平移。"
+      },
+      "evidence": [
+        {
+          "video": "马斯克的_XAI_官网更新了_设计的非常赞_-_001_-_马斯克的_XAI_官网更新了_设计的非常赞.md",
+          "at": "3.6→9",
+          "note": "黑底星野各层独立缓慢漂移，制造深空纵深。"
+        },
+        {
+          "video": "Stripe_支付产品功能短片.md",
+          "at": "1.0→5.0",
+          "note": "3D 卡片展厅平移/环绕，产品卡以不同景深漂浮排布。"
+        },
+        {
+          "video": "Microsoft__Windows_365_Cloud_PC.md",
+          "at": "40.3→50.7",
+          "note": "规格数字物化成等距方块，沿电路网格纵深推进。"
+        }
+      ],
+      "presentation": {
+        "role": "director",
+        "domain": "viewpoint",
+        "canonicalEffectId": null,
+        "relationship": "editorial-grammar",
+        "reason": "描述视点、镜头之间的信息关系、时间节奏或贯穿段落的角色。",
+        "previewStatus": "retired",
+        "retirementReason": "保留原理与溯源；旧 SVG 演示退出导演案例。"
+      }
+    },
+    {
+      "id": "camera.overhead-camera-moves",
+      "sourceCategory": "camera",
+      "name": "Overhead Camera Moves",
+      "nameZh": "俯拍总览运镜",
+      "summary": "从俯视角建立全局布局，再沿路径进入重点对象。",
+      "applicable": "流程、卡片矩阵、对象地图",
+      "duration": "1.5–4.0s",
+      "energy": "medium",
+      "layers": [
+        "camera"
+      ],
+      "patternIds": [
+        "combo.phone-focus-return",
+        "combo.overview-select-detail"
+      ],
+      "effectIds": [
+        "scroll.zoom",
+        "scroll.horizontal"
+      ],
+      "implementationState": "knowledge-integrated",
+      "selectionReason": "直接补足总览到选择的覆盖镜头。",
+      "avoidWhen": "单个对象已能完整表达，或俯视角削弱主体识别时。",
+      "sourcePath": "references/shots/camera/overhead-camera-moves.md",
+      "object": "camera",
+      "narrativeUse": "establish",
+      "patternUsage": "在配方「全局 → 局部 → 回归上下文」的全局步骤使用：俯视总览 + 路径移动，明确目标在整体中的位置。",
+      "status": {
+        "source": "verified",
+        "demo": "needs-calibration",
+        "production": "planned"
+      },
+      "shot": {
+        "intent": "从俯视总览开始，沿路线移动并推进到一个节点。",
+        "subject": "8 个节点网格中的目标节点。",
+        "camera": "俯视机位先沿虚线路径移动，再向目标节点推进。",
+        "subjectAction": "路线逐步绘制并点亮经过的节点，目标节点在推进后放大高亮。",
+        "timing": "路径绘制 1.2s → 推进特写 1.0s → 停留 0.6s，总长约 2.8s。",
+        "seams": "前接无上下文总览；后接节点详情。",
+        "constraints": "节点数量适中（≤9）；目标节点与其它节点需有语义差异。"
+      },
+      "tags": [
+        "仓库模式·本批视频未覆盖"
+      ],
+      "presentation": {
+        "role": "director",
+        "domain": "viewpoint",
+        "canonicalEffectId": null,
+        "relationship": "editorial-grammar",
+        "reason": "描述视点、镜头之间的信息关系、时间节奏或贯穿段落的角色。",
+        "previewStatus": "retired",
+        "retirementReason": "保留原理与溯源；旧 SVG 演示退出导演案例。"
+      }
+    },
+    {
+      "id": "transition.shot-transitions",
+      "sourceCategory": "transition",
+      "name": "Shot Transitions",
+      "nameZh": "镜头交棒组合",
+      "summary": "接缝选择词典：按信息连续性在硬切、叠化、闪白/暗场、遮罩之间择一，不是单一手法。",
+      "applicable": "多镜头段落与章节连接",
+      "duration": "0.1–0.8s",
+      "energy": "variable",
+      "layers": [
+        "edit-relationship",
+        "transition-effect"
+      ],
+      "patternIds": [
+        "combo.title-product-focus",
+        "combo.phone-focus-return",
+        "combo.card-relay",
+        "combo.overview-select-detail"
+      ],
+      "effectIds": [
+        "enter.wipe",
+        "enter.crossfade",
+        "layout.page-transition"
+      ],
+      "implementationState": "knowledge-integrated",
+      "selectionReason": "提供一组按剪辑关系选择接缝的基础语法。",
+      "avoidWhen": "没有明确切镜理由，只为增加装饰时。",
+      "sourcePath": "references/shots/transition/shot-transitions.md",
+      "object": "edit",
+      "narrativeUse": "guide",
+      "patternUsage": "作为「接缝词典」使用：任何配方在需要判断前后镜怎么接时，可对照四种基础接缝。",
+      "status": {
+        "source": "verified",
+        "demo": "needs-calibration",
+        "production": "planned"
+      },
+      "shot": {
+        "intent": "作为接缝选择参考：真实产品片以硬切+底色/容器连续为主，闪白、暗场、圆形遮罩按情绪择一，不轮播。",
+        "subject": "前镜 A 与后镜 B 两个画面。",
+        "camera": "静止；切换由剪辑完成，不依赖机位。",
+        "subjectAction": "四种接缝各自在 A → B 交棒瞬间完成信息替换。",
+        "timing": "每种接缝约 1.0s 依次展示，总长约 4.0s（单种可在 0.3–0.8s）。",
+        "seams": "用于说明「怎么接」，不直接用于正式成片。",
+        "constraints": "交棒瞬间 A 的信息必须已读完。"
+      },
+      "evidence": [
+        {
+          "video": "2022_CDX-GDG_SHOWREEL.md",
+          "at": "21.6→136",
+          "note": "统一样机框内几十屏连续硬切。"
+        },
+        {
+          "video": "Stripe_支付产品功能短片.md",
+          "at": "0.0→1.0",
+          "note": "白底手机→深蓝手机叠化（cross-dissolve）。"
+        },
+        {
+          "video": "Microsoft__Windows_365_Cloud_PC.md",
+          "at": "58.5→62.4",
+          "note": "多环境→白场字卡淡入淡出。"
+        }
+      ],
+      "tags": [
+        "接缝词典·参考卡"
+      ],
+      "presentation": {
+        "role": "director",
+        "domain": "continuity",
+        "canonicalEffectId": null,
+        "relationship": "editorial-grammar",
+        "reason": "描述视点、镜头之间的信息关系、时间节奏或贯穿段落的角色。",
+        "previewStatus": "retired",
+        "retirementReason": "保留原理与溯源；旧 SVG 演示退出导演案例。"
+      }
+    },
+    {
+      "id": "transition.transition-hidden-cut",
+      "sourceCategory": "transition",
+      "name": "Transition Hidden Cut",
+      "nameZh": "遮挡藏切",
+      "summary": "借主体遮挡、运动模糊或亮度峰值隐藏真实切点。",
+      "applicable": "跨场景连续运动、素材替换",
+      "duration": "0.2–0.7s",
+      "energy": "high",
+      "layers": [
+        "edit-relationship",
+        "transition-effect"
+      ],
+      "patternIds": [
+        "combo.phone-focus-return",
+        "combo.card-relay"
+      ],
+      "effectIds": [
+        "enter.mask-reveal",
+        "enter.blur-reveal",
+        "enter.crossfade"
+      ],
+      "implementationState": "knowledge-integrated",
+      "selectionReason": "常用的连续性技巧，可隐藏素材或场景断点。",
+      "avoidWhen": "前后运动方向、尺度或亮度无法匹配时。",
+      "sourcePath": "references/shots/transition/transition-hidden-cut.md",
+      "object": "edit",
+      "narrativeUse": "guide",
+      "patternUsage": "在配方「全局 → 局部 → 回归上下文」的局部切换使用：用遮挡完成空间跳转，观众无感。",
+      "status": {
+        "source": "verified",
+        "demo": "needs-calibration",
+        "production": "planned"
+      },
+      "shot": {
+        "intent": "用横甩运动模糊与亮度峰值在不可读帧完成场景切换。",
+        "subject": "前景遮挡物（墙体 / 车辆 / 色块）+ 场景 A / B。",
+        "camera": "固定机位；移动由前景对象完成。",
+        "subjectAction": "画面整体横向运动并加方向模糊，最糊瞬间换场景，可叠加一次过曝。",
+        "timing": "遮挡进入 0.9s → 全遮切点 0.2s → 离开露出 0.9s，总长约 2.0s。",
+        "seams": "前接场景 A 动作完成；后接场景 B 起始动作。",
+        "constraints": "切点必须落在最糊或最亮的不可读帧；遮挡物横扫只是其中一种形式。"
+      },
+      "evidence": [
+        {
+          "video": "TME_Design_Showreel_2025_腾讯音乐设计年鉴.md",
+          "at": "9.0→9.6",
+          "note": "横甩+运动模糊藏切。"
+        },
+        {
+          "video": "UI交互动画AI产品宣传高级感直接拉满_-_三维动画视觉设计.md",
+          "at": "7.0",
+          "note": "四角星闪光藏切到表格。"
+        },
+        {
+          "video": "Google推出AI搜索，自我革命_-_数字拾光者.md",
+          "at": "31.0→32.4",
+          "note": "亮度峰值藏深↔浅（glow-flip）。"
+        },
+        {
+          "video": "NextLevel！2023阿里设计年度Showreel请观赏！10业务设计团队成果集锦，炫的是对设计的热爱！各完整版_-_001_-_NextLevel！2023阿里设计年度Showreel请观赏！10业务设计团队成.md",
+          "at": "199.7→200.5",
+          "note": "大屏 UI→实拍实验台，rack 焦藏切。"
+        }
+      ],
+      "presentation": {
+        "role": "director",
+        "domain": "continuity",
+        "canonicalEffectId": null,
+        "relationship": "editorial-grammar",
+        "reason": "描述视点、镜头之间的信息关系、时间节奏或贯穿段落的角色。",
+        "previewStatus": "retired",
+        "retirementReason": "保留原理与溯源；旧 SVG 演示退出导演案例。"
+      }
+    },
+    {
+      "id": "transition.wipe-transitions",
+      "sourceCategory": "transition",
+      "name": "Wipe Transitions",
+      "nameZh": "方向擦除",
+      "summary": "用有方向的遮罩把前后画面连接成一次明确推进。",
+      "applicable": "章节推进、流程切换、空间方向连续",
+      "duration": "0.3–0.9s",
+      "energy": "medium",
+      "layers": [
+        "transition-effect"
+      ],
+      "patternIds": [
+        "combo.card-relay",
+        "combo.overview-select-detail",
+        "combo.before-after-confirm"
+      ],
+      "effectIds": [
+        "enter.wipe",
+        "enter.clip-path-reveal",
+        "enter.mask-reveal"
+      ],
+      "implementationState": "knowledge-integrated",
+      "selectionReason": "主框架已有实现基础，补齐镜头使用条件。",
+      "avoidWhen": "方向与叙事流向冲突，或每个切点都重复使用时。",
+      "sourcePath": "references/shots/transition/wipe-transitions.md",
+      "object": "edit",
+      "narrativeUse": "reveal",
+      "patternUsage": "在配方「输入 → 响应 → 结果」的结果揭示使用：带方向的擦除让新旧状态并置可见。",
+      "status": {
+        "source": "verified",
+        "demo": "needs-calibration",
+        "production": "planned"
+      },
+      "shot": {
+        "intent": "用绑定品牌色的对角楔/横条做有方向的章节擦除。",
+        "subject": "旧画面与新画面。",
+        "camera": "静止；擦除沿单一方向推进。",
+        "subjectAction": "品牌色楔形从一侧扫入，覆盖处旧画面被推成新章节。",
+        "timing": "擦除 0.8s → 新画面停留 0.6s，总长约 1.4s。",
+        "seams": "前接旧画面结尾；后接新画面起始。",
+        "constraints": "方向要与叙事推进一致，并绑定品牌色，不做无方向的分界线。"
+      },
+      "evidence": [
+        {
+          "video": "Saas产品宣传动画功能介绍一目了然_-_元意空间MG动画制作.md",
+          "at": "0.0→1.0",
+          "note": "图标+箭头方向引导 wipe。"
+        },
+        {
+          "video": "panel3_左下.md",
+          "at": "7.0",
+          "note": "「One place」玻璃字→蓝块右滑「everything」。"
+        },
+        {
+          "video": "panel4_右下.md",
+          "at": "8.5→9.5",
+          "note": "紫色虚线横条 wipe。"
+        },
+        {
+          "video": "2022_CDX-GDG_SHOWREEL.md",
+          "at": "139.2 / 141.6",
+          "note": "品牌橙对角楔斜切。"
+        }
+      ],
+      "presentation": {
+        "role": "technical",
+        "domain": "technical",
+        "canonicalEffectId": "enter.wipe",
+        "relationship": "implementation-recipe",
+        "reason": "描述实现手段或局部交互，归入既有技术词条的做法参考；关联不是等价或已完成适配。"
+      }
+    },
+    {
+      "id": "transition.card-flip-reveal",
+      "sourceCategory": "transition",
+      "name": "Card Flip Reveal",
+      "nameZh": "卡片翻面揭示",
+      "summary": "用翻面关系表达同一对象的正反、原因结果或功能成果。",
+      "applicable": "卡片、功能到结果、身份切换",
+      "duration": "0.5–1.2s",
+      "energy": "medium",
+      "layers": [
+        "subject-motion",
+        "edit-relationship"
+      ],
+      "patternIds": [
+        "combo.card-relay",
+        "combo.before-after-confirm"
+      ],
+      "effectIds": [
+        "pointer.tilt-card",
+        "layout.page-transition"
+      ],
+      "implementationState": "knowledge-integrated",
+      "selectionReason": "回答了 rotate 进入何时升级为镜头语法。",
+      "avoidWhen": "前后内容没有同一对象或正反语义时。",
+      "sourcePath": "references/shots/transition/card-flip-reveal.md",
+      "object": "subject",
+      "narrativeUse": "reveal",
+      "patternUsage": "在配方「标题 → 产品 → 证据重点」的确认步骤使用：同一张卡翻面，把功能面交给结果面。",
+      "status": {
+        "source": "verified",
+        "demo": "needs-calibration",
+        "production": "planned"
+      },
+      "shot": {
+        "intent": "同一张卡绕竖轴翻面，翻面瞬间切换正反内容。",
+        "subject": "单张卡片（正面「功能」→ 背面「结果」）。",
+        "camera": "固定机位，正面略偏侧；翻面绕卡片中轴。",
+        "subjectAction": "卡片绕竖轴旋转，宽度按余弦收窄，在最窄瞬间换面，随后展开背面。",
+        "timing": "前 1/3 读正面 → 翻面约 0.3s → 后 1/3 读背面，总长约 1.2s。",
+        "seams": "前接「功能说明」；后接「结果证明」。",
+        "constraints": "正反面内容需构成语义闭环；翻面轴必须居中。"
+      },
+      "evidence": [
+        {
+          "video": "设计工作室品牌展示转场动画.md",
+          "at": "0–2.0",
+          "note": "小卡片绕 Y 轴翻面。"
+        },
+        {
+          "video": "NextLevel！2023阿里设计年度Showreel请观赏！10业务设计团队成果集锦，炫的是对设计的热爱！各完整版_-_001_-_NextLevel！2023阿里设计年度Showreel请观赏！10业务设计团队成.md",
+          "at": "3.8→4.6",
+          "note": "红底 IP→纸翻面露卡通。"
+        },
+        {
+          "video": "Microsoft__Microsoft_365.md",
+          "at": "19.5→22.1",
+          "note": "卡片翻面露红心/日历。"
+        }
+      ],
+      "presentation": {
+        "role": "technical",
+        "domain": "technical",
+        "canonicalEffectId": "pointer.tilt-card",
+        "relationship": "implementation-recipe",
+        "reason": "描述实现手段或局部交互，归入既有技术词条的做法参考；关联不是等价或已完成适配。"
+      }
+    },
+    {
+      "id": "transition.circle-match-iris",
+      "sourceCategory": "transition",
+      "name": "Circle Match Iris",
+      "nameZh": "圆形匹配开合",
+      "summary": "圆形遮罩收束再扩张的经典开合语法（本批仅 1 例）。锁定圆形硬切换物用「同形匹配剪辑」，沿圆环推穿用「穿框穿越运镜」。",
+      "applicable": "头像、图标、镜头焦点、章节收束",
+      "duration": "0.4–1.0s",
+      "energy": "medium",
+      "layers": [
+        "edit-relationship",
+        "transition-effect"
+      ],
+      "patternIds": [
+        "combo.title-product-focus",
+        "combo.phone-focus-return"
+      ],
+      "effectIds": [
+        "enter.clip-path-reveal",
+        "enter.scale"
+      ],
+      "implementationState": "knowledge-integrated",
+      "selectionReason": "提供明确匹配点的几何转场。",
+      "avoidWhen": "只是形状相同的硬切（用同形匹配），或要沿圆环/开口推进（用穿框穿越）时。",
+      "sourcePath": "references/shots/transition/circle-match-iris.md",
+      "object": "edit",
+      "narrativeUse": "guide",
+      "patternUsage": "在配方「全局 → 局部 → 回归上下文」的局部切换使用：以圆点焦点收束再展开，视线不中断。",
+      "status": {
+        "source": "verified",
+        "demo": "needs-calibration",
+        "production": "planned"
+      },
+      "shot": {
+        "intent": "以前镜圆形焦点为锚点收束，再扩张揭示后镜。",
+        "subject": "场景 A、场景 B 与圆形焦点元素。",
+        "camera": "静止；圆形遮罩开合完成交接。",
+        "subjectAction": "圆形遮罩从画面外收束到焦点元素，焦点处替换为场景 B，再向外扩张。",
+        "timing": "收束 0.7s → 焦点替换 0.2s → 扩张 0.7s，总长约 1.6s。",
+        "seams": "前镜焦点元素与后镜圆形区域要有匹配关系。",
+        "constraints": "收束终点必须落在有意义的焦点元素上。"
+      },
+      "tags": [
+        "稀有语法·本批仅 1 例"
+      ],
+      "evidence": [
+        {
+          "video": "形象升级瑞幸首席幸运官lucky变身啦_-_瑞幸咖啡.md",
+          "at": "40→41.6",
+          "note": "表情网格→双胞胎，圆形遮罩开合（真 iris，本批仅 1 例）。"
+        }
+      ],
+      "presentation": {
+        "role": "technical",
+        "domain": "technical",
+        "canonicalEffectId": "enter.clip-path-reveal",
+        "relationship": "implementation-recipe",
+        "reason": "描述实现手段或局部交互，归入既有技术词条的做法参考；关联不是等价或已完成适配。"
+      }
+    },
+    {
+      "id": "transition.line-carry-transition",
+      "sourceCategory": "transition",
+      "name": "Line Carry Transition",
+      "nameZh": "线索接力转场",
+      "summary": "让一条线、轨迹或边缘跨越切点，维持方向和注意力连续。",
+      "applicable": "流程、图表、路径、章节串联",
+      "duration": "0.5–1.2s",
+      "energy": "medium",
+      "layers": [
+        "content-motion",
+        "edit-relationship",
+        "transition-effect"
+      ],
+      "patternIds": [
+        "combo.capsule-input-result",
+        "combo.card-relay",
+        "combo.overview-select-detail"
+      ],
+      "effectIds": [
+        "enter.wipe",
+        "scroll.progress"
+      ],
+      "implementationState": "knowledge-integrated",
+      "selectionReason": "适合信息型视频的低装饰连续性手段。",
+      "avoidWhen": "线条只是装饰，无法连接前后语义时。",
+      "sourcePath": "references/shots/transition/line-carry-transition.md",
+      "object": "edit",
+      "narrativeUse": "guide",
+      "patternUsage": "在配方「前后对比确认」的对比建立使用：轨迹跨过切点，把目光从原因带到结果。",
+      "status": {
+        "source": "verified",
+        "demo": "needs-calibration",
+        "production": "planned"
+      },
+      "shot": {
+        "intent": "让同一条可见的线/光轨/箭头跨切点连续，引导视线进入下一镜。",
+        "subject": "连续轨迹线 / 移动点 + 左右两个画面。",
+        "camera": "静止；线索运动完成注意力交接。",
+        "subjectAction": "线在前镜生长，跨切点保持方向与速度，落到后镜的结果上。",
+        "timing": "轨迹生长 0.8s → 穿过切点 0.6s → 落在结果 0.6s，总长约 2.0s。",
+        "seams": "前接「原因图表」；后接「结果卡」。",
+        "constraints": "线的形态（箭头/光轨/缎带/渐变线）与方向在切点两侧必须连续。"
+      },
+      "evidence": [
+        {
+          "video": "Saas产品宣传动画功能介绍一目了然_-_元意空间MG动画制作.md",
+          "at": "0.0→4.0",
+          "note": "图标+箭头线一路引导跨镜。"
+        },
+        {
+          "video": "@MarkKnd_Launch_video_we_made_for_@Wayframe.md",
+          "at": "32.5→35.1",
+          "note": "代码→终端光轨线跨切点。"
+        },
+        {
+          "video": "Microsoft__Windows_365_Cloud_PC.md",
+          "at": "19.5→24.7",
+          "note": "缎带载图标沿线跨镜。"
+        },
+        {
+          "video": "panel1_左上.md",
+          "at": "13.5→15.5",
+          "note": "数字滚动同时底部渐变线生长、光点沿线走。"
+        }
+      ],
+      "presentation": {
+        "role": "director",
+        "domain": "continuity",
+        "canonicalEffectId": null,
+        "relationship": "editorial-grammar",
+        "reason": "描述视点、镜头之间的信息关系、时间节奏或贯穿段落的角色。",
+        "previewStatus": "retired",
+        "retirementReason": "保留原理与溯源；旧 SVG 演示退出导演案例。"
+      }
+    },
+    {
+      "id": "ui-entrance.platform-hinge-rise",
+      "sourceCategory": "ui-entrance",
+      "name": "Platform Hinge Rise",
+      "nameZh": "平台铰链升起",
+      "summary": "对象绕底边翻起，在固定镜头中建立证据到结论的展示关系。",
+      "applicable": "设备屏幕、数据面板、双对象展示",
+      "duration": "0.7–1.5s",
+      "energy": "medium",
+      "layers": [
+        "subject-motion",
+        "content-motion"
+      ],
+      "patternIds": [
+        "combo.title-product-focus",
+        "combo.phone-focus-return",
+        "combo.before-after-confirm"
+      ],
+      "effectIds": [
+        "enter.slide",
+        "enter.scale",
+        "handling.easing"
+      ],
+      "implementationState": "knowledge-integrated",
+      "selectionReason": "覆盖用户提出的 rotateX 入场典型用法。",
+      "avoidWhen": "旋转轴与物体结构不一致，或透视变形影响可读性时。",
+      "sourcePath": "references/shots/ui-entrance/platform-hinge-rise.md",
+      "object": "subject",
+      "narrativeUse": "reveal",
+      "patternUsage": "在配方「标题 → 产品 → 证据重点」的展示步骤使用：产品界面以铰链翻起入场，建立实物感。",
+      "status": {
+        "source": "verified",
+        "demo": "needs-calibration",
+        "production": "planned"
+      },
+      "shot": {
+        "intent": "屏幕从底边铰链位置向上翻起，最终正面朝向观众。",
+        "subject": "产品界面（平台）。",
+        "camera": "固定机位，正视铰链底边。",
+        "subjectAction": "界面绕底边铰链从平躺翻起至垂直，伴随厚度与投影变化。",
+        "timing": "翻起 0.9s → 正面停稳 0.5s，总长约 1.4s。",
+        "seams": "前接「空舞台」；后接界面内交互。",
+        "constraints": "铰链轴必须贴底且稳定；翻起过程保持比例。"
+      },
+      "tags": [
+        "仓库模式·本批视频未覆盖"
+      ],
+      "presentation": {
+        "role": "technical",
+        "domain": "technical",
+        "canonicalEffectId": "enter.slide",
+        "relationship": "implementation-recipe",
+        "reason": "描述实现手段或局部交互，归入既有技术词条的做法参考；关联不是等价或已完成适配。"
+      }
+    },
+    {
+      "id": "ui-entrance.card-stack",
+      "sourceCategory": "ui-entrance",
+      "name": "Card Stack",
+      "nameZh": "卡片堆叠展开",
+      "summary": "多张卡从同一发牌点旋转飞入或错落叠放，成组入场形成可读集合（含发牌式变体）。",
+      "applicable": "内容集合、方案列表、任务栈",
+      "duration": "0.8–1.8s",
+      "energy": "medium",
+      "layers": [
+        "subject-motion",
+        "content-motion"
+      ],
+      "patternIds": [
+        "combo.card-relay",
+        "combo.overview-select-detail"
+      ],
+      "effectIds": [
+        "handling.stagger",
+        "layout.layout-animation"
+      ],
+      "implementationState": "knowledge-integrated",
+      "selectionReason": "把多卡片从装饰运动变成层级表达。",
+      "avoidWhen": "层级顺序不明确，或所有卡都必须首帧可读时。",
+      "sourcePath": "references/shots/ui-entrance/card-stack.md",
+      "object": "subject",
+      "narrativeUse": "establish",
+      "patternUsage": "在配方「全局 → 局部 → 回归上下文」的局部步骤使用：堆叠展开，先给层级关系再逐层细读。",
+      "status": {
+        "source": "verified",
+        "demo": "needs-calibration",
+        "production": "planned"
+      },
+      "shot": {
+        "intent": "多张卡从同一发牌点旋转飞入（发牌式）或错落叠放，成组建立前后层级。",
+        "subject": "3 层卡片。",
+        "camera": "固定机位，略俯视。",
+        "subjectAction": "卡片自顶部牌堆旋转发出，归位时带轻微错落与旋转，形成可读集合。",
+        "timing": "展开 0.8s → 层级停留 0.6s，总长约 1.4s。",
+        "seams": "前接「多层信息」；后接逐层细读。",
+        "constraints": "展开后层级必须无遮挡歧义。"
+      },
+      "evidence": [
+        {
+          "video": "@MarkKnd_Launch_video_we_made_for_@Wayframe.md",
+          "at": "13.0→15.6",
+          "note": "线框→手机发牌式成组飞入（原 deck-deal 证据）。"
+        },
+        {
+          "video": "flowith_1.0_正式版本！时隔_4_个月的大更新_-_dereknee.md",
+          "at": "36→48",
+          "note": "结果卡滑落到工作台成摞。"
+        },
+        {
+          "video": "@creatoroly_motion_design_showreel_25..md",
+          "at": "24.7→28.6",
+          "note": "人物海报→polaroid→订阅卡堆叠。"
+        },
+        {
+          "video": "你好，我是支小宝，你的AI生活管家_-_支付宝.md",
+          "at": "35.5→40",
+          "note": "角色与卡片成组堆叠。"
+        }
+      ],
+      "aliases": [
+        {
+          "id": "ui-entrance.deck-deal-flyin",
+          "nameZh": "发牌式飞入",
+          "note": "卡片从同一发牌点旋转飞入不同槽位，是卡片堆叠的 deal-flyin 变体。"
+        }
+      ],
+      "presentation": {
+        "role": "technical",
+        "domain": "technical",
+        "canonicalEffectId": "layout.layout-animation",
+        "relationship": "implementation-recipe",
+        "reason": "描述实现手段或局部交互，归入既有技术词条的做法参考；关联不是等价或已完成适配。"
+      }
+    },
+    {
+      "id": "ui-entrance.product-card-progressive-assemble",
+      "sourceCategory": "ui-entrance",
+      "name": "Product Card Progressive Assemble",
+      "nameZh": "产品卡渐进组装",
+      "summary": "按品牌、标题、证据、行动顺序组装产品卡，控制阅读顺序。",
+      "applicable": "产品卖点、功能说明、结果卡",
+      "duration": "1.0–2.4s",
+      "energy": "medium",
+      "layers": [
+        "content-motion",
+        "rhythm"
+      ],
+      "patternIds": [
+        "combo.title-product-focus",
+        "combo.capsule-input-result",
+        "combo.before-after-confirm"
+      ],
+      "effectIds": [
+        "enter.fade",
+        "enter.slide",
+        "handling.stagger"
+      ],
+      "implementationState": "knowledge-integrated",
+      "selectionReason": "与现有产品和结果配方覆盖度最高。",
+      "avoidWhen": "元素没有阅读优先级，或组装时长超过信息价值时。",
+      "sourcePath": "references/shots/ui-entrance/product-card-progressive-assemble.md",
+      "object": "subject",
+      "narrativeUse": "reveal",
+      "patternUsage": "在配方「标题 → 产品 → 证据重点」的展示步骤使用：按阅读顺序组装产品卡，视线逐段被引导。",
+      "status": {
+        "source": "verified",
+        "demo": "needs-calibration",
+        "production": "planned"
+      },
+      "shot": {
+        "intent": "产品卡按图片、标题、指标、按钮的阅读顺序逐步组装。",
+        "subject": "产品卡（图 / 标题 / 指标 / 按钮）。",
+        "camera": "固定机位。",
+        "subjectAction": "骨架先出现，随后按阅读顺序依次填充标题、指标、按钮。",
+        "timing": "每段间隔约 0.4s，组装 1.8s → 停留 0.8s，总长约 2.6s。",
+        "seams": "前接「聚焦产品」；后接「行动引导」。",
+        "constraints": "组装顺序必须与阅读顺序一致。"
+      },
+      "tags": [
+        "仓库模式·本批视频未覆盖"
+      ],
+      "presentation": {
+        "role": "technical",
+        "domain": "technical",
+        "canonicalEffectId": "handling.stagger",
+        "relationship": "implementation-recipe",
+        "reason": "描述实现手段或局部交互，归入既有技术词条的做法参考；关联不是等价或已完成适配。"
+      }
+    },
+    {
+      "id": "ui-entrance.list-reveal",
+      "sourceCategory": "ui-entrance",
+      "name": "List Reveal",
+      "nameZh": "列表渐进揭示",
+      "summary": "按阅读顺序逐项显示列表，建立扫描路径和数量感。",
+      "applicable": "步骤、功能列表、搜索结果、排行",
+      "duration": "0.8–2.0s",
+      "energy": "medium",
+      "layers": [
+        "content-motion",
+        "rhythm"
+      ],
+      "patternIds": [
+        "combo.capsule-input-result",
+        "combo.overview-select-detail"
+      ],
+      "effectIds": [
+        "enter.slide",
+        "handling.stagger"
+      ],
+      "implementationState": "knowledge-integrated",
+      "selectionReason": "覆盖最常见的信息列表入场。",
+      "avoidWhen": "列表必须同时比较，或项目数量过多导致拖沓时。",
+      "sourcePath": "references/shots/ui-entrance/list-reveal.md",
+      "object": "subject",
+      "narrativeUse": "reveal",
+      "patternUsage": "在配方「输入 → 响应 → 结果」的结果出现使用：逐行揭示结果集，末行高亮目标。",
+      "status": {
+        "source": "verified",
+        "demo": "needs-calibration",
+        "production": "planned"
+      },
+      "shot": {
+        "intent": "列表行从上到下错峰进入，最后高亮目标行。",
+        "subject": "4 行列表。",
+        "camera": "固定机位。",
+        "subjectAction": "行依次滑入，目标行最后获得高亮强调。",
+        "timing": "每行间隔约 0.3s，总长约 1.8s，末段高亮停留。",
+        "seams": "前接「结果列表即将出现」；后接「目标项细节」。",
+        "constraints": "高亮行需与讲述语义一致。"
+      },
+      "evidence": [
+        {
+          "video": "全新AI驱动的视频创作应用Google_Vids_-_Robinson.md",
+          "at": "54.0→57.6",
+          "note": "Stock→搜索→图网格逐行 reveal。"
+        },
+        {
+          "video": "panel3_左下.md",
+          "at": "10→13",
+          "note": "Stocks/ETFs/Crypto 同模板循环快切。"
+        }
+      ],
+      "presentation": {
+        "role": "technical",
+        "domain": "technical",
+        "canonicalEffectId": "handling.stagger",
+        "relationship": "implementation-recipe",
+        "reason": "描述实现手段或局部交互，归入既有技术词条的做法参考；关联不是等价或已完成适配。"
+      }
+    },
+    {
+      "id": "ui-entrance.morph-from-primitive",
+      "sourceCategory": "ui-entrance",
+      "name": "Morph From Primitive",
+      "nameZh": "基础形态生长",
+      "summary": "从简单几何形态连续变为完整界面对象，保留来源关系。",
+      "applicable": "图标到卡片、按钮到面板、概念到产品",
+      "duration": "0.7–1.6s",
+      "energy": "medium",
+      "layers": [
+        "subject-motion",
+        "content-motion"
+      ],
+      "patternIds": [
+        "combo.title-product-focus",
+        "combo.capsule-input-result",
+        "combo.card-relay"
+      ],
+      "effectIds": [
+        "layout.shared-element",
+        "layout.layout-animation",
+        "feedback.icon-morph"
+      ],
+      "implementationState": "knowledge-integrated",
+      "selectionReason": "用对象连续性替代无理由的淡入淡出。",
+      "avoidWhen": "起止对象没有可识别的共享几何或语义时。",
+      "sourcePath": "references/shots/ui-entrance/morph-from-primitive.md",
+      "object": "subject",
+      "narrativeUse": "reveal",
+      "patternUsage": "在配方「输入 → 响应 → 结果」的响应步骤使用：同一对象连续生长，暗示状态由元素本身演化而来。",
+      "status": {
+        "source": "verified",
+        "demo": "needs-calibration",
+        "production": "planned"
+      },
+      "shot": {
+        "intent": "在同一镜头内，让一个基础形单次生长/形变成完整界面，起止是同一对象。",
+        "subject": "单一对象（圆 → 按钮 → 信息卡）。",
+        "camera": "固定机位。",
+        "subjectAction": "同一对象连续形变，圆角与尺寸随之演进。",
+        "timing": "圆 → 按钮 0.7s → 按钮 → 卡 0.9s → 停留 0.6s，总长约 2.2s。",
+        "seams": "前接「元素出现」；后接「卡片内容」。",
+        "constraints": "限定单镜内单次形变；跨多镜的连续形变请用「共享元素连续形变跨镜」。"
+      },
+      "evidence": [
+        {
+          "video": "TRAE_-_solo.md",
+          "at": "2.0→7.2",
+          "note": "黑方块→炸开点阵→聚合 TRAE 字标。"
+        },
+        {
+          "video": "平安知鸟2022年度企业产品设计视频.md",
+          "at": "4.5→6",
+          "note": "3D「知」字直接变形成浏览器窗。"
+        },
+        {
+          "video": "flowith_1.0_正式版本！时隔_4_个月的大更新_-_dereknee.md",
+          "at": "16.2→19.8",
+          "note": "空卡同状态生长出对话字。"
+        }
+      ],
+      "presentation": {
+        "role": "technical",
+        "domain": "technical",
+        "canonicalEffectId": "layout.shared-element",
+        "relationship": "implementation-recipe",
+        "reason": "描述实现手段或局部交互，归入既有技术词条的做法参考；关联不是等价或已完成适配。"
+      }
+    },
+    {
+      "id": "interaction.type-and-filter",
+      "sourceCategory": "interaction",
+      "name": "Type and Filter",
+      "nameZh": "输入并筛选",
+      "summary": "先建立输入行为，再让结果集合收敛到目标。",
+      "applicable": "搜索、筛选、命令输入",
+      "duration": "1.5–3.5s",
+      "energy": "medium",
+      "layers": [
+        "content-motion",
+        "rhythm"
+      ],
+      "patternIds": [
+        "combo.capsule-input-result",
+        "combo.overview-select-detail"
+      ],
+      "effectIds": [
+        "text.typewriter",
+        "layout.layout-animation",
+        "handling.stagger"
+      ],
+      "implementationState": "example-linked",
+      "selectionReason": "已是输入结果配方的直接研究来源。",
+      "avoidWhen": "输入与结果之间没有可验证的因果关系时。",
+      "sourcePath": "references/shots/interaction/type-and-filter.md",
+      "object": "subject",
+      "narrativeUse": "reveal",
+      "patternUsage": "在配方「输入 → 响应 → 结果」的输入步骤使用：输入词实时过滤结果，因果即时可见。",
+      "status": {
+        "source": "verified",
+        "demo": "needs-calibration",
+        "production": "planned"
+      },
+      "shot": {
+        "intent": "输入查询词后，结果列表逐步过滤并只保留匹配项。",
+        "subject": "输入框 + 结果列表。",
+        "camera": "固定机位。",
+        "subjectAction": "关键词逐字输入，列表行按匹配度淡出 / 保留，最终只剩匹配项。",
+        "timing": "输入 0.8s → 过滤 1.0s → 停留 0.6s，总长约 2.4s。",
+        "seams": "前接「完整结果集」；后接「过滤后集合」。",
+        "constraints": "保留项与查询词必须有明确对应。"
+      },
+      "evidence": [
+        {
+          "video": "全新AI驱动的视频创作应用Google_Vids_-_Robinson.md",
+          "at": "54.0→57.6",
+          "note": "搜素材库，输入后结果网格收敛。"
+        },
+        {
+          "video": "ISUX「六月」行业设计趋势速递.md",
+          "at": "7.2→12.6",
+          "note": "搜索框逐字输入问题，旁侧浮起 AI 图标。"
+        }
+      ],
+      "presentation": {
+        "role": "technical",
+        "domain": "technical",
+        "canonicalEffectId": "text.typewriter",
+        "relationship": "implementation-recipe",
+        "reason": "描述实现手段或局部交互，归入既有技术词条的做法参考；关联不是等价或已完成适配。"
+      }
+    },
+    {
+      "id": "interaction.ai-stream-response",
+      "sourceCategory": "interaction",
+      "name": "AI Stream Response",
+      "nameZh": "AI 流式响应",
+      "summary": "用短暂等待、流式文本和完成态表现请求到结果的因果链。",
+      "applicable": "AI 助手、生成结果、智能搜索",
+      "duration": "1.8–4.0s",
+      "energy": "medium",
+      "layers": [
+        "content-motion",
+        "rhythm"
+      ],
+      "patternIds": [
+        "combo.capsule-input-result"
+      ],
+      "effectIds": [
+        "text.typewriter",
+        "feedback.loading",
+        "feedback.result"
+      ],
+      "implementationState": "knowledge-integrated",
+      "selectionReason": "补足 AI 产品演示中最常见的响应状态。",
+      "avoidWhen": "用无意义假等待拉长镜头，或结果提前出现时。",
+      "sourcePath": "references/shots/interaction/ai-stream-response.md",
+      "object": "subject",
+      "narrativeUse": "confirm",
+      "patternUsage": "在配方「输入 → 响应 → 结果」的响应步骤使用：流式生成 + 完成态，让处理过程可见。",
+      "status": {
+        "source": "verified",
+        "demo": "needs-calibration",
+        "production": "planned"
+      },
+      "shot": {
+        "intent": "请求发出后经历短暂加载，回答逐行流式生成并进入完成态。",
+        "subject": "请求卡 + 回答内容。",
+        "camera": "固定机位。",
+        "subjectAction": "请求提交 → 加载指示 → 回答逐行生成 → 完成标记。",
+        "timing": "加载 0.5s → 生成 1.4s → 完成停留 0.6s，总长约 2.5s。",
+        "seams": "前接「用户提问」；后接「回答引用」。",
+        "constraints": "流式生成速度需保证可读；完成态必须明确。"
+      },
+      "evidence": [
+        {
+          "video": "全新AI驱动的视频创作应用Google_Vids_-_Robinson.md",
+          "at": "32.4→34.2",
+          "note": "Script 面板脚本文字逐字流式打出。"
+        },
+        {
+          "video": "Google推出AI搜索，自我革命_-_数字拾光者.md",
+          "at": "36.0→37.8",
+          "note": "搜索结果长文卡从搜索栏下方流式浮现。"
+        },
+        {
+          "video": "Stitch_AI设计助手介绍.md",
+          "at": "18→25.2",
+          "note": "输入框→loading→聊天气泡→三卡。"
+        }
+      ],
+      "presentation": {
+        "role": "technical",
+        "domain": "technical",
+        "canonicalEffectId": "text.typewriter",
+        "relationship": "implementation-recipe",
+        "reason": "描述实现手段或局部交互，归入既有技术词条的做法参考；关联不是等价或已完成适配。"
+      }
+    },
+    {
+      "id": "interaction.command-palette-summon",
+      "sourceCategory": "interaction",
+      "name": "Command Palette Summon",
+      "nameZh": "命令面板唤起",
+      "summary": "从当前上下文召出命令面板，完成输入、选择和执行。",
+      "applicable": "快捷操作、搜索、专业工具",
+      "duration": "1.2–3.0s",
+      "energy": "medium",
+      "layers": [
+        "subject-motion",
+        "content-motion"
+      ],
+      "patternIds": [
+        "combo.capsule-input-result",
+        "combo.overview-select-detail"
+      ],
+      "effectIds": [
+        "component.modal",
+        "ux.focus",
+        "text.typewriter"
+      ],
+      "implementationState": "knowledge-integrated",
+      "selectionReason": "把弹层、输入和选择组合成完整交互镜头。",
+      "avoidWhen": "面板来源、焦点或执行结果不清楚时。",
+      "sourcePath": "references/shots/interaction/command-palette-summon.md",
+      "object": "subject",
+      "narrativeUse": "guide",
+      "patternUsage": "在配方「输入 → 响应 → 结果」的输入步骤使用：面板唤起后高亮移动，明确将要执行的动作。",
+      "status": {
+        "source": "verified",
+        "demo": "needs-calibration",
+        "production": "planned"
+      },
+      "shot": {
+        "intent": "命令面板从当前界面浮出，输入后移动选择并执行目标命令。",
+        "subject": "命令面板。",
+        "camera": "固定机位，背景压暗。",
+        "subjectAction": "面板淡入浮出 → 高亮移动到目标命令 → 执行反馈。",
+        "timing": "唤起 0.5s → 选择 0.8s → 执行 0.4s，总长约 1.7s。",
+        "seams": "前接「快捷操作」；后接「命令结果」。",
+        "constraints": "高亮移动必须与命令一一对应。"
+      },
+      "tags": [
+        "仓库模式·本批视频未覆盖"
+      ],
+      "presentation": {
+        "role": "technical",
+        "domain": "technical",
+        "canonicalEffectId": "component.modal",
+        "relationship": "implementation-recipe",
+        "reason": "描述实现手段或局部交互，归入既有技术词条的做法参考；关联不是等价或已完成适配。"
+      }
+    },
+    {
+      "id": "interaction.input-trigger-moves",
+      "sourceCategory": "interaction",
+      "name": "Input Trigger Moves",
+      "nameZh": "输入触发动作",
+      "summary": "将点击、键入、拖动等触发与其视觉结果成对展示。",
+      "applicable": "产品操作、交互说明、状态变化",
+      "duration": "0.8–2.5s",
+      "energy": "variable",
+      "layers": [
+        "content-motion",
+        "rhythm"
+      ],
+      "patternIds": [
+        "combo.capsule-input-result",
+        "combo.card-relay",
+        "combo.overview-select-detail"
+      ],
+      "effectIds": [
+        "ux.feedback",
+        "ux.affordance",
+        "feedback.result"
+      ],
+      "implementationState": "knowledge-integrated",
+      "selectionReason": "提供交互镜头最基础的触发到反馈规则。",
+      "avoidWhen": "只显示结果而省略必要触发，或反馈晚于因果窗口时。",
+      "sourcePath": "references/shots/interaction/input-trigger-moves.md",
+      "object": "subject",
+      "narrativeUse": "confirm",
+      "patternUsage": "在配方「输入 → 响应 → 结果」的输入步骤使用：点击反馈先出现，结果卡承接因果。",
+      "status": {
+        "source": "verified",
+        "demo": "needs-calibration",
+        "production": "planned"
+      },
+      "shot": {
+        "intent": "单镜内一次输入/点击触发加载反馈并给出结果卡。",
+        "subject": "按钮 + 结果卡。",
+        "camera": "固定机位。",
+        "subjectAction": "指针移动到按钮 → 按钮按下反馈 → 结果卡出现承接。",
+        "timing": "移动 0.4s → 按下 0.3s → 结果 0.8s，总长约 1.5s。",
+        "seams": "前接「操作提示」；后接「操作结果」。",
+        "constraints": "限定单镜；光标需要跨多镜连续当主角时用「光标跨镜主角」。"
+      },
+      "evidence": [
+        {
+          "video": "@MarkKnd_Launch_video_we_made_for_@Wayframe.md",
+          "at": "6.5→7.8",
+          "note": "打字→发送，光标触发。"
+        },
+        {
+          "video": "全新AI驱动的视频创作应用Google_Vids_-_Robinson.md",
+          "at": "10.8→12.6",
+          "note": "文件夹触发→「Creating...」加载按钮。"
+        },
+        {
+          "video": "全新AI驱动的视频创作应用Google_Vids_-_Robinson.md",
+          "at": "41.4→43.2",
+          "note": "音色列表选中触发反馈。"
+        }
+      ],
+      "presentation": {
+        "role": "technical",
+        "domain": "technical",
+        "canonicalEffectId": "ux.feedback",
+        "relationship": "implementation-recipe",
+        "reason": "描述实现手段或局部交互，归入既有技术词条的做法参考；关联不是等价或已完成适配。"
+      }
+    },
+    {
+      "id": "data.before-after-slider-scrub",
+      "sourceCategory": "data",
+      "name": "Before After Slider Scrub",
+      "nameZh": "前后对比滑杆",
+      "summary": "在同一构图中控制前后状态揭示，让差异可直接比较。",
+      "applicable": "优化结果、修复前后、版本差异",
+      "duration": "1.5–3.5s",
+      "energy": "medium",
+      "layers": [
+        "content-motion",
+        "edit-relationship"
+      ],
+      "patternIds": [
+        "combo.before-after-confirm"
+      ],
+      "effectIds": [
+        "chart.before-after",
+        "ux.affordance"
+      ],
+      "implementationState": "example-linked",
+      "selectionReason": "已是前后比较配方的直接研究来源。",
+      "avoidWhen": "两侧尺度、位置或指标口径不一致时。",
+      "sourcePath": "references/shots/data/before-after-slider-scrub.md",
+      "object": "subject",
+      "narrativeUse": "confirm",
+      "patternUsage": "在配方「前后对比确认」的对比建立步骤使用：同一构图左右并置，差异一目了然。",
+      "status": {
+        "source": "verified",
+        "demo": "needs-calibration",
+        "production": "planned"
+      },
+      "shot": {
+        "intent": "分界滑杆从左向右移动，在同一构图中揭示优化后的状态。",
+        "subject": "同一画面的「之前 / 现在」状态。",
+        "camera": "固定机位，构图完全锁定。",
+        "subjectAction": "分界线移动，右侧露出「现在」状态。",
+        "timing": "滑杆扫过 1.2s → 对比停留 0.8s，总长约 2.0s。",
+        "seams": "前接「基线状态」；后接「差异结论」。",
+        "constraints": "前后构图必须严格同景；差异点要明显。"
+      },
+      "tags": [
+        "仓库模式·本批视频未覆盖"
+      ],
+      "presentation": {
+        "role": "technical",
+        "domain": "technical",
+        "canonicalEffectId": "chart.before-after",
+        "relationship": "implementation-recipe",
+        "reason": "描述实现手段或局部交互，归入既有技术词条的做法参考；关联不是等价或已完成适配。"
+      }
+    },
+    {
+      "id": "data.chart-live-moves",
+      "sourceCategory": "data",
+      "name": "Chart Live Moves",
+      "nameZh": "图表动态建立",
+      "summary": "按坐标、数据、重点和结论的顺序建立图表。",
+      "applicable": "趋势、对比、占比、排名",
+      "duration": "1.5–4.0s",
+      "energy": "medium",
+      "layers": [
+        "content-motion",
+        "rhythm"
+      ],
+      "patternIds": [
+        "combo.title-product-focus",
+        "combo.before-after-confirm",
+        "combo.overview-select-detail"
+      ],
+      "effectIds": [
+        "chart.bar-compare",
+        "chart.line-trend",
+        "chart.share",
+        "chart.rank-race"
+      ],
+      "implementationState": "knowledge-integrated",
+      "selectionReason": "把已有六类图表能力纳入镜头叙事顺序。",
+      "avoidWhen": "数据口径未锁定，或动画顺序掩盖准确读数时。",
+      "sourcePath": "references/shots/data/chart-live-moves.md",
+      "object": "subject",
+      "narrativeUse": "guide",
+      "patternUsage": "在配方「标题 → 产品 → 证据重点」的证据步骤使用：坐标 → 数据 → 峰值标记，让结论落在图上。",
+      "status": {
+        "source": "verified",
+        "demo": "needs-calibration",
+        "production": "planned"
+      },
+      "shot": {
+        "intent": "先建立坐标，再绘制数据，最后用标记指出结论。",
+        "subject": "折线图。",
+        "camera": "固定机位。",
+        "subjectAction": "坐标出现 → 折线生长 → 峰值标记。",
+        "timing": "坐标 0.3s → 数据生长 1.0s → 结论标记 0.5s，总长约 1.8s。",
+        "seams": "前接「趋势问题」；后接「峰值解释」。",
+        "constraints": "生长速度需保证数值可读。"
+      },
+      "tags": [
+        "仓库模式·本批视频未覆盖"
+      ],
+      "presentation": {
+        "role": "technical",
+        "domain": "technical",
+        "canonicalEffectId": "chart.line-trend",
+        "relationship": "implementation-recipe",
+        "reason": "描述实现手段或局部交互，归入既有技术词条的做法参考；关联不是等价或已完成适配。"
+      }
+    },
+    {
+      "id": "data.odometer-digit-roll",
+      "sourceCategory": "data",
+      "name": "Odometer Digit Roll",
+      "nameZh": "数字滚轮",
+      "summary": "用位数稳定的滚动变化强调从旧值到新值的数量跃迁。",
+      "applicable": "增长、计数、里程碑、价格",
+      "duration": "0.6–1.8s",
+      "energy": "medium",
+      "layers": [
+        "content-motion",
+        "rhythm"
+      ],
+      "patternIds": [
+        "combo.title-product-focus",
+        "combo.before-after-confirm"
+      ],
+      "effectIds": [
+        "feedback.counter",
+        "handling.easing"
+      ],
+      "implementationState": "knowledge-integrated",
+      "selectionReason": "最常见的数值强调动作，主框架已有计数能力。",
+      "avoidWhen": "精确值需要立即读取，或数字变化没有业务意义时。",
+      "sourcePath": "references/shots/data/odometer-digit-roll.md",
+      "object": "subject",
+      "narrativeUse": "confirm",
+      "patternUsage": "在配方「标题 → 产品 → 证据重点」的证据步骤使用：数字滚到新值，把结果做成可核对的数字。",
+      "status": {
+        "source": "verified",
+        "demo": "needs-calibration",
+        "production": "planned"
+      },
+      "shot": {
+        "intent": "数字按位向上滚动到新值，终态保持等宽且可准确读取。",
+        "subject": "三位数字（128 → 967）。",
+        "camera": "固定机位。",
+        "subjectAction": "各位数字沿纵向滚动，进位逐列传递，终值停稳并确认。",
+        "timing": "滚动 1.6s → 停稳确认 0.6s，总长约 2.2s。",
+        "seams": "前接「指标说明」；后接「数值解读」。",
+        "constraints": "数字必须等宽；滚动不可快至不可读。"
+      },
+      "evidence": [
+        {
+          "video": "TME_Design_Showreel_2025_腾讯音乐设计年鉴.md",
+          "at": "71.5→73",
+          "note": "「65→64」数字滚轮。"
+        },
+        {
+          "video": "panel1_左上.md",
+          "at": "13.5→15.5",
+          "note": "数字滚动同时底部渐变线生长。"
+        }
+      ],
+      "presentation": {
+        "role": "technical",
+        "domain": "technical",
+        "canonicalEffectId": "feedback.counter",
+        "relationship": "implementation-recipe",
+        "reason": "描述实现手段或局部交互，归入既有技术词条的做法参考；关联不是等价或已完成适配。"
+      }
+    },
+    {
+      "id": "data.timeline-travel",
+      "sourceCategory": "data",
+      "name": "Timeline Travel",
+      "nameZh": "时间线穿行",
+      "summary": "沿时间轴移动视野或游标，按因果顺序揭示节点。",
+      "applicable": "历史、路线、流程、产品演进",
+      "duration": "2.0–5.0s",
+      "energy": "medium",
+      "layers": [
+        "camera",
+        "content-motion",
+        "rhythm"
+      ],
+      "patternIds": [
+        "combo.card-relay",
+        "combo.overview-select-detail"
+      ],
+      "effectIds": [
+        "scroll.horizontal",
+        "scroll.progress",
+        "scroll.sticky-story"
+      ],
+      "implementationState": "knowledge-integrated",
+      "selectionReason": "补充时间与流程信息的覆盖方式。",
+      "avoidWhen": "节点没有清晰先后，或时间尺度被随意压缩时。",
+      "sourcePath": "references/shots/data/timeline-travel.md",
+      "object": "camera",
+      "narrativeUse": "guide",
+      "patternUsage": "在配方「标题 → 产品 → 证据重点」的标题步骤使用：沿时间轴穿行到当前，给结论提供来路。",
+      "status": {
+        "source": "verified",
+        "demo": "needs-calibration",
+        "production": "planned"
+      },
+      "shot": {
+        "intent": "镜头沿时间轴从左向右穿行，节点依次点亮并抵达当前状态。",
+        "subject": "时间轴与节点。",
+        "camera": "沿时间轴横向移动（等效机位）。",
+        "subjectAction": "当前点沿轴推进，节点依次点亮。",
+        "timing": "穿行 1.6s → 当前节点停留 0.8s，总长约 2.4s。",
+        "seams": "前接「历史脉络」；后接「当前结论」。",
+        "constraints": "时间顺序必须与数据一致。"
+      },
+      "tags": [
+        "仓库模式·本批视频未覆盖"
+      ],
+      "presentation": {
+        "role": "director",
+        "domain": "rhythm",
+        "canonicalEffectId": null,
+        "relationship": "editorial-grammar",
+        "reason": "描述视点、镜头之间的信息关系、时间节奏或贯穿段落的角色。",
+        "previewStatus": "retired",
+        "retirementReason": "保留原理与溯源；旧 SVG 演示退出导演案例。"
+      }
+    },
+    {
+      "id": "rhythm.beat-cut-moves",
+      "sourceCategory": "rhythm",
+      "name": "Beat Cut Moves",
+      "nameZh": "节拍硬切",
+      "summary": "把信息变化、动作峰值和声音重音对齐为清晰切点。",
+      "applicable": "高能蒙太奇、卖点串联、节奏段落",
+      "duration": "0.3–1.2s / 镜头",
+      "energy": "high",
+      "layers": [
+        "edit-relationship",
+        "rhythm"
+      ],
+      "patternIds": [
+        "combo.title-product-focus",
+        "combo.card-relay",
+        "combo.overview-select-detail"
+      ],
+      "effectIds": [
+        "handling.duration",
+        "handling.delay"
+      ],
+      "implementationState": "knowledge-integrated",
+      "selectionReason": "提供最通用的切镜与声音对齐规则。",
+      "avoidWhen": "每拍都切导致信息无法读取，或没有语义变化时。",
+      "sourcePath": "references/shots/rhythm/beat-cut-moves.md",
+      "object": "edit",
+      "narrativeUse": "confirm",
+      "patternUsage": "在配方「标题 → 产品 → 证据重点」整体使用：三个画面按重音硬切，逐级升级信息。",
+      "status": {
+        "source": "verified",
+        "demo": "needs-calibration",
+        "production": "planned"
+      },
+      "shot": {
+        "intent": "三个画面在声音重音位置硬切，每次切换都对应新的信息。",
+        "subject": "主张 / 产品 / 证据三个画面。",
+        "camera": "静止；硬切由剪辑完成。",
+        "subjectAction": "三个画面依次在节拍点切换。",
+        "timing": "每拍约 0.6s，总长约 1.8s。",
+        "seams": "每次硬切都伴随信息升级。",
+        "constraints": "硬切必须与重音对齐；每镜信息需独立成立。"
+      },
+      "evidence": [
+        {
+          "video": "形象升级瑞幸首席幸运官lucky变身啦_-_瑞幸咖啡.md",
+          "at": "21→34",
+          "note": "7 组关键词角色 walk-through，按拍切。"
+        },
+        {
+          "video": "每日品牌_-_一款产品品牌宣传_-_Make_something_wonderful.md",
+          "at": "67→71",
+          "note": "品牌周边 0.3s/切快闪。"
+        },
+        {
+          "video": "2022_CDX-GDG_SHOWREEL.md",
+          "at": "12.1→12.5",
+          "note": "太空 CDX 连切到不同 3D 场景。"
+        }
+      ],
+      "presentation": {
+        "role": "director",
+        "domain": "rhythm",
+        "canonicalEffectId": null,
+        "relationship": "editorial-grammar",
+        "reason": "描述视点、镜头之间的信息关系、时间节奏或贯穿段落的角色。",
+        "previewStatus": "retired",
+        "retirementReason": "保留原理与溯源；旧 SVG 演示退出导演案例。"
+      }
+    },
+    {
+      "id": "rhythm.speed-ramp-freeze",
+      "sourceCategory": "rhythm",
+      "name": "Speed Ramp Freeze",
+      "nameZh": "变速与定格",
+      "summary": "先用速度变化压缩过程，再在关键结果上定格供阅读。",
+      "applicable": "动作过程、产品亮相、关键结果",
+      "duration": "0.8–2.5s",
+      "energy": "high",
+      "layers": [
+        "rhythm",
+        "camera"
+      ],
+      "patternIds": [
+        "combo.title-product-focus",
+        "combo.phone-focus-return",
+        "combo.before-after-confirm"
+      ],
+      "effectIds": [
+        "handling.easing",
+        "handling.duration"
+      ],
+      "implementationState": "knowledge-integrated",
+      "selectionReason": "兼顾高能进入和阅读停留的常用节奏结构。",
+      "avoidWhen": "定格对象不清楚，或变速破坏操作真实性时。",
+      "sourcePath": "references/shots/rhythm/speed-ramp-freeze.md",
+      "object": "subject",
+      "narrativeUse": "confirm",
+      "patternUsage": "在配方「标题 → 产品 → 证据重点」的证据步骤使用：急停定格，把关键结果钉在画面上。",
+      "status": {
+        "source": "verified",
+        "demo": "needs-calibration",
+        "production": "planned"
+      },
+      "shot": {
+        "intent": "主体先快速掠过，再急减速并在关键位置定格标注。",
+        "subject": "移动主体 + 关键结果。",
+        "camera": "固定机位。",
+        "subjectAction": "主体加速进入 → 急减速 → 定格并标注关键结果。",
+        "timing": "加速 0.6s → 减速 0.5s → 定格 0.7s，总长约 1.8s。",
+        "seams": "前接「过程画面」；后接「结果特写」。",
+        "constraints": "定格位置必须是信息关键点。"
+      },
+      "evidence": [
+        {
+          "video": "全新AI驱动的视频创作应用Google_Vids_-_Robinson.md",
+          "at": "64.8→68.4",
+          "note": "录制红点→倒计时→真人出镜（定格感）。"
+        },
+        {
+          "video": "我宣布史上zui牛AGIC视频站在巨人肩膀上_-_芯片达人.md",
+          "at": "90→102",
+          "note": "高速运动模糊连续藏切多场景。"
+        }
+      ],
+      "presentation": {
+        "role": "director",
+        "domain": "rhythm",
+        "canonicalEffectId": null,
+        "relationship": "editorial-grammar",
+        "reason": "描述视点、镜头之间的信息关系、时间节奏或贯穿段落的角色。",
+        "previewStatus": "retired",
+        "retirementReason": "保留原理与溯源；旧 SVG 演示退出导演案例。"
+      }
+    },
+    {
+      "id": "rhythm.montage-rhythm-moves",
+      "sourceCategory": "rhythm",
+      "name": "Montage Rhythm Moves",
+      "nameZh": "蒙太奇节奏组",
+      "summary": "用长短镜头组合压缩多个动作，并在段末保留一个可读结果。",
+      "applicable": "功能合集、过程压缩、品牌短片",
+      "duration": "3.0–8.0s / 段",
+      "energy": "variable",
+      "layers": [
+        "edit-relationship",
+        "rhythm"
+      ],
+      "patternIds": [
+        "combo.title-product-focus",
+        "combo.card-relay",
+        "combo.overview-select-detail"
+      ],
+      "effectIds": [
+        "handling.duration",
+        "handling.stagger"
+      ],
+      "implementationState": "knowledge-integrated",
+      "selectionReason": "为六个单镜配方向多镜段落扩展提供节奏骨架。",
+      "avoidWhen": "素材不足以形成动作差异，或结果没有停留时。",
+      "sourcePath": "references/shots/rhythm/montage-rhythm-moves.md",
+      "object": "rhythm",
+      "narrativeUse": "guide",
+      "patternUsage": "在配方「全局 → 局部 → 回归上下文」的过渡使用：短镜快速组接压缩过程，末镜回到完整结果。",
+      "status": {
+        "source": "verified",
+        "demo": "needs-calibration",
+        "production": "planned"
+      },
+      "shot": {
+        "intent": "多个短镜按长短节奏依次切换，段末回到一个完整结果。",
+        "subject": "输入 / 分析 / 筛选 / 结果四个短镜。",
+        "camera": "静止；快速组接。",
+        "subjectAction": "短镜按节奏加密切换，最后停留完整结果。",
+        "timing": "前三镜每镜约 0.4s，结果停留 0.8s，总长约 2.0s。",
+        "seams": "短镜间硬切；末镜承接完整信息。",
+        "constraints": "节奏需与配乐 / 讲述同步；短镜信息需单眼可读。"
+      },
+      "evidence": [
+        {
+          "video": "形象升级瑞幸首席幸运官lucky变身啦_-_瑞幸咖啡.md",
+          "at": "21→34",
+          "note": "长短镜压缩角色多 pose，末镜落表情网格。"
+        },
+        {
+          "video": "a16z科技创投宣传视频.md",
+          "at": "全程",
+          "note": "档案素材纯硬切+match-cut 压缩多镜头。"
+        },
+        {
+          "video": "Waytoagi与你东京见_-_通往AGI之路.md",
+          "at": "18.2→32.5",
+          "note": "名画/地标同构图逐幅叠化蒙太奇。"
+        }
+      ],
+      "presentation": {
+        "role": "director",
+        "domain": "rhythm",
+        "canonicalEffectId": null,
+        "relationship": "editorial-grammar",
+        "reason": "描述视点、镜头之间的信息关系、时间节奏或贯穿段落的角色。",
+        "previewStatus": "retired",
+        "retirementReason": "保留原理与溯源；旧 SVG 演示退出导演案例。"
+      }
+    },
+    {
+      "id": "opening.spotlight-hero-card",
+      "sourceCategory": "opening",
+      "name": "Spotlight Hero Card",
+      "nameZh": "聚光主角卡",
+      "summary": "暗色界面里一个圆形光圈跟随光标移动，只照亮一个数据点/榜单行，圈外保持全暗。",
+      "applicable": "暗色数据看板、榜单、阅读焦点引导",
+      "duration": "1.0–2.5s",
+      "energy": "medium",
+      "layers": [
+        "camera",
+        "visual-treatment",
+        "content-motion"
+      ],
+      "patternIds": [
+        "combo.title-product-focus",
+        "combo.phone-focus-return"
+      ],
+      "effectIds": [
+        "pointer.spotlight",
+        "enter.scale",
+        "ux.focus"
+      ],
+      "implementationState": "knowledge-integrated",
+      "selectionReason": "最通用的主角建立开场，可直接接首个配方。",
+      "avoidWhen": "画面有多个同等重要主体，或聚光降低文字对比时。",
+      "sourcePath": "references/shots/opening/spotlight-hero-card.md",
+      "object": "camera",
+      "narrativeUse": "guide",
+      "patternUsage": "在配方「标题 → 产品 → 证据重点」的标题步骤使用：聚光先落主角，再展开标题。",
+      "status": {
+        "source": "verified",
+        "demo": "needs-calibration",
+        "production": "planned"
+      },
+      "shot": {
+        "intent": "在暗仪表盘上用跟随光标的光圈锁定唯一一个阅读点，其余信息压暗。",
+        "subject": "暗色数据看板（多行数据点/榜单）。",
+        "camera": "固定机位，光圈跟随光标移动。",
+        "subjectAction": "光圈扫过，被照数据点亮为强调色，离开后回暗，最终锁住目标行。",
+        "timing": "光圈移动 1–1.5s ease-out，锁住后停足。",
+        "seams": "前接看板全貌；锁住后接该数据点的解读。",
+        "constraints": "圈外必须足够暗，保证同一时刻只有一个焦点。"
+      },
+      "evidence": [
+        {
+          "video": "Similarweb_Gen_AI_智能分析平台.md",
+          "at": "15.6→24.7（另 32.5→36.4）",
+          "note": "暗仪表盘上圆形聚光跟随光标只照亮一个数据点/榜单行，圈外全暗。"
+        },
+        {
+          "video": "形象升级瑞幸首席幸运官lucky变身啦_-_瑞幸咖啡.md",
+          "at": "10.4→11.7",
+          "note": "圆形光圈从角色身后张开（聚光强调）。"
+        }
+      ],
+      "presentation": {
+        "role": "technical",
+        "domain": "technical",
+        "canonicalEffectId": "pointer.spotlight",
+        "relationship": "implementation-recipe",
+        "reason": "描述实现手段或局部交互，归入既有技术词条的做法参考；关联不是等价或已完成适配。"
+      }
+    },
+    {
+      "id": "opening.brand-ink-open",
+      "sourceCategory": "opening",
+      "name": "Brand Ink Open",
+      "nameZh": "品牌墨迹开场",
+      "summary": "用品牌形态扩散或遮罩揭示建立片头识别，再迅速进入内容。",
+      "applicable": "品牌片头、章节开场、视觉主题建立",
+      "duration": "0.8–2.0s",
+      "energy": "medium",
+      "layers": [
+        "transition-effect",
+        "visual-treatment"
+      ],
+      "patternIds": [
+        "combo.title-product-focus"
+      ],
+      "effectIds": [
+        "enter.mask-reveal",
+        "enter.wipe"
+      ],
+      "implementationState": "knowledge-integrated",
+      "selectionReason": "提供品牌识别与内容入口的一体化开场。",
+      "avoidWhen": "品牌形态没有参与后续视觉系统，或片头过长时。",
+      "sourcePath": "references/shots/opening/brand-ink-open.md",
+      "object": "subject",
+      "narrativeUse": "reveal",
+      "patternUsage": "在配方「标题 → 产品 → 证据重点」的标题步骤使用：品牌墨迹开场，先铺情绪再给标题。",
+      "status": {
+        "source": "verified",
+        "demo": "needs-calibration",
+        "production": "planned"
+      },
+      "shot": {
+        "intent": "品牌色墨迹从中心扩散成遮罩，随后显露标题和内容入口。",
+        "subject": "品牌色墨迹 + 标题。",
+        "camera": "静止；墨迹扩散完成遮罩。",
+        "subjectAction": "墨迹从中心扩散铺满，随后消退显露标题。",
+        "timing": "扩散 1.0s → 显露 0.8s → 停留 0.6s，总长约 2.4s。",
+        "seams": "前接「黑场 / 品牌色」；后接「内容标题」。",
+        "constraints": "墨迹形状需与品牌气质一致。"
+      },
+      "tags": [
+        "仓库模式·本批视频未覆盖"
+      ],
+      "presentation": {
+        "role": "technical",
+        "domain": "technical",
+        "canonicalEffectId": "enter.mask-reveal",
+        "relationship": "implementation-recipe",
+        "reason": "描述实现手段或局部交互，归入既有技术词条的做法参考；关联不是等价或已完成适配。"
+      }
+    },
+    {
+      "id": "typography.paper-title-card",
+      "sourceCategory": "typography",
+      "name": "Paper Title Card",
+      "nameZh": "纸面标题卡",
+      "summary": "用清晰字卡承担章节切分、论点强调或时间省略。",
+      "applicable": "章节标题、论点、时间地点、段落呼吸",
+      "duration": "0.8–2.5s",
+      "energy": "low",
+      "layers": [
+        "edit-relationship",
+        "visual-treatment"
+      ],
+      "patternIds": [
+        "combo.title-product-focus",
+        "combo.card-relay",
+        "combo.before-after-confirm"
+      ],
+      "effectIds": [
+        "text.line-reveal",
+        "enter.fade"
+      ],
+      "implementationState": "knowledge-integrated",
+      "selectionReason": "用一张高频字卡覆盖字体类最基本的剪辑功能。",
+      "avoidWhen": "字卡重复上一镜信息，或停留不足以完整阅读时。",
+      "sourcePath": "references/shots/typography/paper-title-card.md",
+      "object": "subject",
+      "narrativeUse": "reveal",
+      "patternUsage": "在配方「标题 → 产品 → 证据重点」的标题步骤使用：纸面字卡进入并停足，作为章节切点。",
+      "status": {
+        "source": "verified",
+        "demo": "needs-calibration",
+        "production": "planned"
+      },
+      "shot": {
+        "intent": "纸面字卡进入并完成标题排版，停留足够时间后成为章节切点。",
+        "subject": "标题字卡。",
+        "camera": "固定机位，纸面微旋转入场。",
+        "subjectAction": "纸面从上方落入并摆正，标题逐层建立。",
+        "timing": "进入 0.6s → 标题建立 0.8s → 阅读停留 1.0s，总长约 2.4s。",
+        "seams": "前接「章节预告」；后接下一镜（硬切或叠化）。",
+        "constraints": "停留时间需保证标题读完。"
+      },
+      "evidence": [
+        {
+          "video": "ISUX「六月」行业设计趋势速递.md",
+          "at": "0→5.4",
+          "note": "纯白叠字卡换字。"
+        },
+        {
+          "video": "TME_Design_Showreel_2025_腾讯音乐设计年鉴.md",
+          "at": "5.0→7.0",
+          "note": "章节卡套版换字。"
+        },
+        {
+          "video": "NextLevel！2023阿里设计年度Showreel请观赏！10业务设计团队成果集锦，炫的是对设计的热爱！各完整版_-_001_-_NextLevel！2023阿里设计年度Showreel请观赏！10业务设计团队成.md",
+          "at": "1.5→2.6",
+          "note": "白底字卡→黑底 Taobao Showreel（字卡章节切）。"
+        }
+      ],
+      "presentation": {
+        "role": "technical",
+        "domain": "technical",
+        "canonicalEffectId": "text.line-reveal",
+        "relationship": "implementation-recipe",
+        "reason": "描述实现手段或局部交互，归入既有技术词条的做法参考；关联不是等价或已完成适配。"
+      }
+    },
+    {
+      "id": "transition.zoom-through-portal",
+      "sourceCategory": "transition",
+      "name": "Zoom-Through Portal",
+      "nameZh": "穿框穿越运镜",
+      "summary": "镜头沿 Z 轴穿过一个圆形/矩形/隧道开口，在穿越过程中藏掉真实切点，从一个场景直接飞入下一个场景的中心。",
+      "applicable": "章节跳入、从现实世界钻进产品界面、进入'数字深处'或奖项仪式。",
+      "duration": "1.2–3.0s",
+      "energy": "high",
+      "layers": [
+        "camera",
+        "edit-relationship",
+        "transition-effect",
+        "rhythm"
+      ],
+      "patternIds": [
+        "combo.phone-focus-return",
+        "combo.overview-select-detail",
+        "combo.title-product-focus"
+      ],
+      "effectIds": [
+        "scroll.zoom",
+        "scroll.multi-layer-parallax",
+        "enter.blur-reveal",
+        "handling.easing"
+      ],
+      "implementationState": "knowledge-integrated",
+      "selectionReason": "跨 8+ 个视频反复出现的最强电影化衔接，现有 30 卡只有急推强调、没有'穿框进入新空间'这一镜头级连接，最该补。",
+      "avoidWhen": "开口形状与后镜中心无法对齐、或前后场景光比差异巨大时。",
+      "sourcePath": "video-analysis/transition.zoom-through-portal.md",
+      "object": "camera",
+      "narrativeUse": "reveal",
+      "patternUsage": "在配方「全局 → 局部 → 回归上下文」中承担'从上下文钻进产品'：穿过开口即完成入戏。",
+      "status": {
+        "source": "verified",
+        "demo": "needs-calibration",
+        "production": "planned"
+      },
+      "shot": {
+        "intent": "用一次沿中轴线的 Z 轴穿越，把前后两个不相关场景焊成一次连续飞行。",
+        "subject": "一个可穿过的开口（圆窗/门框/设备框/字卡隧道）。",
+        "camera": "前镜先沿开口中轴加速推进，开口在穿越瞬间放大到满屏，后镜从开口中心反方向推出并稳住。",
+        "subjectAction": "前镜内容在穿入时向四周收拢成隧道壁；穿过后后镜内容从中心一点放大到正常景别。",
+        "timing": "加速推进 0.9s → 穿口 0.3s（带径向模糊）→ 后镜落位 0.8s，总长约 2.0s。",
+        "seams": "前镜停在开口构图；后镜以开口中心为视觉锚点起幅。",
+        "constraints": "前后镜中心必须对齐同一根轴；穿口帧加径向模糊藏切；避免穿过后景别跳变过大。"
+      },
+      "evidence": [
+        {
+          "video": "Microsoft__Windows_365_Cloud_PC.md",
+          "at": "0.0→5.2",
+          "note": "书桌推近显示器浏览器进 UI，再从地址栏穿回书桌，形成进/出闭环。"
+        },
+        {
+          "video": "请接收你的动画致幻剂～～_-_动态图形设计motion.md",
+          "at": "10.4→15.6",
+          "note": "缎带字向消失点收缩成字墙隧道，Z 轴穿过后出 Behance 立方体。"
+        },
+        {
+          "video": "「NotReal」顶级动态设计工作室_Showreel_-_001_-_「NotReal」顶级动态设计工作室_Showreel.md",
+          "at": "28.7→32.0",
+          "note": "字卡→线框隧道→蓝螺旋穿越，出隧道即运动鞋。"
+        },
+        {
+          "video": "2022_CDX-GDG_SHOWREEL.md",
+          "at": "6.4→11",
+          "note": "工作台圆形舷窗推穿进太空场景。"
+        },
+        {
+          "video": "@creatoroly_motion_design_showreel_25..md",
+          "at": "10.4→14.3",
+          "note": "蓝环放大穿过进 Portal（原误标为圆形开合）。"
+        }
+      ],
+      "presentation": {
+        "role": "director",
+        "domain": "continuity",
+        "canonicalEffectId": null,
+        "relationship": "editorial-grammar",
+        "reason": "描述视点、镜头之间的信息关系、时间节奏或贯穿段落的角色。",
+        "previewStatus": "retired",
+        "retirementReason": "保留原理与溯源；旧 SVG 演示退出导演案例。"
+      }
+    },
+    {
+      "id": "transition.match-cut-shape",
+      "sourceCategory": "transition",
+      "name": "Match Cut by Shape",
+      "nameZh": "同形匹配剪辑",
+      "summary": "前镜与后镜锁定同一个几何形状（圆/方/数字/字母）的位置与轮廓，硬切点只换物体本身，形状不动。",
+      "applicable": "数字逐个 hold 注解、同构道具换产品、把抽象形状落到实物。",
+      "duration": "0.6–1.5s",
+      "energy": "medium",
+      "layers": [
+        "edit-relationship",
+        "visual-treatment",
+        "content-motion"
+      ],
+      "patternIds": [
+        "combo.card-relay",
+        "combo.title-product-focus",
+        "combo.overview-select-detail"
+      ],
+      "effectIds": [
+        "enter.scale",
+        "enter.mask-reveal",
+        "layout.shared-element",
+        "handling.stagger"
+      ],
+      "implementationState": "knowledge-integrated",
+      "selectionReason": "现有 circle-match-iris 只管圆形开合；本片证据显示圆/方/数字/字母皆可做同形硬切，是通用形状母题剪辑。",
+      "avoidWhen": "前后形状只是相似而未对齐、或物体材质差异会让'同一形状'读不出来时。",
+      "sourcePath": "video-analysis/transition.match-cut-shape.md",
+      "object": "edit",
+      "narrativeUse": "establish",
+      "patternUsage": "在配方「旧态 → 变化 → 新态」中用形状锁住跨镜连续性，让替换显得天经地义。",
+      "status": {
+        "source": "verified",
+        "demo": "needs-calibration",
+        "production": "planned"
+      },
+      "shot": {
+        "intent": "用同一个静止形状把两个不同物体缝成一次连续。",
+        "subject": "锚定形状（圆/方/数字'1'/'6'/字母）。",
+        "camera": "固定机位或同机位，前后镜构图中锚点形状同位置同尺寸。",
+        "subjectAction": "前物体在切点瞬间被后物体替换，形状外框、位置、角度保持不动。",
+        "timing": "前物体 hold 0.5s → 硬切 0.1s → 后物体落位 0.4s。",
+        "seams": "前镜停在锚点形状充满画面；后镜从同一形状起幅。",
+        "constraints": "锚点形状必须可矢量化对齐；替换瞬间可加短暂同色遮罩弱化跳变。"
+      },
+      "evidence": [
+        {
+          "video": "NextLevel！2023阿里设计年度Showreel请观赏！10业务设计团队成果集锦，炫的是对设计的热爱！各完整版_-_001_-_NextLevel！2023阿里设计年度Showreel请观赏！10业务设计团队成.md",
+          "at": "45.4→49.6",
+          "note": "橙底数字 1→6→8 同形横向模糊切换，最后拼回 1688。"
+        },
+        {
+          "video": "腾讯_X-Design-搜狗输入法_鹅厂SHOWREEL设计年鉴2024_-_001_-_腾讯_X-Design-搜狗输入法_鹅厂SHOWREEL设计年鉴2024.md",
+          "at": "16.2→25.5",
+          "note": "字体样张→大字'分词'→字母散成键帽→键盘 UI。"
+        },
+        {
+          "video": "Personatics_的品牌影片_-_ColCircle.md",
+          "at": "11.5→15.5",
+          "note": "银币→手机点阵环→实心黑圆，圆形状一路对齐。"
+        },
+        {
+          "video": "作品集参考盒马设计_2022_SHOWREEL_-_001_-_作品集参考盒马设计_2022_SHOWREEL.md",
+          "at": "41.6",
+          "note": "UI 方格直接对齐储物柜方格。"
+        }
+      ],
+      "presentation": {
+        "role": "director",
+        "domain": "continuity",
+        "canonicalEffectId": null,
+        "relationship": "editorial-grammar",
+        "reason": "描述视点、镜头之间的信息关系、时间节奏或贯穿段落的角色。",
+        "previewStatus": "retired",
+        "retirementReason": "保留原理与溯源；旧 SVG 演示退出导演案例。"
+      }
+    },
+    {
+      "id": "transition.match-cut-color-veil",
+      "sourceCategory": "transition",
+      "name": "Color Veil Chapter Cut",
+      "nameZh": "整屏色幕藏切",
+      "summary": "用品牌主色铺满整屏作为'色幕'，跨切点时前景保留同色元素，让两次硬切读起来像同一段章节。",
+      "applicable": "品牌色章节切换、从浅色 UI 段进入深色/品牌色段、口号跳色重音。",
+      "duration": "0.8–1.8s",
+      "energy": "medium",
+      "layers": [
+        "edit-relationship",
+        "visual-treatment",
+        "rhythm"
+      ],
+      "patternIds": [
+        "combo.card-relay",
+        "combo.title-product-focus"
+      ],
+      "effectIds": [
+        "enter.crossfade",
+        "enter.fade",
+        "handling.easing",
+        "handling.delay"
+      ],
+      "implementationState": "knowledge-integrated",
+      "selectionReason": "硬切/叠化已在 shot-transitions 内；本片证据显示'整屏主色做章节幕'是 showreel 最常用的分组语言，需单列。",
+      "avoidWhen": "品牌色与下一镜主色冲突、或同色元素无法在前镜保留时。",
+      "sourcePath": "video-analysis/transition.match-cut-color-veil.md",
+      "object": "edit",
+      "narrativeUse": "establish",
+      "patternUsage": "在配方「旧态 → 变化 → 新态」中用一道色幕标记章节边界，前景同色元素做桥。",
+      "status": {
+        "source": "verified",
+        "demo": "needs-calibration",
+        "production": "planned"
+      },
+      "shot": {
+        "intent": "让整屏品牌色成为可跨越切点的连续场。",
+        "subject": "铺满画面的品牌色幕 + 前镜遗留的同色小元素。",
+        "camera": "固定机位，色幕整体铺满后再让新镜从同色中浮现。",
+        "subjectAction": "前镜渐隐进色幕；色幕短暂停留；后镜从同色中浮出，前景同色元素不动。",
+        "timing": "前镜退入色幕 0.6s → 色幕停 0.3s → 后镜浮出 0.7s。",
+        "seams": "前镜末帧与色幕主色一致；后镜起帧带同一品牌色。",
+        "constraints": "同色锚点元素必须存在；色幕过曝会丢层次，需留 5–10% 明度差。"
+      },
+      "evidence": [
+        {
+          "video": "Stripe_支付产品功能短片.md",
+          "at": "7.9→9.0",
+          "note": "紫色幕布藏切进入紫场景。"
+        },
+        {
+          "video": "@creatoroly_motion_design_showreel_25..md",
+          "at": "6.5",
+          "note": "大色块整屏翻色做章节（块色章）。"
+        },
+        {
+          "video": "注意力抓取动效展示.md",
+          "at": "8→9 / 22→24",
+          "note": "蓝→绿雷达环、蓝章翻红章，整屏色章跨切。"
+        },
+        {
+          "video": "品牌案例分享_Google的新AI_Bard_-_品牌黑洞工作室.md",
+          "at": "6",
+          "note": "品牌色段跨切保持同色前景元素。"
+        }
+      ],
+      "presentation": {
+        "role": "director",
+        "domain": "continuity",
+        "canonicalEffectId": null,
+        "relationship": "editorial-grammar",
+        "reason": "描述视点、镜头之间的信息关系、时间节奏或贯穿段落的角色。",
+        "previewStatus": "retired",
+        "retirementReason": "保留原理与溯源；旧 SVG 演示退出导演案例。"
+      }
+    },
+    {
+      "id": "transition.match-cut-motion",
+      "sourceCategory": "transition",
+      "name": "Match Cut by Motion",
+      "nameZh": "动势方向匹配",
+      "summary": "前镜主体向某方向运动出画，后镜主体沿同一方向从画外进入，运动方向与速度连续，硬切被动作掩盖。",
+      "applicable": "角色走动蒙太奇、物体同向飞行、产品被'弹'到下一个使用场景。",
+      "duration": "0.5–1.2s",
+      "energy": "high",
+      "layers": [
+        "subject-motion",
+        "edit-relationship",
+        "rhythm"
+      ],
+      "patternIds": [
+        "combo.card-relay",
+        "combo.card-relay"
+      ],
+      "effectIds": [
+        "enter.slide",
+        "enter.scale",
+        "handling.spring",
+        "handling.easing"
+      ],
+      "implementationState": "knowledge-integrated",
+      "selectionReason": "现有 beat-cut 只管对齐音乐重音；本片证据显示'同方向运动藏切'是角色/物体蒙太奇的通用缝法。",
+      "avoidWhen": "前后运动方向不一致、或出画/入画边不在同一侧时。",
+      "sourcePath": "video-analysis/transition.match-cut-motion.md",
+      "object": "edit",
+      "narrativeUse": "establish",
+      "patternUsage": "在配方「旧态 → 变化 → 新态」中用动作方向把两次跳跃连成一次连续位移。",
+      "status": {
+        "source": "verified",
+        "demo": "needs-calibration",
+        "production": "planned"
+      },
+      "shot": {
+        "intent": "让一次动作的方向跨切点延续，使硬切无感。",
+        "subject": "沿方向运动的主体（角色/产品/纸飞机）。",
+        "camera": "固定机位或随主体同向微移，切点落在主体出画边。",
+        "subjectAction": "前主体运动出画一侧；后主体从同侧入画，速度与姿态近似。",
+        "timing": "前镜运动 0.4s → 出画切 0.1s → 后镜入画 0.4s。",
+        "seams": "前镜末帧主体贴近出画边；后镜首帧主体贴近同侧画外。",
+        "constraints": "方向、速度、出/入画边三者必须一致；可加运动模糊弱化跳变。"
+      },
+      "evidence": [
+        {
+          "video": "作品集参考盒马设计_2022_SHOWREEL_-_001_-_作品集参考盒马设计_2022_SHOWREEL.md",
+          "at": "23.4→26",
+          "note": "河马同方向走切场景。"
+        },
+        {
+          "video": "Personatics_的品牌影片_-_ColCircle.md",
+          "at": "63→68.4",
+          "note": "房子+车多角度，车始终右行。"
+        },
+        {
+          "video": "Microsoft__Microsoft_365.md",
+          "at": "23.4→26.0",
+          "note": "手机→纸飞机飞出，沿飞行动势切。"
+        },
+        {
+          "video": "你可能认识雪王，但一定没看过这个！_-_蜜雪冰城.md",
+          "at": "14.3→16.0",
+          "note": "雪王被跷跷板弹飞向大青提，沿抛物线切。"
+        },
+        {
+          "video": "形象升级瑞幸首席幸运官lucky变身啦_-_瑞幸咖啡.md",
+          "at": "21→34",
+          "note": "角色走出画左、从画右走入，方向连续藏硬切。"
+        }
+      ],
+      "presentation": {
+        "role": "director",
+        "domain": "continuity",
+        "canonicalEffectId": null,
+        "relationship": "editorial-grammar",
+        "reason": "描述视点、镜头之间的信息关系、时间节奏或贯穿段落的角色。",
+        "previewStatus": "retired",
+        "retirementReason": "保留原理与溯源；旧 SVG 演示退出导演案例。"
+      }
+    },
+    {
+      "id": "transition.glow-bloom-to-scene",
+      "sourceCategory": "transition",
+      "name": "Glow Bloom to Scene",
+      "nameZh": "发光体化开新场景",
+      "summary": "前镜一个发光体过曝膨胀/化开，亮度峰值处藏掉切点，后镜以同一光源为起点展开成新场景或品牌。",
+      "applicable": "深色电影感开场、章节爆点、品牌光效落版、从产品爆点到新场景。",
+      "duration": "1.0–2.2s",
+      "energy": "high",
+      "layers": [
+        "transition-effect",
+        "visual-treatment",
+        "edit-relationship"
+      ],
+      "patternIds": [
+        "combo.title-product-focus",
+        "combo.card-relay"
+      ],
+      "effectIds": [
+        "enter.fade",
+        "enter.blur-reveal",
+        "feedback.loading",
+        "handling.easing"
+      ],
+      "implementationState": "knowledge-integrated",
+      "selectionReason": "现有 transition-hidden-cut 只是'借亮度峰值藏切'；本片增量是发光体本身成为后镜光源、化开成场景，可程序化。",
+      "avoidWhen": "素材没有可锁定的发光源、或后镜无法把光吸收进自身布光时。",
+      "sourcePath": "video-analysis/transition.glow-bloom-to-scene.md",
+      "object": "edit",
+      "narrativeUse": "reveal",
+      "patternUsage": "在配方「标题 → 产品 → 证据重点」中用一次光爆把注意力从旧镜推到新产品。",
+      "status": {
+        "source": "verified",
+        "demo": "needs-calibration",
+        "production": "planned"
+      },
+      "shot": {
+        "intent": "让一个光的过曝同时承担藏切与打亮新场景两件事。",
+        "subject": "一个可过曝的发光体（光点/星芒/漏光/屏幕亮边）。",
+        "camera": "固定机位或随光微推，光在切点膨胀到满屏白/品牌色。",
+        "subjectAction": "前镜光膨胀过曝；切后后镜从同一位置亮起，光退成后镜环境光。",
+        "timing": "光膨胀 0.7s → 过曝藏切 0.3s → 后镜光退成环境光 0.8s。",
+        "seams": "前镜末帧光过曝满屏；后镜首帧以同方向光为唯一主光。",
+        "constraints": "前后光位需一致；过曝帧带轻微色散光带更自然；忌光向后镜反弹方向不一致。"
+      },
+      "evidence": [
+        {
+          "video": "panel2_右上.md",
+          "at": "0.0→2.28",
+          "note": "暗底光点过曝化开成白字卡。"
+        },
+        {
+          "video": "请接收你的动画致幻剂～～_-_动态图形设计motion.md",
+          "at": "0.0→3.9",
+          "note": "发光黑柱过曝炸开成粉彩爆炸。"
+        },
+        {
+          "video": "Microsoft__Windows_365_Cloud_PC.md",
+          "at": "13.0→15.6",
+          "note": "液体波+辉光化开成 Windows 壁纸。"
+        },
+        {
+          "video": "快手2022设计年鉴.md",
+          "at": "17.0→19.7",
+          "note": "虫洞爆点星芒→卡通街道，光即后镜光源。"
+        },
+        {
+          "video": "马斯克的_XAI_官网更新了_设计的非常赞_-_001_-_马斯克的_XAI_官网更新了_设计的非常赞.md",
+          "at": "14.4→25.2",
+          "note": "段落交界光 bloom 压入藏切。"
+        }
+      ],
+      "presentation": {
+        "role": "technical",
+        "domain": "technical",
+        "canonicalEffectId": "enter.blur-reveal",
+        "relationship": "implementation-recipe",
+        "reason": "描述实现手段或局部交互，归入既有技术词条的做法参考；关联不是等价或已完成适配。"
+      }
+    },
+    {
+      "id": "transition.shared-element-morph-chain",
+      "sourceCategory": "transition",
+      "name": "Shared-Element Morph Chain",
+      "nameZh": "共享元素连续形变跨镜",
+      "summary": "同一个物体（进度条/输入框/太阳/波形）在连续多个镜头里一步步形变，每一步形变本身就是转场，把叙事元素一直带在手里。",
+      "applicable": "输入→响应→结果的因果链、一个隐喻贯穿全片、道具与 UI 之间的身份流转。",
+      "duration": "0.8–1.6s",
+      "energy": "medium",
+      "layers": [
+        "content-motion",
+        "edit-relationship",
+        "visual-treatment"
+      ],
+      "patternIds": [
+        "combo.capsule-input-result",
+        "combo.card-relay",
+        "combo.title-product-focus"
+      ],
+      "effectIds": [
+        "layout.shared-element",
+        "enter.scale",
+        "text.morph",
+        "handling.spring"
+      ],
+      "implementationState": "knowledge-integrated",
+      "selectionReason": "现有 morph-from-primitive 只做'几何→UI 单次生长'；本片证据显示同一元素可跨 3–4 镜连续形变，是增量。",
+      "avoidWhen": "形变链条超过 4 步、每步语义断裂，或元素无法在前后镜都清晰可辨时。",
+      "sourcePath": "video-analysis/transition.shared-element-morph-chain.md",
+      "object": "subject",
+      "narrativeUse": "guide",
+      "patternUsage": "在配方「输入 → 响应 → 结果」中让同一只'主角元素'把三步串成一次连续。",
+      "status": {
+        "source": "verified",
+        "demo": "needs-calibration",
+        "production": "planned"
+      },
+      "shot": {
+        "intent": "让同一个物体跨镜形变，使每一次'换内容'都可追踪。",
+        "subject": "贯穿的主角元素（进度条/输入框/天体/波形）。",
+        "camera": "固定机位，主角元素始终居于画面视觉中心。",
+        "subjectAction": "元素在镜间连续形变（进度条→对勾→卡；太阳→logo→按钮→输入框），位置基本不动。",
+        "timing": "每步形变 0.6–0.8s，链条总 2.0–3.0s。",
+        "seams": "前镜元素与后镜元素共享位置、大小、轮廓锚点。",
+        "constraints": "相邻两步必须有可识别的形状交集；形变速率用弹性，忌硬跳。"
+      },
+      "evidence": [
+        {
+          "video": "SaaSAI_智能产品发布宣传片Zelios为LangEase_品牌制作的UI交互动画醒目的文字快闪与流畅的_UI_界面展示相配合，清晰.md",
+          "at": "11.7→14.3",
+          "note": "进度条收缩→对勾+彩带→结果卡，三步形变。"
+        },
+        {
+          "video": "你好，我是支小宝，你的AI生活管家_-_支付宝.md",
+          "at": "18.5→21.5",
+          "note": "输入框→星星→卡片放射。"
+        },
+        {
+          "video": "每日灵感_-_Dia_浏览器的新手引导着陆_-_Make_something_wonderful.md",
+          "at": "2.0→6.5",
+          "note": "红日→半球 logo→发送键→输入框。"
+        },
+        {
+          "video": "Google推出AI搜索，自我革命_-_数字拾光者.md",
+          "at": "32.4→34.2",
+          "note": "思考波形+白光翻色落成 Google 搜索栏。"
+        }
+      ],
+      "presentation": {
+        "role": "director",
+        "domain": "performance",
+        "canonicalEffectId": null,
+        "relationship": "editorial-grammar",
+        "reason": "描述视点、镜头之间的信息关系、时间节奏或贯穿段落的角色。",
+        "previewStatus": "retired",
+        "retirementReason": "保留原理与溯源；旧 SVG 演示退出导演案例。"
+      },
+      "performer": {
+        "id": "container",
+        "name": "共享容器",
+        "role": "承载者",
+        "dramaticAction": "保留同一主体，内容与形态变化交给下一镜",
+        "identity": "贯穿的主角元素（进度条/输入框/天体/波形）。",
+        "camera": "固定机位，主角元素始终居于画面视觉中心。",
+        "handoff": "前镜元素与后镜元素共享位置、大小、轮廓锚点。"
+      }
+    },
+    {
+      "id": "ui-entrance.device-frame-content-swap",
+      "sourceCategory": "ui-entrance",
+      "name": "Device-Frame Content Swap",
+      "nameZh": "设备框内换内容",
+      "summary": "手机/笔记本/显示器外框保持不动，框内画面（或框后环境）被替换，多屏功能并列且不切黑。",
+      "applicable": "多端功能并列、AI 改图前后对比、产品在不同使用场景间切换。",
+      "duration": "0.8–2.0s",
+      "energy": "medium",
+      "layers": [
+        "content-motion",
+        "edit-relationship",
+        "visual-treatment"
+      ],
+      "patternIds": [
+        "combo.capsule-input-result",
+        "combo.phone-focus-return"
+      ],
+      "effectIds": [
+        "enter.crossfade",
+        "layout.shared-element",
+        "handling.stagger",
+        "handling.easing"
+      ],
+      "implementationState": "knowledge-integrated",
+      "selectionReason": "现有 deck-deal/card-stack 只管卡片入场；本片证据显示'同一设备框内换内容/换环境'是把几十屏缝成一镜的主力。",
+      "avoidWhen": "外框角度不稳定、或框内内容与外框光影方向不一致时。",
+      "sourcePath": "video-analysis/ui-entrance.device-frame-content-swap.md",
+      "object": "subject",
+      "narrativeUse": "reveal",
+      "patternUsage": "在配方「输入 → 响应 → 结果」中用同一设备框承载'改前/改后'，省去双屏对比的割裂。",
+      "status": {
+        "source": "verified",
+        "demo": "needs-calibration",
+        "production": "planned"
+      },
+      "shot": {
+        "intent": "用稳定的设备框做画框，让内容更新不感知切场。",
+        "subject": "一台设备外框（手机/笔记本/显示器样机）。",
+        "camera": "固定机位，设备框位置、角度、光影全程锁定。",
+        "subjectAction": "框内画面 crossfade 或原地替换；框不变，背景环境可整体换。",
+        "timing": "框内换内容 0.6s → 停留阅读 0.6s。",
+        "seams": "前镜设备框落幅稳定；后镜框角度完全一致，仅框内像素变化。",
+        "constraints": "外框、反光、投影需统一；换环境时设备本身不漂。"
+      },
+      "evidence": [
+        {
+          "video": "@MarkKnd_Launch_video_we_made_for_@Wayframe.md",
+          "at": "19.5→23.4",
+          "note": "同一手机框内图片被 AI 替换，外框不动。"
+        },
+        {
+          "video": "Microsoft__Windows_365_Cloud_PC.md",
+          "at": "52.0→57.2",
+          "note": "同一笔记本在办公室/客厅/暗室间换环境。"
+        },
+        {
+          "video": "Stripe_支付产品功能短片.md",
+          "at": "6.3→9.4",
+          "note": "波点椅→笔记本→显示器，换设备承载同一 UI。"
+        },
+        {
+          "video": "荣耀Magic7系列__一句话搞定多步操作！_-_荣耀手机.md",
+          "at": "9→18",
+          "note": "手机屏幕点亮后左右字幕切换用例。"
+        }
+      ],
+      "presentation": {
+        "role": "director",
+        "domain": "performance",
+        "canonicalEffectId": null,
+        "relationship": "editorial-grammar",
+        "reason": "描述视点、镜头之间的信息关系、时间节奏或贯穿段落的角色。",
+        "previewStatus": "retired",
+        "retirementReason": "保留原理与溯源；旧 SVG 演示退出导演案例。"
+      },
+      "performer": {
+        "id": "screen",
+        "name": "设备窗口",
+        "role": "舞台",
+        "dramaticAction": "保持窗口身份，内部场景变化推进信息",
+        "identity": "一台设备外框（手机/笔记本/显示器样机）。",
+        "camera": "固定机位，设备框位置、角度、光影全程锁定。",
+        "handoff": "前镜设备框落幅稳定；后镜框角度完全一致，仅框内像素变化。"
+      }
+    },
+    {
+      "id": "interaction.persistent-cursor-cross-shot",
+      "sourceCategory": "interaction",
+      "name": "Persistent Cursor Across Shots",
+      "nameZh": "光标跨镜主角",
+      "summary": "一个颜色/尺寸恒定的光标（手型/指针/I-beam）在所有镜头里持续当主角，打字、点选、拉框、拖动，每次操作把当前 UI 带进下一状态。",
+      "applicable": "无真人出镜的产品 Demo、证明真实可操作、AI 工作流一镜到底。",
+      "duration": "1.0–2.5s",
+      "energy": "medium",
+      "layers": [
+        "subject-motion",
+        "content-motion",
+        "rhythm"
+      ],
+      "patternIds": [
+        "combo.capsule-input-result",
+        "combo.overview-select-detail"
+      ],
+      "effectIds": [
+        "pointer.cursor-follower",
+        "pointer.trail",
+        "layout.shared-element",
+        "handling.easing"
+      ],
+      "implementationState": "knowledge-integrated",
+      "selectionReason": "现有 input-trigger-moves 只做单次触发→结果配对；本片增量是光标跨镜连续当主角，把多 UI 缝成'有人在操作'。",
+      "avoidWhen": "产品没有可交互界面、或光标会和真实录屏光标打架时。",
+      "sourcePath": "video-analysis/interaction.persistent-cursor-cross-shot.md",
+      "object": "subject",
+      "narrativeUse": "guide",
+      "patternUsage": "在配方「输入 → 响应 → 结果」中让光标成为叙事主角，操作即转场。",
+      "status": {
+        "source": "verified",
+        "demo": "needs-calibration",
+        "production": "planned"
+      },
+      "shot": {
+        "intent": "用一个恒定光标把无人物 Demo 串成有人在操作。",
+        "subject": "一个恒定外观的自定义光标。",
+        "camera": "随光标落点微动或固定，光标始终在视觉中心附近。",
+        "subjectAction": "光标打字→点选→拉框→拖动，每次操作后当前 UI 顺势变成下一状态。",
+        "timing": "移动 0.3s → 操作 0.3s → 结果响应 0.5s。",
+        "seams": "前镜光标停在操作点；后镜光标从同一点继续新操作。",
+        "constraints": "光标颜色/尺寸/箭头角度全程一致；移动用 ease-out，操作瞬间可加放大反馈。"
+      },
+      "evidence": [
+        {
+          "video": "panel4_右下.md",
+          "at": "全程",
+          "note": "紫色光标换形但颜色尺寸恒定贯穿所有镜头。"
+        },
+        {
+          "video": "@MarkKnd_Launch_video_we_made_for_@Wayframe.md",
+          "at": "5→23",
+          "note": "光标打字/选图/拉框，跨 UI 移动。"
+        },
+        {
+          "video": "Similarweb_Gen_AI_智能分析平台.md",
+          "at": "15.6→24.7",
+          "note": "暗仪表盘上圆形追光跟随光标只照亮一个数据点。"
+        },
+        {
+          "video": "Google_是怎么用_60_秒讲好一个新功能的_-_BA品牌引力.md",
+          "at": "20.8→40.3",
+          "note": "光标拖滑块、点建议卡、切 Code/Preview。"
+        }
+      ],
+      "presentation": {
+        "role": "director",
+        "domain": "performance",
+        "canonicalEffectId": null,
+        "relationship": "editorial-grammar",
+        "reason": "描述视点、镜头之间的信息关系、时间节奏或贯穿段落的角色。",
+        "previewStatus": "retired",
+        "retirementReason": "保留原理与溯源；旧 SVG 演示退出导演案例。"
+      },
+      "performer": {
+        "id": "cursor",
+        "name": "光标",
+        "role": "主动者",
+        "dramaticAction": "跨镜执行选择、点击与确认，保持操作因果",
+        "identity": "一个恒定外观的自定义光标。",
+        "camera": "随光标落点微动或固定，光标始终在视觉中心附近。",
+        "handoff": "前镜光标停在操作点；后镜光标从同一点继续新操作。"
+      }
+    },
+    {
+      "id": "ui-entrance.clone-multiply-to-grid",
+      "sourceCategory": "ui-entrance",
+      "name": "Clone Multiply to Grid",
+      "nameZh": "单元素克隆增殖成墙",
+      "summary": "单张缩略图/角色/手机克隆增殖成整墙网格（再缩回单排），用数量感表达内容库、皮肤、礼物位的规模。",
+      "applicable": "展示素材库/多端矩阵/IP 表情集合/产品陈列规模。",
+      "duration": "1.2–2.8s",
+      "energy": "high",
+      "layers": [
+        "content-motion",
+        "rhythm",
+        "visual-treatment"
+      ],
+      "patternIds": [
+        "combo.overview-select-detail",
+        "combo.card-relay"
+      ],
+      "effectIds": [
+        "enter.scale",
+        "handling.stagger",
+        "layout.shared-element",
+        "scroll.multi-layer-parallax"
+      ],
+      "implementationState": "knowledge-integrated",
+      "selectionReason": "现有 deck-deal/card-stack 是卡片依次落入槽位；本片增量是'一个→克隆成整墙再缩回'的数量爆发，语义不同。",
+      "avoidWhen": "元素间没有可复用模板、或网格数量会让单个卡片不可读时。",
+      "sourcePath": "video-analysis/ui-entrance.clone-multiply-to-grid.md",
+      "object": "subject",
+      "narrativeUse": "establish",
+      "patternUsage": "在配方「总览 → 选择 → 详情」中先用增殖建立'规模感'，再缩回到要讲的那一个。",
+      "status": {
+        "source": "verified",
+        "demo": "needs-calibration",
+        "production": "planned"
+      },
+      "shot": {
+        "intent": "用一次增殖表达'这是一整个库/矩阵'。",
+        "subject": "单个起始元素（缩略图/角色/手机）。",
+        "camera": "固定机位，或在增殖时轻微后拉让整墙入画。",
+        "subjectAction": "单元素复制成 N×M 网格，错落飞入；必要时再缩回成单排/单个。",
+        "timing": "单元素 0.4s → 增殖入网格 1.2s（stagger）→ 停留 0.6s。",
+        "seams": "前镜停在单个英雄元素；后镜从同一元素出发向外复制。",
+        "constraints": "网格行列需对齐；stagger 用 ease-out；缩回应保留起始元素位置做锚。"
+      },
+      "evidence": [
+        {
+          "video": "MXD_2022设计年鉴.md",
+          "at": "10.8→12.6",
+          "note": "单缩略图→整墙网格→小电视。"
+        },
+        {
+          "video": "快手2022设计年鉴.md",
+          "at": "39.6→41.4 / 54.0→57.6",
+          "note": "红光/三手机复制成整墙手机矩阵再缩。"
+        },
+        {
+          "video": "腾讯_X-Design-搜狗输入法_鹅厂SHOWREEL设计年鉴2024_-_001_-_腾讯_X-Design-搜狗输入法_鹅厂SHOWREEL设计年鉴2024.md",
+          "at": "45.0→50.4",
+          "note": "汪仔复制成满键盘小吉祥物。"
+        },
+        {
+          "video": "2022_CDX-GDG_SHOWREEL.md",
+          "at": "132→138",
+          "note": "单卡→旋转手机卡阵列。"
+        }
+      ],
+      "presentation": {
+        "role": "director",
+        "domain": "performance",
+        "canonicalEffectId": null,
+        "relationship": "editorial-grammar",
+        "reason": "描述视点、镜头之间的信息关系、时间节奏或贯穿段落的角色。",
+        "previewStatus": "retired",
+        "retirementReason": "保留原理与溯源；旧 SVG 演示退出导演案例。",
+        "replacementCaseId": "director.collection"
+      },
+      "performer": {
+        "id": "ensemble",
+        "name": "元素群组",
+        "role": "群演",
+        "dramaticAction": "单个成员扩展成系统，体现规模与组织",
+        "identity": "单个起始元素（缩略图/角色/手机）。",
+        "camera": "固定机位，或在增殖时轻微后拉让整墙入画。",
+        "handoff": "前镜停在单个英雄元素；后镜从同一元素出发向外复制。"
+      }
+    },
+    {
+      "id": "transition.liquid-gradient-section-divider",
+      "sourceCategory": "transition",
+      "name": "Liquid Gradient Section Divider",
+      "nameZh": "流体光晕章节分隔",
+      "summary": "一道有机流体/渐变光晕涌满画面做章节呼吸，停一拍后散开露出下一节，比硬切柔和、比叠化有节奏。",
+      "applicable": "深色氛围 AI 产品片的段落分隔、情绪段落呼吸、品牌色过渡。",
+      "duration": "1.0–2.4s",
+      "energy": "variable",
+      "layers": [
+        "transition-effect",
+        "visual-treatment",
+        "edit-relationship"
+      ],
+      "patternIds": [
+        "combo.card-relay",
+        "combo.title-product-focus"
+      ],
+      "effectIds": [
+        "enter.crossfade",
+        "enter.fade",
+        "scroll.parallax",
+        "handling.easing"
+      ],
+      "implementationState": "knowledge-integrated",
+      "selectionReason": "现有卡无'流体/渐变作章节幕'；与 glow-bloom 的点光不同，这是有机流体整体涌满，适合 Premium AI 片。",
+      "avoidWhen": "品牌是硬朗直线风格、或流体颜色与下一节主色冲突时。",
+      "sourcePath": "video-analysis/transition.liquid-gradient-section-divider.md",
+      "object": "edit",
+      "narrativeUse": "establish",
+      "patternUsage": "在配方「旧态 → 变化 → 新态」中用一次流体涌满/散开做章节换气。",
+      "status": {
+        "source": "verified",
+        "demo": "needs-calibration",
+        "production": "planned"
+      },
+      "shot": {
+        "intent": "让一团有机流体承担章节切分，而不是硬切。",
+        "subject": "流体/渐变 blob（品牌色或情绪色）。",
+        "camera": "固定机位，流体做缓慢湍流与膨胀。",
+        "subjectAction": "流体从边缘涌满画面 → 停一拍 → 散开露出下一节内容。",
+        "timing": "涌满 0.8s → 停 0.4s → 散开露新节 0.8s。",
+        "seams": "前镜内容退到流体下；后镜内容从流体散开中浮现。",
+        "constraints": "流体边缘需柔；流速慢，忌像墨水飞溅；停顿时长要够阅读呼吸。"
+      },
+      "evidence": [
+        {
+          "video": "panel1_左上.md",
+          "at": "7→10",
+          "note": "粉橙波浪做段落分隔。"
+        },
+        {
+          "video": "Stitch_AI设计助手介绍.md",
+          "at": "38.77→41.4 等多次",
+          "note": "紫青流体 3 次段落分隔。"
+        },
+        {
+          "video": "Microsoft__Windows_365_Cloud_PC.md",
+          "at": "13.0→15.6",
+          "note": "液体波化开成 Windows 壁纸。"
+        },
+        {
+          "video": "「NotReal」顶级动态设计工作室_Showreel_-_001_-_「NotReal」顶级动态设计工作室_Showreel.md",
+          "at": "121.0→122.0",
+          "note": "Logo→粉紫缎带流体。"
+        }
+      ],
+      "presentation": {
+        "role": "technical",
+        "domain": "technical",
+        "canonicalEffectId": "enter.crossfade",
+        "relationship": "implementation-recipe",
+        "reason": "描述实现手段或局部交互，归入既有技术词条的做法参考；关联不是等价或已完成适配。"
+      }
+    },
+    {
+      "id": "opening.particles-gather-to-logo",
+      "sourceCategory": "opening",
+      "name": "Particles Gather to Logo",
+      "nameZh": "粒子聚合品牌字标",
+      "summary": "光粒子/几何块先散成满屏噪点，再向中心聚合拼成品牌 logo 或人形，作为开场或落版。",
+      "applicable": "品牌落版、奖项仪式、产品'涌现'时刻、年度片收尾。",
+      "duration": "1.5–3.5s",
+      "energy": "high",
+      "layers": [
+        "content-motion",
+        "visual-treatment",
+        "edit-relationship"
+      ],
+      "patternIds": [
+        "combo.title-product-focus",
+        "combo.card-relay"
+      ],
+      "effectIds": [
+        "enter.scale",
+        "handling.stagger",
+        "layout.shared-element",
+        "handling.spring"
+      ],
+      "implementationState": "knowledge-integrated",
+      "selectionReason": "现有 brand-ink-open 是墨迹向外扩散；本片增量是粒子向内聚合成 logo，方向相反、可程序化，是 showreel 收尾主力。",
+      "avoidWhen": "品牌 logo 笔画复杂、粒子无法拼成可辨认字形时。",
+      "sourcePath": "video-analysis/opening.particles-gather-to-logo.md",
+      "object": "subject",
+      "narrativeUse": "confirm",
+      "patternUsage": "在配方「标题 → 产品 → 证据重点」的收尾步骤用聚合落版确认品牌。",
+      "status": {
+        "source": "verified",
+        "demo": "needs-calibration",
+        "production": "planned"
+      },
+      "shot": {
+        "intent": "用向内聚合把散点收束成品牌。",
+        "subject": "满屏散点 + 目标 logo 形状。",
+        "camera": "固定机位或轻微后拉，logo 在中心成型。",
+        "subjectAction": "散点先漂浮 → 向中心聚拢 → 咬合出 logo 笔画/人形 → 稳定发光。",
+        "timing": "散点漂浮 0.6s → 聚拢 1.2s → 成型稳定 0.6s。",
+        "seams": "前镜末帧为散点画面；后镜 logo 成型即落版。",
+        "constraints": "粒子需对齐 logo 笔画路径；聚合用弹簧回弹；成型后保留 0.5s 供识别。"
+      },
+      "evidence": [
+        {
+          "video": "Framer_网页设计_Agent.md",
+          "at": "63→68",
+          "note": "粒子聚合成 F logo。"
+        },
+        {
+          "video": "我宣布史上zui牛AGIC视频站在巨人肩膀上_-_芯片达人.md",
+          "at": "104→106",
+          "note": "粒子聚合成 AS 字标。"
+        },
+        {
+          "video": "阿里巴巴支付宝蚂蚁集团设计_2023_年度SHOWREEL_-_001_-_阿里巴巴支付宝蚂蚁集团设计_2023_年度SHOWREEL.md",
+          "at": "64→68",
+          "note": "金粒子聚合成跑者人形。"
+        },
+        {
+          "video": "Personatics_的品牌影片_-_ColCircle.md",
+          "at": "46.8→50.4",
+          "note": "黑粒子聚成'Cognitive Banking'发光字。"
+        }
+      ],
+      "presentation": {
+        "role": "technical",
+        "domain": "technical",
+        "canonicalEffectId": "enter.scale",
+        "relationship": "implementation-recipe",
+        "reason": "描述实现手段或局部交互，归入既有技术词条的做法参考；关联不是等价或已完成适配。"
+      }
+    },
+    {
+      "id": "typography.word-slot-scramble-swap",
+      "sourceCategory": "typography",
+      "name": "Word-Slot Scramble Swap",
+      "nameZh": "文字槽乱码换词",
+      "summary": "中央固定版式的文字槽位内，旧词乱码抖动后逐位解码成新词，或同排字母原位替换并跳色，不硬切地换卖点。",
+      "applicable": "排比卖点切换、章节套版字卡、品牌词解码登场。",
+      "duration": "0.6–1.4s",
+      "energy": "medium",
+      "layers": [
+        "content-motion",
+        "edit-relationship",
+        "rhythm"
+      ],
+      "patternIds": [
+        "combo.card-relay",
+        "combo.title-product-focus"
+      ],
+      "effectIds": [
+        "text.scramble",
+        "text.character-reveal",
+        "text.morph",
+        "handling.easing"
+      ],
+      "implementationState": "knowledge-integrated",
+      "selectionReason": "现有 paper-title-card 只是静态字卡；本片增量是字卡在槽内活起来（乱码解码/原位换字/跳色），是 kinetic type 的可程序化部分。",
+      "avoidWhen": "文字超过一行、或字槽位置在前后镜不一致时。",
+      "sourcePath": "video-analysis/typography.word-slot-scramble-swap.md",
+      "object": "subject",
+      "narrativeUse": "reveal",
+      "patternUsage": "在配方「旧态 → 变化 → 新态」中用槽内换词承载排比，版式不动只换词。",
+      "status": {
+        "source": "verified",
+        "demo": "needs-calibration",
+        "production": "planned"
+      },
+      "shot": {
+        "intent": "让字卡版式静止、词本身原地被'解码'替换。",
+        "subject": "固定版式文字槽（标题位）。",
+        "camera": "固定机位，字槽位置全程锁定。",
+        "subjectAction": "旧词乱码抖动 → 逐位解码成新词；或关键词跳色/扫亮。",
+        "timing": "乱码抖动 0.4s → 逐位解码 0.5s → 新词跳色 0.2s。",
+        "seams": "前镜停在旧词；后镜同槽位出现新词，版式不变。",
+        "constraints": "仅单行/短词；解码速率均匀；新词关键词可加品牌色重音。"
+      },
+      "evidence": [
+        {
+          "video": "panel1_左上.md",
+          "at": "5.5→6.5 / 12→13",
+          "note": "旧句乱码→'Meet'，数字滚动+渐变线生长。"
+        },
+        {
+          "video": "真正的细节狂魔，无惧放大镜的审视_-_deCode_deSign.md",
+          "at": "7→10",
+          "note": "文字槽内乱码解码换词。"
+        },
+        {
+          "video": "品牌案例分享_Google的新AI_Bard_-_品牌黑洞工作室.md",
+          "at": "7.8→9.1",
+          "note": "字母散落→scramble 聚合新词。"
+        },
+        {
+          "video": "Framer_网页设计_Agent.md",
+          "at": "36→38",
+          "note": "图片→粒子→scramble 字→解码口号。"
+        }
+      ],
+      "presentation": {
+        "role": "technical",
+        "domain": "technical",
+        "canonicalEffectId": "text.scramble",
+        "relationship": "implementation-recipe",
+        "reason": "描述实现手段或局部交互，归入既有技术词条的做法参考；关联不是等价或已完成适配。"
+      }
+    },
+    {
+      "id": "camera.hero-orbit-decor-rings",
+      "sourceCategory": "camera",
+      "name": "Hero Orbit with Decor Rings",
+      "nameZh": "中心环绕装饰环",
+      "summary": "中心主体不动，镜头缓慢环绕一周，常配同心装饰环/连线/客户 logo 曲面，背景连续换风景或星空。",
+      "applicable": "品牌主角揭幕、合作 logo 群环绕、数据中心/地球/产品的 premium 展示。",
+      "duration": "2.0–4.5s",
+      "energy": "low",
+      "layers": [
+        "camera",
+        "visual-treatment",
+        "content-motion"
+      ],
+      "patternIds": [
+        "combo.title-product-focus",
+        "combo.overview-select-detail"
+      ],
+      "effectIds": [
+        "scroll.parallax",
+        "handling.easing",
+        "enter.scale",
+        "scroll.multi-layer-parallax"
+      ],
+      "implementationState": "knowledge-integrated",
+      "selectionReason": "现有 space-camera-moves 是说明空间关系的通用推拉横移；本片增量是'中心 hero + 装饰环/连线'的仪式化环绕，节奏慢、留白大。",
+      "avoidWhen": "中心主体不能稳定居中、或装饰环会抢主体焦点时。",
+      "sourcePath": "video-analysis/camera.hero-orbit-decor-rings.md",
+      "object": "camera",
+      "narrativeUse": "establish",
+      "patternUsage": "在配方「标题 → 产品 → 证据重点」的产品展示步骤用环绕建立 premium 与全局关系。",
+      "status": {
+        "source": "verified",
+        "demo": "needs-calibration",
+        "production": "planned"
+      },
+      "shot": {
+        "intent": "用缓慢环绕把中心主体拱成唯一英雄。",
+        "subject": "中心 hero（logo/产品/球体）+ 同心装饰环或客户 logo 阵列。",
+        "camera": "绕中心主体做 15–45° 缓慢轨道运动，景深锁定中心。",
+        "subjectAction": "装饰环/连线绕中心旋转，背景层随环绕换景，中心主体基本不动。",
+        "timing": "起幅 0.5s → 环绕 2.0s → 落幅回正 0.8s。",
+        "seams": "前镜停在中心 hero 正面；后镜可接环绕中的某一角度特写。",
+        "constraints": "环绕角速度慢而匀；中心主体始终对焦；装饰环透明度压低不抢戏。"
+      },
+      "evidence": [
+        {
+          "video": "Riverside_AI_内容生产助手.md",
+          "at": "86.4→88.2",
+          "note": "中心 logo + 合作 logo 曲面环绕视差。"
+        },
+        {
+          "video": "TRAE_-_solo.md",
+          "at": "123.5→125",
+          "note": "UI 卡→中心 logo 辐射 agent 连线环绕。"
+        },
+        {
+          "video": "马斯克的_XAI_官网更新了_设计的非常赞_-_001_-_马斯克的_XAI_官网更新了_设计的非常赞.md",
+          "at": "39.6→43",
+          "note": "细线地球轨道缓旋。"
+        },
+        {
+          "video": "UI交互动画AI产品宣传高级感直接拉满_-_三维动画视觉设计.md",
+          "at": "12.0→13.0",
+          "note": "平面卡→3D 浮卡+同心发光环绕镜头绕。"
+        }
+      ],
+      "presentation": {
+        "role": "technical",
+        "domain": "technical",
+        "canonicalEffectId": "scroll.parallax",
+        "relationship": "implementation-recipe",
+        "reason": "描述实现手段或局部交互，归入既有技术词条的做法参考；关联不是等价或已完成适配。"
+      }
+    },
+    {
+      "id": "transition.ui-drill-in-out",
+      "sourceCategory": "transition",
+      "name": "UI Drill-In & Drill-Out",
+      "nameZh": "UI 钻进钻出",
+      "summary": "一个小图标/输入框/角标被镜头放大，钻透它进入它背后的完整应用界面；讲完再钻出来回到总览。",
+      "applicable": "从导航进入功能页、从卖点角标进入详情、从总览回到上下文。",
+      "duration": "1.2–2.6s",
+      "energy": "medium",
+      "layers": [
+        "camera",
+        "edit-relationship",
+        "transition-effect"
+      ],
+      "patternIds": [
+        "combo.phone-focus-return",
+        "combo.overview-select-detail"
+      ],
+      "effectIds": [
+        "scroll.zoom",
+        "enter.scale",
+        "enter.blur-reveal",
+        "handling.easing"
+      ],
+      "implementationState": "knowledge-integrated",
+      "selectionReason": "现有 crash-zoom 是快速强调、depth-layer 是差速；本片增量是'钻进一个 UI 元素进入真实界面再钻出'的往返，对应 phone-focus-return。",
+      "avoidWhen": "目标界面没有可放大的入口图标、或钻穿过程会丢失导航上下文时。",
+      "sourcePath": "video-analysis/transition.ui-drill-in-out.md",
+      "object": "camera",
+      "narrativeUse": "reveal",
+      "patternUsage": "在配方「全局 → 局部 → 回归上下文」中完成钻进与钻出的一次往返。",
+      "status": {
+        "source": "verified",
+        "demo": "needs-calibration",
+        "production": "planned"
+      },
+      "shot": {
+        "intent": "让一个小 UI 元素成为通往详情的门洞。",
+        "subject": "入口元素（图标/输入框/角标）。",
+        "camera": "沿入口元素中轴推近放大，钻过后在界面内稳住；结束再反向拉出。",
+        "subjectAction": "入口元素放大填满 → 钻穿 → 展开成完整界面；讲完反向缩回入口。",
+        "timing": "钻入 0.8s → 界面停留 1.2s → 钻出 0.6s。",
+        "seams": "前镜停在入口元素居中；后镜从该元素背后界面起幅。",
+        "constraints": "入口与界面中心必须对齐；钻穿帧加径向模糊；钻出要回到同一入口做闭环。"
+      },
+      "evidence": [
+        {
+          "video": "@MarkKnd_Launch_video_we_made_for_@Wayframe.md",
+          "at": "9.1→11.7",
+          "note": "空线框→蓝色按钮→线框逐块生长。"
+        },
+        {
+          "video": "TRAE_-_solo.md",
+          "at": "16.8→19.2",
+          "note": "IDE 图标放大钻进代码编辑器。"
+        },
+        {
+          "video": "优秀的产品宣传视频，来自_Amie_-_GPTs每日推荐.md",
+          "at": "8.4→10.8",
+          "note": "双画面→逐字稿滚动（小窗钻进详情）。"
+        },
+        {
+          "video": "你好，我是支小宝，你的AI生活管家_-_支付宝.md",
+          "at": "28.6→31.2",
+          "note": "标题页四角 icon，选一个角推近进入下段。"
+        }
+      ],
+      "presentation": {
+        "role": "director",
+        "domain": "viewpoint",
+        "canonicalEffectId": null,
+        "relationship": "editorial-grammar",
+        "reason": "描述视点、镜头之间的信息关系、时间节奏或贯穿段落的角色。",
+        "previewStatus": "retired",
+        "retirementReason": "保留原理与溯源；旧 SVG 演示退出导演案例。"
+      }
+    },
+    {
+      "id": "transition.split-screen-split-merge",
+      "sourceCategory": "transition",
+      "name": "Split-Screen Split & Merge",
+      "nameZh": "分屏合分",
+      "summary": "画面先一分为二（左任务右结果/左文右机），讲完对比后再合成单画面，用分与合承载对照与并列。",
+      "applicable": "任务 vs 结果、输入 vs 输出、人物讲解与屏幕证据并列、多角色同框。",
+      "duration": "1.0–2.4s",
+      "energy": "medium",
+      "layers": [
+        "edit-relationship",
+        "content-motion",
+        "visual-treatment"
+      ],
+      "patternIds": [
+        "combo.before-after-confirm",
+        "combo.overview-select-detail"
+      ],
+      "effectIds": [
+        "enter.slide",
+        "layout.page-transition",
+        "enter.crossfade",
+        "handling.stagger"
+      ],
+      "implementationState": "knowledge-integrated",
+      "selectionReason": "现有 before-after-slider 是单屏滑杆控制；本片增量是真正的'一分为二讲完再合回'，承载并列叙事而非单屏对比。",
+      "avoidWhen": "两侧内容无法对齐时间线、或分屏会让两侧都不可读时。",
+      "sourcePath": "video-analysis/transition.split-screen-split-merge.md",
+      "object": "edit",
+      "narrativeUse": "confirm",
+      "patternUsage": "在配方「前后对比 → 差异确认」中用分屏同时呈现两端，再合回确认结论。",
+      "status": {
+        "source": "verified",
+        "demo": "needs-calibration",
+        "production": "planned"
+      },
+      "shot": {
+        "intent": "用分与合把对照关系变成一次可视的结构变化。",
+        "subject": "两块并排内容（任务/结果，或文字/设备）。",
+        "camera": "固定机位，中缝分隔线从画面中线滑出或滑入。",
+        "subjectAction": "单画面从中线裂成左右两块 → 各自讲内容 → 中线收回合成单画面。",
+        "timing": "裂开 0.5s → 两侧内容 1.2s → 合回 0.5s。",
+        "seams": "前镜单画面；后镜从中缝裂开起幅；结尾合回单画面。",
+        "constraints": "两侧字号/信息量需对等；中缝可用细品牌色线；合回需回到连贯构图。"
+      },
+      "evidence": [
+        {
+          "video": "荣耀Magic7系列__一句话搞定多步操作！_-_荣耀手机.md",
+          "at": "52→57",
+          "note": "双手机并排，左任务右结果。"
+        },
+        {
+          "video": "Conduit_AI_助手产品发布视频.md",
+          "at": "5.2→11.7",
+          "note": "人物旁气泡挪成左文右机分栏。"
+        },
+        {
+          "video": "Riverside_AI_内容生产助手.md",
+          "at": "28→31",
+          "note": "同人物多景别竖排卡并列。"
+        },
+        {
+          "video": "阿里巴巴支付宝蚂蚁集团设计_2023_年度SHOWREEL_-_001_-_阿里巴巴支付宝蚂蚁集团设计_2023_年度SHOWREEL.md",
+          "at": "10",
+          "note": "多场景分屏并列。"
+        }
+      ],
+      "presentation": {
+        "role": "director",
+        "domain": "continuity",
+        "canonicalEffectId": null,
+        "relationship": "editorial-grammar",
+        "reason": "描述视点、镜头之间的信息关系、时间节奏或贯穿段落的角色。",
+        "previewStatus": "retired",
+        "retirementReason": "保留原理与溯源；旧 SVG 演示退出导演案例。"
+      }
+    },
+    {
+      "id": "camera.pull-back-reveal-overview",
+      "sourceCategory": "camera",
+      "name": "Pull-Back Reveal Overview",
+      "nameZh": "后拉揭示全貌",
+      "summary": "从单个特写/单卡开始，镜头 Z 轴向后拉，把一条线性过程展开成空间画廊/满屏工作流，让观众从顿悟中看到全局。",
+      "applicable": "从单结果顿悟整套工作流、从单卡拉出整个卡片工作台、从特写拉出整墙。",
+      "duration": "1.5–3.2s",
+      "energy": "medium",
+      "layers": [
+        "camera",
+        "content-motion",
+        "visual-treatment"
+      ],
+      "patternIds": [
+        "combo.overview-select-detail",
+        "combo.card-relay"
+      ],
+      "effectIds": [
+        "scroll.zoom",
+        "scroll.multi-layer-parallax",
+        "enter.scale",
+        "handling.easing"
+      ],
+      "implementationState": "knowledge-integrated",
+      "selectionReason": "现有 depth-layer-moves 是各层差速横移建层级；本片增量是从一个特写'后拉顿悟全貌'的单次揭示节拍，落点是总览。",
+      "avoidWhen": "全貌在素材中不存在、或后拉会暴露未对齐的网格时。",
+      "sourcePath": "video-analysis/camera.pull-back-reveal-overview.md",
+      "object": "camera",
+      "narrativeUse": "reveal",
+      "patternUsage": "在配方「总览 → 选择 → 详情」的反向：从单详情后拉回总览，再重新选择。",
+      "status": {
+        "source": "verified",
+        "demo": "needs-calibration",
+        "production": "planned"
+      },
+      "shot": {
+        "intent": "用一次后拉把局部顿悟成全局。",
+        "subject": "单个起始特写 → 展开后的完整画廊/工作流。",
+        "camera": "沿 Z 轴匀速后拉，前中后景差速展开。",
+        "subjectAction": "特写单卡 → 四周卡片/面板按层展开 → 落幅在完整全景。",
+        "timing": "特写起幅 0.5s → 后拉展开 1.8s → 全景停留 0.6s。",
+        "seams": "前镜停在单卡特写；后镜从该卡位置开始向外展开。",
+        "constraints": "全景网格需预先对齐；后拉用 ease-in；展开后焦点回到起始卡片做锚。"
+      },
+      "evidence": [
+        {
+          "video": "flowith_1.0_正式版本！时隔_4_个月的大更新_-_dereknee.md",
+          "at": "82.8→84.6",
+          "note": "单卡→后拉露出全部工作流卡片画廊。"
+        },
+        {
+          "video": "Stripe_支付产品功能短片.md",
+          "at": "1.0→5.0",
+          "note": "单手机→后拉四周长出卡片展厅。"
+        },
+        {
+          "video": "TME_Design_Showreel_2025_腾讯音乐设计年鉴.md",
+          "at": "276→284",
+          "note": "卡墙后拉溶成绿气泡收尾。"
+        },
+        {
+          "video": "「商业动画鉴赏」793_AI人工智能开发MG动画_-_MG动态设计星球.md",
+          "at": "96→104",
+          "note": "UI 簇倾斜拉远展开成满屏墙。"
+        }
+      ],
+      "presentation": {
+        "role": "director",
+        "domain": "viewpoint",
+        "canonicalEffectId": null,
+        "relationship": "editorial-grammar",
+        "reason": "描述视点、镜头之间的信息关系、时间节奏或贯穿段落的角色。",
+        "previewStatus": "retired",
+        "retirementReason": "保留原理与溯源；旧 SVG 演示退出导演案例。"
+      }
+    }
+  ],
+  "objects": [
+    {
+      "id": "camera",
+      "name": "摄影机"
+    },
+    {
+      "id": "subject",
+      "name": "主体"
+    },
+    {
+      "id": "edit",
+      "name": "画面衔接"
+    },
+    {
+      "id": "rhythm",
+      "name": "时间节奏"
+    }
+  ],
+  "narrativeUses": [
+    {
+      "id": "establish",
+      "name": "建立关系"
+    },
+    {
+      "id": "guide",
+      "name": "引导注意"
+    },
+    {
+      "id": "reveal",
+      "name": "揭示信息"
+    },
+    {
+      "id": "confirm",
+      "name": "确认结果"
+    }
+  ],
+  "presentationGroups": [
+    {
+      "id": "viewpoint",
+      "name": "视点与空间"
+    },
+    {
+      "id": "continuity",
+      "name": "跨镜衔接"
+    },
+    {
+      "id": "rhythm",
+      "name": "时间与节奏"
+    },
+    {
+      "id": "performance",
+      "name": "角色与表演"
+    }
+  ],
+  "note": "来源类别只记录来源。展示按导演/技术职责分类；技术做法关联完整词典的唯一入口，不在导演库重复列出。所有 44 条原记录、来源和证据保留。"
+}
